@@ -30,6 +30,7 @@ namespace Testing
             
             var uow = new UOfW.UnitOfWork();
 
+            // Testing Commit
             var result = uow.CourseRepository.Get(x => x.CourseIdFromApi == 2).FirstOrDefault();
 
         }
