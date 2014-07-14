@@ -25,14 +25,21 @@ namespace Testing
             // FillingDataFromCoursera.FillingDataAboutUniversities(); // используем Coursera Api для загрузки инфы о всех университетах
             // FillingDataFromCoursera.FillingDataAboutCategories(); // используем Coursera Api для загрузки инфы о всех категориях
 
-            FillingDataFromCoursera.Testing();
+            //FillingDataFromCoursera.Testing();
 
             
-            var uow = new UOfW.UnitOfWork();
-
-            // Testing Commit
-            var result = uow.CourseRepository.Get(x => x.CourseIdFromApi == 2).FirstOrDefault();
-
+            // Косяк в реализации репозитория либо неправильное использование EF !!!!
+            using (var uow = new UOfW.UnitOfWork())
+            {
+                // через репозиторий EF возвращает null
+                var result = uow.CourseRepository.Get(x => x.CourseIdFromApi == 2).Select(x => x.Categories).FirstOrDefault();
+            }
+            using (var db = new BdContext())
+            {
+                // если обратиться напрямую к контексту EF то получим данные
+                var tmp = db.Courses.Where(x => x.CourseId == 304).Select(x => x.Categories).FirstOrDefault();
+                
+            }
         }
     }
 }

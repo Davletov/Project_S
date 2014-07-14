@@ -181,7 +181,7 @@ namespace Testing.CourseraEntity
         /// </summary>
         [JsonProperty("categories")]
         [JsonConverter(typeof(ConvertToCategory))]
-        public virtual ICollection<Category> Categories { get; set; }
+        public ICollection<Category> Categories { get; set; }
         
         /*public Course()
         {

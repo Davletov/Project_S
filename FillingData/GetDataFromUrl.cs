@@ -28,8 +28,6 @@
         {
             var result = string.Empty;
             var myRequest = (HttpWebRequest)WebRequest.Create(url);
-            myRequest.Proxy.Credentials = new NetworkCredential("DavletovA", "Tgg567876c", "RUSSIA");
-            myRequest.Proxy = WebRequest.DefaultWebProxy;
 
             var myResponse = (HttpWebResponse)myRequest.GetResponse();
             var responseStream = myResponse.GetResponseStream();

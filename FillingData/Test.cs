@@ -9,8 +9,6 @@ namespace Testing.FillingData
 {
     public static partial class FillingDataFromCoursera
     {
-        public static UOfW.UnitOfWork uow = new UOfW.UnitOfWork();
-
         public static void Testing()
         {
             var url =
@@ -22,20 +20,22 @@ namespace Testing.FillingData
             var resultList = JsonConvert.DeserializeObject<List<Course>>(res);
 
             var tmp2 = new Course();
-
-            foreach (var course in resultList)
+            using (var uow = new UOfW.UnitOfWork())
             {
-                var crs = course;
-                var findCrs = uow.CourseRepository.Get(x => x.CourseIdFromApi == crs.CourseIdFromApi).FirstOrDefault();
-                if (findCrs != null)
+                foreach (var course in resultList)
                 {
-                    findCrs.Categories = crs.Categories;
-                    uow.CourseRepository.Update(findCrs);
+                    var crs = course;
+                    var findCrs =
+                        uow.CourseRepository.Get(x => x.CourseIdFromApi == crs.CourseIdFromApi).FirstOrDefault();
+                    if (findCrs != null)
+                    {
+                        findCrs.Categories = crs.Categories;
+                        uow.CourseRepository.Update(findCrs);
+                    }
+                    tmp2 = findCrs;
                 }
-                tmp2 = findCrs;
+                uow.Save();
             }
-            uow.Save();
-
             var tmp = res;
         }
     }
