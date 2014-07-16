@@ -25,12 +25,28 @@ namespace Testing
             // FillingDataFromCoursera.FillingDataAboutUniversities(); // используем Coursera Api для загрузки инфы о всех университетах
             // FillingDataFromCoursera.FillingDataAboutCategories(); // используем Coursera Api для загрузки инфы о всех категориях
 
-            FillingDataFromCoursera.Testing();
+            //FillingDataFromCoursera.Testing();
+            //FillingDataFromCoursera.GetCoursesForEachCategory();
 
+
+            // Связь многие ко многим работает корректно, удаление отрабатывает, вроде все гуд !
             using (var uow = new UOfW.UnitOfWork())
             {
                 var result = uow.CourseRepository.Get(x => x.CourseId == 304).Select(x => x.Categories).FirstOrDefault();
             }
+
+            using (var uow = new UOfW.UnitOfWork())
+            {
+                var result = uow.CategoryRepository.Get(x => x.CategoryIdFromApi == 17).Select(x => x.Courses).FirstOrDefault();
+            }
+
+            using (var uow = new UOfW.UnitOfWork())
+            {
+                var result = uow.CategoryRepository.Get(x => x.CategoryIdFromApi == 17).FirstOrDefault();
+                uow.CategoryRepository.Delete(result);
+                uow.Save();
+            }
+
         }
     }
 }
