@@ -1,4 +1,6 @@
-﻿namespace Testing.UnitOfWork
+﻿using System.Linq;
+
+namespace Testing.UnitOfWork
 {
     using System;
     using Testing.Repository;
@@ -6,10 +8,11 @@
 
     public class UnitOfWork : IDisposable
     {
-        private readonly BdContext _context = new BdContext();
+        private readonly BdContext _context;
 
         public UnitOfWork()
         {
+            _context = new BdContext();
             _context.Database.CommandTimeout = 180;
         }
 

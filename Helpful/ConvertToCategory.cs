@@ -23,7 +23,6 @@ namespace Testing.Helpful
             var uow = new UOfW.UnitOfWork();
             foreach (var categoryId in categoryIds)
             {
-                var items = uow.CategoryRepository.Get().ToList();
                 var item = uow.CategoryRepository.Get(x => x.CategoryIdFromApi == categoryId).FirstOrDefault();
                 result.Add(item);
             }
