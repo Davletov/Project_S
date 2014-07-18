@@ -5,6 +5,7 @@
     using Newtonsoft.Json;
     using Testing.CourseraEntity;
     using UOfW = Testing.UnitOfWork;
+    using Testing.Helpful;
 
     public static partial class FillingDataFromCoursera
     {
@@ -14,11 +15,11 @@
         public static void BindingCoursesForEachInstructor()
         {
             // Url к апи, ктр достает всех инструкторов и связанные с ними курсы
-            var url = "https://api.coursera.org/api/catalog.v1/instructors?fields=id,photo,photo150,bio,prefixName,firstName,middleName,lastName," +
-            "suffixName,fullName,title,department,website,websiteTwitter,websiteFacebook,websiteLinkedin,websiteGplus,shortName&includes=courses";
+            // (вытаскиваем только необходимые данные: InstructorIdFromApi и список курсов)
+            var url = "https://api.coursera.org/api/catalog.v1/instructors?fields=id&includes=courses";
 
             var res = GetDataFromSomeUrl2(url); // преобразуем в корректный JSON
-            var resultList = JsonConvert.DeserializeObject<List<Instructor>>(res); // превращаем в объект Instructor
+            var resultList = JsonConvert.DeserializeObject<List<SpecialInstructorProxy>>(res); // превращаем в объект SpecialInstructorProxy
 
             using (var uow = new UOfW.UnitOfWork())
             {
@@ -37,6 +38,27 @@
                 }
                 uow.Save();
             }
+        }
+
+        /// <summary>
+        /// Сокращенная версия класса Instructor, необходим для связки с курсами
+        /// </summary>
+        private abstract class SpecialInstructorProxy
+        {
+            /// <summary>
+            /// Instructor Id (public Id for identity with Instructor Id from Coursera API
+            /// </summary>
+            [JsonProperty("id")]
+            public int InstructorIdFromApi { get; set; }
+
+            /// <summary>
+            /// Связка многие ко многим (Категория <-> Курсы)
+            /// Каждая категория (Пр.: математика) может иметь несколько курсов
+            /// Каждый курс (Пр.: Математические методы в экономике) может относится к нескольких категориям 
+            /// </summary>
+            [JsonProperty("courses")]
+            [JsonConverter(typeof(ConvertToCourse))]
+            public ICollection<Course> Courses { get; set; }
         }
 
     }

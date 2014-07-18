@@ -5,6 +5,7 @@
     using Newtonsoft.Json;
     using Testing.CourseraEntity;
     using UOfW = Testing.UnitOfWork;
+    using Testing.Helpful;
 
     public static partial class FillingDataFromCoursera
     {
@@ -14,12 +15,11 @@
         public static void BindingCoursesForEachSession()
         {
             // Url к апи, ктр достает все сессии и связанные с ними курсы
-            var url = "https://api.coursera.org/api/catalog.v1/sessions?fields=id,courseId,homeLink,status,active,durationString,startDay,startMonth," +
-            "startYear,name,signatureTrackCloseTime,signatureTrackOpenTime,signatureTrackPrice,signatureTrackRegularPrice,eligibleForCertificates" +
-                      ",eligibleForSignatureTrack,certificateDescription,certificatesReady&includes=courses";
+            // (вытаскиваем только необходимые данные: SessionIdFromApi и список курсов)
+            var url = "https://api.coursera.org/api/catalog.v1/sessions?fields=id&includes=courses";
 
             var res = GetDataFromSomeUrl2(url); // преобразуем в корректный JSON
-            var resultList = JsonConvert.DeserializeObject<List<Session>>(res); // превращаем в объект Session
+            var resultList = JsonConvert.DeserializeObject<List<SpecialSessionProxy>>(res); // превращаем в объект SpecialSessionProxy
 
             using (var uow = new UOfW.UnitOfWork())
             {
@@ -38,6 +38,27 @@
                 }
                 uow.Save();
             }
+        }
+
+        /// <summary>
+        /// Сокращенная версия класса Session, необходим для связки с курсами
+        /// </summary>
+        private abstract class SpecialSessionProxy
+        {
+            /// <summary>
+            /// Session Id (public Id for identity with Session Id from Coursera API
+            /// </summary>
+            [JsonProperty("id")]
+            public int SessionIdFromApi { get; set; }
+
+            /// <summary>
+            /// Связка многие ко многим (Категория <-> Курсы)
+            /// Каждая категория (Пр.: математика) может иметь несколько курсов
+            /// Каждый курс (Пр.: Математические методы в экономике) может относится к нескольких категориям 
+            /// </summary>
+            [JsonProperty("courses")]
+            [JsonConverter(typeof(ConvertToCourse))]
+            public ICollection<Course> Courses { get; set; }
         }
 
     }

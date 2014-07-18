@@ -5,6 +5,7 @@
     using Newtonsoft.Json;
     using Testing.CourseraEntity;
     using UOfW = Testing.UnitOfWork;
+    using Testing.Helpful;
 
     public static partial class FillingDataFromCoursera
     {
@@ -14,10 +15,11 @@
         public static void BindingCoursesForEachCategory()
         {
             // Url к апи, ктр достает все категории и связанные с ними курсы
-            var url = "https://api.coursera.org/api/catalog.v1/categories?fields=id,name,shortName,description&includes=courses";
+            // (вытаскиваем только необходимые данные: CategoryIdFromApi и список курсов)
+            var url = "https://api.coursera.org/api/catalog.v1/categories?ids=19&fields=id&includes=courses";
 
             var res = GetDataFromSomeUrl2(url); // преобразуем в корректный JSON
-            var resultList = JsonConvert.DeserializeObject<List<Category>>(res); // превращаем в объект Category
+            var resultList = JsonConvert.DeserializeObject<List<SpecialCategoryProxy>>(res); // превращаем в объект SpecialCategoryProxy
 
             using (var uow = new UOfW.UnitOfWork())
             {
@@ -31,11 +33,32 @@
                     if (findCrs != null)
                     {
                         findCrs.Courses = crs.Courses; // присваиваем курсы по соотв.категории
-                        uow.CategoryRepository.Update(findCrs);
+                        //uow.CategoryRepository.Update(findCrs);
                     }
                 }
-                uow.Save();
+                //uow.Save();
             }
+        }
+
+        /// <summary>
+        /// Сокращенная версия класса Category, необходим для связки с курсами
+        /// </summary>
+        private abstract class SpecialCategoryProxy
+        {
+            /// <summary>
+            /// Category Id (public Id for identity with Category Id from Coursera API
+            /// </summary>
+            [JsonProperty("id")]
+            public int CategoryIdFromApi { get; set; }
+
+            /// <summary>
+            /// Связка многие ко многим (Категория <-> Курсы)
+            /// Каждая категория (Пр.: математика) может иметь несколько курсов
+            /// Каждый курс (Пр.: Математические методы в экономике) может относится к нескольких категориям 
+            /// </summary>
+            [JsonProperty("courses")]
+            [JsonConverter(typeof(ConvertToCourse))]
+            public ICollection<Course> Courses { get; set; }
         }
 
     }

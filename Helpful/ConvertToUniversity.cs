@@ -25,7 +25,10 @@ namespace Testing.Helpful
             foreach (var universityId in universityIds)
             {
                 var item = uow.UniversityRepository.Get(x => x.UniversityIdFromApi == universityId).FirstOrDefault();
-                result.Add(item);
+                if (item != null)
+                {
+                    result.Add(item);
+                }
             }
             return result;
         }

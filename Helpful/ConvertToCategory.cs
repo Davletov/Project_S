@@ -25,7 +25,10 @@ namespace Testing.Helpful
             foreach (var categoryId in categoryIds)
             {
                 var item = uow.CategoryRepository.Get(x => x.CategoryIdFromApi == categoryId).FirstOrDefault();
-                result.Add(item);
+                if (item != null)
+                {
+                    result.Add(item);
+                }
             }
             return result;
         }

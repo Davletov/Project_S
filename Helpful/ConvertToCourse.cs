@@ -25,7 +25,10 @@ namespace Testing.Helpful
             foreach (var courseId in courseIds)
             {
                 var item = uow.CourseRepository.Get(x => x.CourseIdFromApi == courseId).FirstOrDefault();
-                result.Add(item);
+                if (item != null)
+                {
+                    result.Add(item);
+                }
             }
             return result;
         }

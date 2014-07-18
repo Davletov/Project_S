@@ -25,7 +25,10 @@ namespace Testing.Helpful
             foreach (var sessionId in sessionIds)
             {
                 var item = uow.SessionRepository.Get(x => x.SessionIdFromApi == sessionId).FirstOrDefault();
-                result.Add(item);
+                if (item != null)
+                {
+                    result.Add(item);
+                }
             }
             return result;
         }
