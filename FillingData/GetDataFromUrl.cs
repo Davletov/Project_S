@@ -5,11 +5,13 @@
 
     public static partial class FillingDataFromCoursera
     {
-        private static readonly UnitOfWork.UnitOfWork Uow = new UnitOfWork.UnitOfWork();
+        // Переделать методы получения JSON (оптимизировать фиксы)
         private static string GetDataFromSomeUrl(string url)
         {
             var result = string.Empty;
             var myRequest = (HttpWebRequest)WebRequest.Create(url);
+            myRequest.Proxy.Credentials = new NetworkCredential("DavletovA", "Tgg567876c", "RUSSIA");
+            myRequest.Proxy = WebRequest.DefaultWebProxy;
 
             var myResponse = (HttpWebResponse)myRequest.GetResponse();
             var responseStream = myResponse.GetResponseStream();
@@ -28,6 +30,8 @@
         {
             var result = string.Empty;
             var myRequest = (HttpWebRequest)WebRequest.Create(url);
+            myRequest.Proxy.Credentials = new NetworkCredential("DavletovA", "Tgg567876c", "RUSSIA");
+            myRequest.Proxy = WebRequest.DefaultWebProxy;
 
             var myResponse = (HttpWebResponse)myRequest.GetResponse();
             var responseStream = myResponse.GetResponseStream();
@@ -43,6 +47,7 @@
                     result = result.Replace("{\"elements\":", "").Replace("\"links\":{", "");
                     var tmp = result.LastIndexOf('}');
                     result = result.Remove(tmp, 1);
+                    result = result.Replace("}}", "}");
                 }
             }
 

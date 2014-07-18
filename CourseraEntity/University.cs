@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Testing.CourseraEntity
+﻿namespace Testing.CourseraEntity
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using Testing.Helpful;
     using Newtonsoft.Json;
 
     public class University
@@ -134,5 +135,11 @@ namespace Testing.CourseraEntity
         [JsonProperty("landingPageBanner")]
         public string LandingPageBanner { get; set; }
 
+        /// <summary>
+        /// Связка многие ко многим (Университеты <-> Курсы)
+        /// </summary>
+        [JsonProperty("courses")]
+        [JsonConverter(typeof(ConvertToCourse))]
+        public ICollection<Course> Courses { get; set; }
     }
 }

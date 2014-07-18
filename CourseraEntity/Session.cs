@@ -1,12 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Testing.CourseraEntity
+﻿namespace Testing.CourseraEntity
 {
-    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Newtonsoft.Json;
     using Testing.Helpful;
-    using Newtonsoft.Json.Converters;
 
     public class Session
     {
@@ -125,5 +123,11 @@ namespace Testing.CourseraEntity
         [JsonProperty("certificatesReady")]
         public bool CertificatesReady { get; set; }
 
+        /// <summary>
+        /// Связка многие ко многим (Сессия <-> Курсы)
+        /// </summary>
+        [JsonProperty("courses")]
+        [JsonConverter(typeof(ConvertToCourse))]
+        public ICollection<Course> Courses { get; set; }
     }
 }

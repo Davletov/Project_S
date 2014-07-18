@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Newtonsoft.Json;
-
-namespace Testing.CourseraEntity
+﻿namespace Testing.CourseraEntity
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using Newtonsoft.Json;
+    using Testing.Helpful;
+
     public class Instructor
     {
         /// <summary>
@@ -119,6 +121,13 @@ namespace Testing.CourseraEntity
         /// </summary>
         [JsonProperty("shortName")]
         public string ShortName { get; set; }
+
+        /// <summary>
+        /// Связка многие ко многим (Инструкторы <-> Курсы)
+        /// </summary>
+        [JsonProperty("courses")]
+        [JsonConverter(typeof(ConvertToCourse))]
+        public ICollection<Course> Courses { get; set; }
 
     }
 }

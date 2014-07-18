@@ -9,7 +9,7 @@ using UOfW = Testing.UnitOfWork;
 namespace Testing.Helpful
 {
     // Избаваиться от дублирования кода (Сделать базовый конвертер)
-    public class ConvertToCourse : JsonConverter
+    public class ConvertToUniversity : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
@@ -19,12 +19,12 @@ namespace Testing.Helpful
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
             JsonSerializer serializer)
         {
-            var courseIds = (ICollection<int>)serializer.Deserialize(reader, typeof(ICollection<int>));
-            var result = new Collection<Course>();
+            var universityIds = (ICollection<int>)serializer.Deserialize(reader, typeof(ICollection<int>));
+            var result = new Collection<University>();
             var uow = new UOfW.UnitOfWork();
-            foreach (var courseId in courseIds)
+            foreach (var universityId in universityIds)
             {
-                var item = uow.CourseRepository.Get(x => x.CourseIdFromApi == courseId).FirstOrDefault();
+                var item = uow.UniversityRepository.Get(x => x.UniversityIdFromApi == universityId).FirstOrDefault();
                 result.Add(item);
             }
             return result;

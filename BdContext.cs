@@ -18,6 +18,9 @@
         /// </summary>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            // связь многие ко многим через Fluent Api
+
+            // Course <-> Category
             modelBuilder.Entity<Course>().
               HasMany(c => c.Categories).
               WithMany(p => p.Courses).
@@ -27,6 +30,42 @@
                    m.MapLeftKey("CourseId");
                    m.MapRightKey("CategoryId");
                    m.ToTable("CourseCategories");
+               });
+
+            // Course <-> Instructor
+            modelBuilder.Entity<Course>().
+              HasMany(c => c.Instructors).
+              WithMany(p => p.Courses).
+              Map(
+               m =>
+               {
+                   m.MapLeftKey("CourseId");
+                   m.MapRightKey("InstructorId");
+                   m.ToTable("CourseInstructors");
+               });
+
+            // Course <-> Session
+            modelBuilder.Entity<Course>().
+              HasMany(c => c.Sessions).
+              WithMany(p => p.Courses).
+              Map(
+               m =>
+               {
+                   m.MapLeftKey("CourseId");
+                   m.MapRightKey("SessionId");
+                   m.ToTable("CourseSessions");
+               });
+
+            // Course <-> University
+            modelBuilder.Entity<Course>().
+              HasMany(c => c.Universities).
+              WithMany(p => p.Courses).
+              Map(
+               m =>
+               {
+                   m.MapLeftKey("CourseId");
+                   m.MapRightKey("UniversityId");
+                   m.ToTable("CourseUniversities");
                });
         }
     }

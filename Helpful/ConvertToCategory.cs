@@ -8,6 +8,7 @@ using UOfW = Testing.UnitOfWork;
 
 namespace Testing.Helpful
 {
+    // Избаваиться от дублирования кода (Сделать базовый конвертер)
     public class ConvertToCategory : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

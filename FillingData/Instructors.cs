@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using Testing.CourseraEntity;
-
-namespace Testing.FillingData
+﻿namespace Testing.FillingData
 {
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+    using Testing.CourseraEntity;
+
     public static partial class FillingDataFromCoursera
     {
         public static void FillingDataAboutInstructors()
@@ -14,7 +13,6 @@ namespace Testing.FillingData
 
             var res = GetDataFromSomeUrl(url);
             var resultList = JsonConvert.DeserializeObject<List<Instructor>>(res);
-
 
             if (resultList.Count > 0)
             {

@@ -1,6 +1,5 @@
 namespace Testing.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     
     public partial class AddEntity : DbMigration
@@ -131,30 +130,11 @@ namespace Testing.Migrations
                         SquareLogo = c.String(),
                         LandingPageBanner = c.String(),
                     })
-                .PrimaryKey(t => t.UniversityId);
-            
-            CreateTable(
-                "dbo.CourseCategories",
-                c => new
-                    {
-                        CourseId = c.Int(nullable: false),
-                        CategoryId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.CourseId, t.CategoryId })
-                .ForeignKey("dbo.Courses", t => t.CourseId, cascadeDelete: true)
-                .ForeignKey("dbo.Categories", t => t.CategoryId, cascadeDelete: true)
-                .Index(t => t.CourseId)
-                .Index(t => t.CategoryId);
-            
+                .PrimaryKey(t => t.UniversityId);           
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.CourseCategories", "CategoryId", "dbo.Categories");
-            DropForeignKey("dbo.CourseCategories", "CourseId", "dbo.Courses");
-            DropIndex("dbo.CourseCategories", new[] { "CategoryId" });
-            DropIndex("dbo.CourseCategories", new[] { "CourseId" });
-            DropTable("dbo.CourseCategories");
             DropTable("dbo.Universities");
             DropTable("dbo.Sessions");
             DropTable("dbo.Instructors");

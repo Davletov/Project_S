@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Testing.UnitOfWork
+﻿namespace Testing.UnitOfWork
 {
     using System;
     using Testing.Repository;

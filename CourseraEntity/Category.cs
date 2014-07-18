@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Newtonsoft.Json;
-using Testing.Helpful;
-
-namespace Testing.CourseraEntity
+﻿namespace Testing.CourseraEntity
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using Newtonsoft.Json;
+    using Testing.Helpful;
+
     public class Category
     {
         /// <summary>
@@ -48,9 +48,5 @@ namespace Testing.CourseraEntity
         [JsonConverter(typeof(ConvertToCourse))]
         public ICollection<Course> Courses { get; set; }
 
-        /*public Category()
-        {
-            Courses = new HashSet<Course>();
-        }*/
     }
 }

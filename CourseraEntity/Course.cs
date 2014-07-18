@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Testing.Helpful;
-
-namespace Testing.CourseraEntity
+﻿namespace Testing.CourseraEntity
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using Testing.Helpful;
     using Newtonsoft.Json;
 
     public class Course
@@ -182,10 +181,27 @@ namespace Testing.CourseraEntity
         [JsonProperty("categories")]
         [JsonConverter(typeof(ConvertToCategory))]
         public ICollection<Category> Categories { get; set; }
-        
-        /*public Course()
-        {
-            Categories = new HashSet<Category>();
-        }*/
+
+        /// <summary>
+        /// Связка многие ко многим (Сессия <-> Курсы)
+        /// </summary>
+        [JsonProperty("sessions")]
+        [JsonConverter(typeof(ConvertToSession))]
+        public ICollection<Session> Sessions { get; set; }
+
+        /// <summary>
+        /// Связка многие ко многим (Инструкторы <-> Курсы)
+        /// </summary>
+        [JsonProperty("instructors")]
+        [JsonConverter(typeof(ConvertToInstructor))]
+        public ICollection<Instructor> Instructors { get; set; }
+
+        /// <summary>
+        /// Связка многие ко многим (Университеты <-> Курсы)
+        /// </summary>
+        [JsonProperty("universities ")]
+        [JsonConverter(typeof(ConvertToUniversity))]
+        public ICollection<University> Universities { get; set; }
+
     }
 }

@@ -1,8 +1,6 @@
 ﻿namespace Testing.FillingData
 {
     using System.Collections.Generic;
-    using System.IO;
-    using System.Net;
     using Newtonsoft.Json;
     using Testing.CourseraEntity;
     using UOfW = Testing.UnitOfWork;

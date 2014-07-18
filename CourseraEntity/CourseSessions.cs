@@ -1,8 +1,8 @@
 ﻿namespace Testing.CourseraEntity
 {
-    public class CoursesWithCategories
+    public class CourseSessions
     {
         public int CourseId { get; set; }
-        public int CategoryId { get; set; }
+        public int SessionId { get; set; }
     }
 }

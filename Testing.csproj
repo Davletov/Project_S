@@ -54,23 +54,36 @@
     <Compile Include="BdContext.cs" />
     <Compile Include="CourseraEntity\Category.cs" />
     <Compile Include="CourseraEntity\Course.cs" />
-    <Compile Include="CourseraEntity\CoursesWithCategories.cs" />
+    <Compile Include="CourseraEntity\CourseSessions.cs" />
+    <Compile Include="CourseraEntity\CourseInstructors.cs" />
+    <Compile Include="CourseraEntity\CourseUniversities.cs" />
+    <Compile Include="CourseraEntity\CourseCategories.cs" />
     <Compile Include="CourseraEntity\Instructor.cs" />
     <Compile Include="CourseraEntity\Session.cs" />
     <Compile Include="CourseraEntity\University.cs" />
+    <Compile Include="FillingData\BindingCoursesForEachUniversity.cs" />
+    <Compile Include="FillingData\BindingCoursesForEachInstructor.cs" />
+    <Compile Include="FillingData\BindingCoursesForEachSession.cs" />
     <Compile Include="FillingData\Categories.cs" />
     <Compile Include="FillingData\Courses.cs" />
     <Compile Include="FillingData\GetDataFromUrl.cs" />
     <Compile Include="FillingData\Instructors.cs" />
     <Compile Include="FillingData\Sessions.cs" />
-    <Compile Include="FillingData\Test.cs" />
+    <Compile Include="FillingData\BindingCoursesForEachCategory.cs" />
     <Compile Include="FillingData\Universities.cs" />
+    <Compile Include="Helpful\ConvertToUniversity.cs" />
+    <Compile Include="Helpful\ConvertToInstructor.cs" />
+    <Compile Include="Helpful\ConvertToSession.cs" />
     <Compile Include="Helpful\ConvertToCourse.cs" />
     <Compile Include="Helpful\ConvertToCategory.cs" />
     <Compile Include="Helpful\DateTimeConvertFromJson.cs" />
     <Compile Include="Migrations\201407101234126_AddEntity.cs" />
     <Compile Include="Migrations\201407101234126_AddEntity.Designer.cs">
       <DependentUpon>201407101234126_AddEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407181312109_AddManyToManyEntities.cs" />
+    <Compile Include="Migrations\201407181312109_AddManyToManyEntities.Designer.cs">
+      <DependentUpon>201407181312109_AddManyToManyEntities.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -85,6 +98,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201407101234126_AddEntity.resx">
       <DependentUpon>201407101234126_AddEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407181312109_AddManyToManyEntities.resx">
+      <DependentUpon>201407181312109_AddManyToManyEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

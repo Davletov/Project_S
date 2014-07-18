@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Testing.CourseraEntity;
-
-namespace Testing.FillingData
+﻿namespace Testing.FillingData
 {
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+    using Testing.CourseraEntity;
+
     public static partial class FillingDataFromCoursera
     {
         public static void FillingDataAboutCategories()
