@@ -6,6 +6,7 @@
     using Testing.CourseraEntity;
     using UOfW = Testing.UnitOfWork;
     using Testing.Helpful;
+    using System.Collections.ObjectModel;
 
     public static partial class FillingDataFromCoursera
     {
@@ -26,14 +27,28 @@
                 // для каждого инструктора
                 foreach (var instructor in resultList)
                 {
-                    var crs = instructor;
+                    var instr = instructor; // инструктор со списком курсов
 
                     // InstructorIdFromApi - глобальный идентификатор Инструкторов (внутрення идентификация в Coursera API)
-                    var findCrs = uow.InstructorRepository.Get(x => x.InstructorIdFromApi == crs.InstructorIdFromApi).FirstOrDefault();
-                    if (findCrs != null)
+                    // Находим в нашей базе инструктора по идентификатору InstructorIdFromApi (в нем список курсов пока Null)
+                    var findinstr = uow.InstructorRepository.Get(x => x.InstructorIdFromApi == instr.InstructorIdFromApi).FirstOrDefault();
+                    if (findinstr != null && instr.Courses != null)
                     {
-                        findCrs.Courses = crs.Courses; // присваиваем курсы по соотв.инструкторам
-                        uow.InstructorRepository.Update(findCrs);
+                        var listToCopy = instr.Courses;
+                        findinstr.Courses = new Collection<Course>();
+
+                         foreach (var course in listToCopy)
+                        {
+                            // находим в нашей базе соотв.курс
+                            var addCourse = uow.CourseRepository.Get(x => x.CourseIdFromApi == course.CourseIdFromApi).FirstOrDefault();
+
+                            // и добавляем его в список Courses в сущности Инструктор
+                            if (addCourse != null)
+                            {
+                                findinstr.Courses.Add(addCourse);
+                            }
+                        }
+                        uow.InstructorRepository.Update(findinstr);
                     }
                 }
                 uow.Save();
@@ -43,7 +58,7 @@
         /// <summary>
         /// Сокращенная версия класса Instructor, необходим для связки с курсами
         /// </summary>
-        private abstract class SpecialInstructorProxy
+        private class SpecialInstructorProxy
         {
             /// <summary>
             /// Instructor Id (public Id for identity with Instructor Id from Coursera API
