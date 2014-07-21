@@ -6,6 +6,7 @@
     using Testing.CourseraEntity;
     using UOfW = Testing.UnitOfWork;
     using Testing.Helpful;
+    using System.Collections.ObjectModel;
 
     public static partial class FillingDataFromCoursera
     {
@@ -26,14 +27,28 @@
                 // для каждой сессии
                 foreach (var session in resultList)
                 {
-                    var crs = session;
+                    var sessn = session; // сессия со списком курсов
 
                     // SessionIdFromApi - глобальный идентификатор Сессий (внутренняя идентификация в Coursera API)
-                    var findCrs = uow.SessionRepository.Get(x => x.SessionIdFromApi == crs.SessionIdFromApi).FirstOrDefault();
-                    if (findCrs != null)
+                    // Находим в нашей базе сессию по идентификатору SessionIdFromApi (в нем список курсов пока Null)
+                    var findSessn = uow.SessionRepository.Get(x => x.SessionIdFromApi == sessn.SessionIdFromApi).FirstOrDefault();
+                    if (findSessn != null && sessn.Courses != null)
                     {
-                        findCrs.Courses = crs.Courses; // присваиваем курсы по соотв.сессии
-                        uow.SessionRepository.Update(findCrs);
+                        var listToCopy = sessn.Courses;
+                        findSessn.Courses = new Collection<Course>();
+
+                        foreach (var course in listToCopy)
+                        {
+                            // находим в нашей базе соотв.курс
+                            var addCourse = uow.CourseRepository.Get(x => x.CourseIdFromApi == course.CourseIdFromApi).FirstOrDefault();
+
+                            // и добавляем его в список Courses в сущности Сессия
+                            if (addCourse != null)
+                            {
+                                findSessn.Courses.Add(addCourse);
+                            }
+                        }
+                        uow.SessionRepository.Update(findSessn);
                     }
                 }
                 uow.Save();
@@ -43,7 +58,7 @@
         /// <summary>
         /// Сокращенная версия класса Session, необходим для связки с курсами
         /// </summary>
-        private abstract class SpecialSessionProxy
+        private class SpecialSessionProxy
         {
             /// <summary>
             /// Session Id (public Id for identity with Session Id from Coursera API

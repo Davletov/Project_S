@@ -6,6 +6,7 @@
     using Testing.CourseraEntity;
     using UOfW = Testing.UnitOfWork;
     using Testing.Helpful;
+    using System.Collections.ObjectModel;
 
     public static partial class FillingDataFromCoursera
     {
@@ -16,7 +17,7 @@
         {
             // Url к апи, ктр достает все категории и связанные с ними курсы
             // (вытаскиваем только необходимые данные: CategoryIdFromApi и список курсов)
-            var url = "https://api.coursera.org/api/catalog.v1/categories?ids=19&fields=id&includes=courses";
+            var url = "https://api.coursera.org/api/catalog.v1/categories?fields=id&includes=courses";
 
             var res = GetDataFromSomeUrl2(url); // преобразуем в корректный JSON
             var resultList = JsonConvert.DeserializeObject<List<SpecialCategoryProxy>>(res); // превращаем в объект SpecialCategoryProxy
@@ -26,24 +27,37 @@
                 // для каждой категории
                 foreach (var category in resultList)
                 {
-                    var crs = category;
+                    var categ = category; // категория со списком курсов
 
-                    // CategoryIdFromApi - глобальный идентификатор Категорий (внутрення идентификация в Coursera API)
-                    var findCrs = uow.CategoryRepository.Get(x => x.CategoryIdFromApi == crs.CategoryIdFromApi).FirstOrDefault();
-                    if (findCrs != null)
+                    // CategoryIdFromApi - глобальный идентификатор Категорий (внутренняя идентификация в Coursera API)
+                    // Находим в нашей базе категорию по идентификатору CategoryIdFromApi (в ней список курсов пока Null)
+                    var findCategory = uow.CategoryRepository.Get(x => x.CategoryIdFromApi == categ.CategoryIdFromApi).FirstOrDefault();
+                    if (findCategory != null && categ.Courses != null)
                     {
-                        findCrs.Courses = crs.Courses; // присваиваем курсы по соотв.категории
-                        //uow.CategoryRepository.Update(findCrs);
+                        var listToCopy = categ.Courses;
+                        findCategory.Courses = new Collection<Course>();
+                        foreach (var course in listToCopy)
+                        {
+                            // находим в нашей базе соотв.курс
+                            var addCourse = uow.CourseRepository.Get(x => x.CourseIdFromApi == course.CourseIdFromApi).FirstOrDefault();
+
+                            // и добавляем его в список Courses в сущности Категория
+                            if (addCourse != null)
+                            {
+                                findCategory.Courses.Add(addCourse);
+                            }
+                        }
+                        uow.CategoryRepository.Update(findCategory);
                     }
                 }
-                //uow.Save();
+                uow.Save();
             }
         }
 
         /// <summary>
         /// Сокращенная версия класса Category, необходим для связки с курсами
         /// </summary>
-        private abstract class SpecialCategoryProxy
+        private class SpecialCategoryProxy
         {
             /// <summary>
             /// Category Id (public Id for identity with Category Id from Coursera API
