@@ -25,7 +25,10 @@
                 {
                     foreach (var course in resultList)
                     {
-                        uowTmp.CourseRepository.Add(course);
+                        if (course != null)
+                        {
+                            uowTmp.CourseRepository.Add(course);
+                        }
                     }
                     uowTmp.Save();
                 }
