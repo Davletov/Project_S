@@ -13,7 +13,7 @@ namespace Web.Controllers
             return View();
         }
 
-        /*public ActionResult About()
+        public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
@@ -25,6 +25,20 @@ namespace Web.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }*/
+        }
+
+        public ActionResult Blog()
+        {
+            ViewBag.Message = "Blog page";
+
+            return View();
+        }
+
+        public ActionResult Support()
+        {
+            ViewBag.Message = "Support page";
+
+            return View();
+        }
     }
 }
