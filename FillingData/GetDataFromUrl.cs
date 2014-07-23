@@ -1,9 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-
-namespace Testing.FillingData
+﻿namespace Testing.FillingData
 {
     using System.IO;
     using System.Net;
+    using Newtonsoft.Json.Linq;
 
     public static partial class FillingDataFromCoursera
     {
@@ -22,11 +21,9 @@ namespace Testing.FillingData
             {
                 using (var sr = new StreamReader(responseStream))
                 {
-                    /*var str = sr.ReadToEnd();
-                    JObject parsed = JObject.Parse(str);
-                    var tmp = parsed["elements"];*/
-
-                    result = sr.ReadToEnd().Replace("{\"elements\":", "").Replace(",\"linked\":{}}", "");
+                    var str = sr.ReadToEnd();
+                    var parsed = JObject.Parse(str);
+                    result = parsed["elements"].ToString();
                 }
             }
 
@@ -42,17 +39,11 @@ namespace Testing.FillingData
             var myResponse = (HttpWebResponse)myRequest.GetResponse();
             var responseStream = myResponse.GetResponseStream();
 
-           
-
             if (responseStream != null)
             {
                 using (var sr = new StreamReader(responseStream))
                 {
                     result = sr.ReadToEnd();
-
-                    /*JObject parsed = JObject.Parse(result);
-                    parsed["elements"]*/
-
 
                     var ind = result.IndexOf(",\"linked\":{");
                     result = result.Substring(0, ind);
