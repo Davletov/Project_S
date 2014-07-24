@@ -34,14 +34,13 @@
                 </div>
                 <div class="clr"></div>
                 <div class="menu_nav">
+                    @Html.Partial("_LoginPartial")
                     <ul>
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("MyPoints", "Index", "Home")</li>
                         <li>@Html.ActionLink("Support", "Support", "Home")</li>
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Blog", "Blog", "Home")</li>
                         <li class="active">@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
                     </ul>
                     <div class="clr"></div>
                 </div>
@@ -86,7 +85,7 @@
                     </div>
                     <div class="sidebar">
                         <div class="gadget">
-                            <h2 class="star"><span>Sidebar</span> Menu</h2>
+                            <h2 class="star"><span>Menu</span></h2>
                             <div class="clr"></div>
                             <ul class="sb_menu">
                                 <li class="active"><a href="#">Home</a></li>

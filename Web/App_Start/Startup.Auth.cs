@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Google;
 using Owin;
 
 namespace Web
@@ -32,7 +33,9 @@ namespace Web
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication();
+            app.UseGoogleAuthentication(
+                clientId: "40438705494-81kh2ejp7v84ihg7etbqdt3b41l7tkrr.apps.googleusercontent.com",
+                clientSecret: "4zXxOwnCwvTdc8XzZf9RnIM-");
         }
     }
 }
