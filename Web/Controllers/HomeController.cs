@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Testing.CourseraEntity;
-using Testing.UnitOfWork;
+using Web.Models.CourseraEntity;
 
 namespace Web.Controllers
 {
@@ -11,11 +10,13 @@ namespace Web.Controllers
     {
         public ActionResult Index()
         {
+            // Для тестового вывода всех курсов на главную страничку из категории 'химия'
             var chemistryCourses = new List<Course>();
-            using (var uow = new UnitOfWork())
+            using (var uow = new UnitOfWork.UnitOfWork())
             {
                 chemistryCourses = uow.CourseRepository.Get(x => x.ShortName.Contains("chemistry") || x.Name.Contains("chemistry")).ToList();
             }
+
             ViewData["chemistryCourses"] = chemistryCourses;
 
             return View();
