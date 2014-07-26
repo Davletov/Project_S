@@ -1,4 +1,6 @@
-﻿namespace Web.UnitOfWork
+﻿using Web.Models;
+
+namespace Web.UnitOfWork
 {
     using System;
     using Web.Models.CourseraEntity;
@@ -26,7 +28,22 @@
         private BaseRepository<Instructor> _instructorRepository;
         private BaseRepository<Session> _sessionRepository;
         private BaseRepository<University> _universityRepository;
-
+        private BaseRepository<Profile> _profileRepository;
+        private BaseRepository<UserCriteria> _criteriaRepository;
+        public BaseRepository<UserCriteria> CriteriaRepository
+        {
+            get
+            {
+                return _criteriaRepository ?? (_criteriaRepository = new BaseRepository<UserCriteria>(_context));
+            }
+        }
+        public BaseRepository<Profile> ProfileRepository
+        {
+            get
+            {
+                return _profileRepository ?? (_profileRepository = new BaseRepository<Profile>(_context));
+            }
+        }
         public BaseRepository<Category> CategoryRepository
         {
             get

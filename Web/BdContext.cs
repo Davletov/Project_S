@@ -1,4 +1,6 @@
-﻿namespace Web
+﻿using Web.Models;
+
+namespace Web
 {
     using System.Data.Entity;
     using Web.Models.CourseraEntity;
@@ -10,6 +12,10 @@
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<University> Universities { get; set; }
+
+        public DbSet<Profile> Profiles { get; set; }
+
+        public DbSet<UserCriteria> UserCriterias { get; set; }
 
         /// <summary>
         /// Связка многие ко многим (Категория <-> Курсы)
