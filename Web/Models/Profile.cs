@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Web.UI.WebControls;
 
 namespace Web.Models
@@ -15,6 +16,7 @@ namespace Web.Models
 
     public class UserCriteria
     {
+        [Key]
         public int CriteriaId { get; set; }
 
         public string Name { get; set; }
