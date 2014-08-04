@@ -26,11 +26,7 @@ namespace Web.Models.Criteria
         /// </summary>
         public string Tags { get; set; }
 
-        public virtual ICollection<FirstLevelCriteria> FirstLevelCriterias { get; set; }
+        public virtual SecondLevelCriteria SecondLevelCriteria { get; set; }
 
-        public ThirdLevelCriteria()
-        {
-            FirstLevelCriterias = new List<FirstLevelCriteria>();
-        }
     }
 }

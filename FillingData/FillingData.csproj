@@ -69,6 +69,25 @@
     <Compile Include="FillingCourseraData\Sessions.cs" />
     <Compile Include="FillingCourseraData\BindingCoursesForEachCategory.cs" />
     <Compile Include="FillingCourseraData\Universities.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingFirstLevel\FillingFirstCriteria.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_AppliedSciences.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_EngineeringSciences.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_FormalSciences.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_HumanitiesSciences.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_NaturalSciences.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_SecondLevelCriteria.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_Agriculture.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_ArchitectureAndDesign.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\EngineeringSciences\Filling_ChemicalEngineering.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\EngineeringSciences\Filling_MechanicalEngineering.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\FormalSciences\Filling_AppliedMathematics.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\FormalSciences\Filling_ComputerSciences.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\HumanitiesSciences\Filling_History.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\HumanitiesSciences\Filling_Linguistics.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\NaturalSciences\Filling_Earth.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\NaturalSciences\Filling_PhysicsSpaceSciences.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\SocialSciences\Filling_Anthropology.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\SocialSciences\Filling_Archaeology.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,6 +95,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

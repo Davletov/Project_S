@@ -1,4 +1,6 @@
-﻿namespace FiilingData.FillingCourseraData
+﻿using System.Linq;
+
+namespace FiilingData.FillingCourseraData
 {
     using System;
     using System.Collections.Generic;
@@ -25,6 +27,23 @@
 
                 if (resultList.Count > 0)
                 {
+                    // Если в таблице Instructor уже есть какие то данные, то удалим их
+                    using (var uowDel = new UnitOfWork())
+                    {
+                        var instructorList = uowDel.InstructorRepository.Get().Select(x => x.InstructorId).ToList();
+                        var countRowsInExistingBase = instructorList.Count;
+                        if (countRowsInExistingBase > 0)
+                        {
+                            foreach (var instructorId in instructorList)
+                            {
+                                uowDel.InstructorRepository.Delete(instructorId);
+                            }
+
+                            uowDel.Save();
+                        }
+                    }
+
+                    // Заполняем таблице Instructor данным с Coursera Api
                     using (var uowTmp = new UnitOfWork())
                     {
                         foreach (var instructor in resultList)

@@ -1,4 +1,5 @@
 ﻿using Web.Models;
+using Web.Models.Criteria;
 
 namespace Web.UnitOfWork
 {
@@ -29,14 +30,43 @@ namespace Web.UnitOfWork
         private BaseRepository<Session> _sessionRepository;
         private BaseRepository<University> _universityRepository;
         private BaseRepository<Profile> _profileRepository;
-        private BaseRepository<UserCriteria> _criteriaRepository;
-        public BaseRepository<UserCriteria> CriteriaRepository
+        private BaseRepository<FirstLevelCriteria> _firstLevelCriteriaRepository;
+        private BaseRepository<SecondLevelCriteria> _secondLevelCriteriaRepository;
+        private BaseRepository<ThirdLevelCriteria> _thirdLevelCriteriaRepository;
+        private BaseRepository<CriteriaForCoursera> _criteriaForCourseraRepository;
+
+        public BaseRepository<FirstLevelCriteria> FirstLevelCriteriaRepository
         {
             get
             {
-                return _criteriaRepository ?? (_criteriaRepository = new BaseRepository<UserCriteria>(_context));
+                return _firstLevelCriteriaRepository ?? (_firstLevelCriteriaRepository = new BaseRepository<FirstLevelCriteria>(_context));
             }
         }
+
+        public BaseRepository<SecondLevelCriteria> SecondLevelCriteriaRepository
+        {
+            get
+            {
+                return _secondLevelCriteriaRepository ?? (_secondLevelCriteriaRepository = new BaseRepository<SecondLevelCriteria>(_context));
+            }
+        }
+
+        public BaseRepository<ThirdLevelCriteria> ThirdLevelCriteriaRepository
+        {
+            get
+            {
+                return _thirdLevelCriteriaRepository ?? (_thirdLevelCriteriaRepository = new BaseRepository<ThirdLevelCriteria>(_context));
+            }
+        }
+
+        public BaseRepository<CriteriaForCoursera> CriteriaForCourseraRepository
+        {
+            get
+            {
+                return _criteriaForCourseraRepository ?? (_criteriaForCourseraRepository = new BaseRepository<CriteriaForCoursera>(_context));
+            }
+        }
+
         public BaseRepository<Profile> ProfileRepository
         {
             get

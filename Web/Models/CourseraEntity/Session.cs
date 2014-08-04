@@ -79,13 +79,13 @@
         /// Signature track information.
         /// </summary>
         [JsonProperty("signatureTrackCloseTime")]
-        public int SignatureTrackCloseTime { get; set; }
+        public double SignatureTrackCloseTime { get; set; }
 
         /// <summary>
         /// Signature track information.
         /// </summary>
         [JsonProperty("signatureTrackOpenTime")]
-        public int SignatureTrackOpenTime { get; set; }
+        public double SignatureTrackOpenTime { get; set; }
 
         /// <summary>
         /// Signature track information.

@@ -1,12 +1,17 @@
-﻿using Web.Models;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Web.Models;
+using Web.Models.Criteria;
 
 namespace Web
 {
     using System.Data.Entity;
     using Web.Models.CourseraEntity;
 
-    public class BdContext : DbContext 
+    public class BdContext : IdentityDbContext
     {
+        public BdContext():base("BdContext"){}
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
@@ -15,8 +20,14 @@ namespace Web
 
         public DbSet<Profile> Profiles { get; set; }
 
-        public DbSet<UserCriteria> UserCriterias { get; set; }
+        public DbSet<FirstLevelCriteria> FirstLevelCriterias { get; set; }
 
+        public DbSet<SecondLevelCriteria> SecondLevelCriterias { get; set; }
+
+        public DbSet<ThirdLevelCriteria> ThirdLevelCriterias { get; set; }
+
+        public DbSet<CriteriaForCoursera> CriteriaForCoursera { get; set; }
+        
         /// <summary>
         /// Связка многие ко многим (Категория <-> Курсы)
         /// Каждая категория (Пр.: математика) может иметь несколько курсов
@@ -24,6 +35,13 @@ namespace Web
         /// </summary>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<FirstLevelCriteria>().HasMany(t => t.SecondLevelCriteria).WithRequired();
+            modelBuilder.Entity<SecondLevelCriteria>().HasMany(t => t.ThirdLevelCriteria).WithRequired();
+
+            modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(x => x.UserId);
+            modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
+            modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
+
             // связь многие ко многим через Fluent Api
 
             // Course <-> Category

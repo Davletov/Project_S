@@ -1,4 +1,7 @@
-﻿namespace FiilingData
+﻿using FiilingData.FillingGlobalCriteria;
+using FiilingData.FillingGlobalCriteria.FillingFirstLevel;
+
+namespace FiilingData
 {
     using System;
     using System.Collections.Generic;
@@ -38,6 +41,11 @@
 
             }
             Console.WriteLine("Нажмите любую клавиу для закрытия приложения ...");
+
+
+            // Заполняем глобальные критерии
+            FillingFirstCriteria.FillingGlobalCriteria();
+
             Console.ReadKey();
 
             //TestGetSomeData();

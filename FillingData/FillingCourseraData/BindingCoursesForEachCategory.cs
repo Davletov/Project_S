@@ -27,6 +27,7 @@
                 var res = GetDataFromSomeUrl2(url); // преобразуем в корректный JSON
                 var resultList = JsonConvert.DeserializeObject<List<SpecialCategoryProxy>>(res); // превращаем в объект SpecialCategoryProxy
 
+                // Заполняем таблицу CourseCategories данным с Coursera Api
                 using (var uow = new UnitOfWork())
                 {
                     // для каждой категории

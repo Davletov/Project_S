@@ -167,6 +167,22 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Helpful\CategoryHelper.cs" />
+    <Compile Include="Migrations\201408040752076_AddCriteriaEntities.cs" />
+    <Compile Include="Migrations\201408040752076_AddCriteriaEntities.Designer.cs">
+      <DependentUpon>201408040752076_AddCriteriaEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408040759508_SomeFixWithDateFormat.cs" />
+    <Compile Include="Migrations\201408040759508_SomeFixWithDateFormat.Designer.cs">
+      <DependentUpon>201408040759508_SomeFixWithDateFormat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408040924362_AddSomeFixToCriteria.cs" />
+    <Compile Include="Migrations\201408040924362_AddSomeFixToCriteria.Designer.cs">
+      <DependentUpon>201408040924362_AddSomeFixToCriteria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408041058577_HotFix.cs" />
+    <Compile Include="Migrations\201408041058577_HotFix.Designer.cs">
+      <DependentUpon>201408041058577_HotFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CourseraEntity\Category.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -190,6 +206,10 @@
     <Compile Include="Models\CourseraEntity\Instructor.cs" />
     <Compile Include="Models\CourseraEntity\Session.cs" />
     <Compile Include="Models\CourseraEntity\University.cs" />
+    <Compile Include="Models\Criteria\CriteriaForCoursera.cs" />
+    <Compile Include="Models\Criteria\FirstLevelCriteria.cs" />
+    <Compile Include="Models\Criteria\SecondLevelCriteria.cs" />
+    <Compile Include="Models\Criteria\ThirdLevelCriteria.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -238,6 +258,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201407181312109_AddManyToManyEntities.resx">
       <DependentUpon>201407181312109_AddManyToManyEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408040752076_AddCriteriaEntities.resx">
+      <DependentUpon>201408040752076_AddCriteriaEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408040759508_SomeFixWithDateFormat.resx">
+      <DependentUpon>201408040759508_SomeFixWithDateFormat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408040924362_AddSomeFixToCriteria.resx">
+      <DependentUpon>201408040924362_AddSomeFixToCriteria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408041058577_HotFix.resx">
+      <DependentUpon>201408041058577_HotFix.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -23,13 +23,13 @@ namespace Web.Controllers
 
             using (var uow = new UnitOfWork.UnitOfWork())
             {
-                var criterias = currentProfile.UserCriterias.Select(x => x.Name).ToList();
+                //var criterias = currentProfile.UserCriterias.Select(x => x.Name).ToList();
 
-                foreach (var criteria in criterias)
+                /*foreach (var criteria in criterias)
                 {
                     var tmp = uow.CourseRepository.Get(x => x.ShortName.Contains(criteria) || x.Name.Contains(criteria)).ToList();
                     resultCourses.AddRange(tmp);
-                }
+                }*/
             }
 
             ViewData["chemistryCourses"] = resultCourses;
