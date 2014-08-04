@@ -40,14 +40,7 @@ namespace Web.Repository
                 query = query.Include(includeProperty);
             }
 
-            if (orderBy != null)
-            {
-                return orderBy(query);
-            }
-            else
-            {
-                return query;
-            }
+            return orderBy != null ? orderBy(query) : query;
         }
 
         public virtual TEntity GetById(object id)

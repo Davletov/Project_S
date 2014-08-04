@@ -69,7 +69,13 @@
     <Compile Include="FillingCourseraData\Sessions.cs" />
     <Compile Include="FillingCourseraData\BindingCoursesForEachCategory.cs" />
     <Compile Include="FillingCourseraData\Universities.cs" />
-    <Compile Include="FillingGlobalCriteria\FillingFirstLevel\FillingFirstCriteria.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingFirstCriteria.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingFirstLevel\Filling_AppliedSciences.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingFirstLevel\Filling_EngineeringSciences.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingFirstLevel\Filling_FormalSciences.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingFirstLevel\Filling_HumanitiesSciences.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingFirstLevel\Filling_NaturalSciences.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingFirstLevel\Filling_SocialSciences.cs" />
     <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_AppliedSciences.cs" />
     <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_EngineeringSciences.cs" />
     <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_FormalSciences.cs" />
