@@ -50,7 +50,7 @@
                     <div class="mainbar">
                         <div class="article">
 
-                            @model Web.Models.Profile
+                            @using System.ComponentModel.DataAnnotations                            @using Web.Enum                            @model Web.Models.Profile
 
                             @{
                                 ViewBag.Title = "Profile";
@@ -62,31 +62,45 @@
                                     <section id="loginForm">
                                         @using (Html.BeginForm("Profile", "Profile", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                                         {
-                                            @Html.AntiForgeryToken()
-                                            <h4>Use a local account to log in.</h4>
-                                            <hr />
                                             @Html.ValidationSummary(true)
                                             <div class="form-group">
-                                                @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                                                <div class="col-md-10">
-                                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                                @Html.LabelFor(m => m.LoginName, "Login", new { @class = "col-md-3 control-label" })
+                                                <div class="col-md-8">
+                                                    @Html.TextBoxFor(m => m.LoginName, new { @class = "form-control" })
                                                     @Html.ValidationMessageFor(m => m.UserName)
                                                 </div>
+                                                
                                             </div>
+                                            
+                                            <div class="form-group">
+                                                @Html.Label("Birth Date", new { @class = "col-md-3 control-label" })
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.BirthDay, 
+                                                    Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), 
+                                                    "Day", new { @class = "form-control" })
+
+                                                    @Html.DropDownListFor(m => m.BirthMonth, 
+                                                    Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(i) }),
+                                                 "Month", new { @class = "form-control" })
+
+                                                    @Html.DropDownListFor(m => m.BirthYear, 
+                                                    Enumerable.Range(1900, 114).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }),
+                                                    "Year", new { @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.Label("Social Status", new { @class = "col-md-3 control-label" })
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.UserSocialStatus,
+                                                            Enum.GetNames(typeof(UserSocialStatus)).Select(e => new SelectListItem { Text = e }),
+                                                            "Social Status", new {@class = "form-control"})
+                                                </div>
+                                            </div>
+                                            
                                             <div class="form-group">
                                                 <div class="col-md-offset-2 col-md-10">
-                                                    <div class="checkbox">
-                                                        @Html.CheckBoxFor(m => m.Chemistry)
-                                                        @Html.LabelFor(m => m.Chemistry)
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        @Html.CheckBoxFor(m => m.Math)
-                                                        @Html.LabelFor(m => m.Math)
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        @Html.CheckBoxFor(m => m.SoftwareDevelopment)
-                                                        @Html.LabelFor(m => m.SoftwareDevelopment)
-                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -107,7 +121,7 @@
                             <div class="clr"></div>
                             <ul class="sb_menu">
                                 <li class="active"><a href="#">Home</a></li>
-                                <li><a href="#">TemplateInfo</a></li>
+                                <li>@Html.ActionLink("Profile", "Profile", "Profile")</li>
                                 <li><a href="#">Style Demo</a></li>
                                 <li><a href="#">Blog</a></li>
                                 <li><a href="#">Archives</a></li>

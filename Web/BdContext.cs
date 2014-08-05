@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Web.Enum;
 using Web.Models;
 using Web.Models.Criteria;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Web
 {
@@ -11,11 +12,14 @@ namespace Web
     {
         public BdContext():base("BdContext"){}
 
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Category> Categories { get; set; }
+
         public DbSet<Course> Courses { get; set; }
+
         public DbSet<Instructor> Instructors { get; set; }
+
         public DbSet<Session> Sessions { get; set; }
+
         public DbSet<University> Universities { get; set; }
 
         public DbSet<Profile> Profiles { get; set; }
@@ -32,6 +36,7 @@ namespace Web
 
         public DbSet<City> Cities { get; set; }
         
+        
         /// <summary>
         /// Связка многие ко многим (Категория <-> Курсы)
         /// Каждая категория (Пр.: математика) может иметь несколько курсов
@@ -42,7 +47,7 @@ namespace Web
             modelBuilder.Entity<FirstLevelCriteria>().HasMany(t => t.SecondLevelCriteria).WithRequired();
             modelBuilder.Entity<SecondLevelCriteria>().HasMany(t => t.ThirdLevelCriteria).WithRequired();
 
-            modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(x => x.UserId);
+            modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
 
