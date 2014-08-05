@@ -27,6 +27,10 @@ namespace Web
         public DbSet<ThirdLevelCriteria> ThirdLevelCriterias { get; set; }
 
         public DbSet<CriteriaForCoursera> CriteriaForCoursera { get; set; }
+
+        public DbSet<Country> Countries { get; set; }
+
+        public DbSet<City> Cities { get; set; }
         
         /// <summary>
         /// Связка многие ко многим (Категория <-> Курсы)

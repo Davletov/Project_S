@@ -34,6 +34,24 @@ namespace Web.UnitOfWork
         private BaseRepository<SecondLevelCriteria> _secondLevelCriteriaRepository;
         private BaseRepository<ThirdLevelCriteria> _thirdLevelCriteriaRepository;
         private BaseRepository<CriteriaForCoursera> _criteriaForCourseraRepository;
+        private BaseRepository<Country> _countryRepository;
+        private BaseRepository<City> _cityRepository;
+
+        public BaseRepository<Country> CountryRepository
+        {
+            get
+            {
+                return _countryRepository ?? (_countryRepository = new BaseRepository<Country>(_context));
+            }
+        }
+
+        public BaseRepository<City> CityRepository
+        {
+            get
+            {
+                return _cityRepository ?? (_cityRepository = new BaseRepository<City>(_context));
+            }
+        }
 
         public BaseRepository<FirstLevelCriteria> FirstLevelCriteriaRepository
         {

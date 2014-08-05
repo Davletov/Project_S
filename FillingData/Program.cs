@@ -20,7 +20,7 @@ namespace FiilingData
          * Либо надо вытаскивать тока изменненые курсы или новые и обновлять базу (сложный вариант).*/
         static void Main(string[] args)
         {
-            Console.Write("Начать заполнение БД данными с Coursera ? \nВнимание, если хоть одна таблица в базе уже заполнена,\n" +
+            /*Console.Write("Начать заполнение БД данными с Coursera ? \nВнимание, если хоть одна таблица в базе уже заполнена,\n" +
                           "то повторная процедура заполнения приведет к дупликатам в таблицах!\n" +
                           "Press y(yes) or n(no): ");
             var answ = Console.ReadLine();
@@ -40,11 +40,13 @@ namespace FiilingData
                  FillingDataFromCoursera.BindingCoursesForEachUniversity();
 
             }
-            Console.WriteLine("Нажмите любую клавиу для закрытия приложения ...");
+            Console.WriteLine("Нажмите любую клавиу для закрытия приложения ...");*/
 
 
             // Заполняем глобальные критерии
-            FillingFirstCriteria.FillingGlobalCriteria();
+            //FillingFirstCriteria.FillingGlobalCriteria();
+
+            FillingCountryAndCity.FillingCountriesWithCities();
 
             Console.ReadKey();
 

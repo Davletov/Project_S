@@ -183,6 +183,8 @@
     <Compile Include="Migrations\201408041058577_HotFix.Designer.cs">
       <DependentUpon>201408041058577_HotFix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Location\City.cs" />
+    <Compile Include="Models\Location\Country.cs" />
     <Compile Include="Models\CourseraEntity\Category.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
