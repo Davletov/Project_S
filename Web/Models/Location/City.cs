@@ -9,9 +9,11 @@ namespace Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CityId { get; set; }
 
-        public string ShortName { get; set; }
+        public string ShortNameCountry { get; set; }
 
         public string Name { get; set; }
+
+        public int CountryId { get; set; }
 
         public virtual Country Country { get; set; }
     }

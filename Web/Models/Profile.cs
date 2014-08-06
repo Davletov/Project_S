@@ -29,9 +29,9 @@ namespace Web.Models
 
         public int BirthYear { get; set; }
 
-        public string Country { get; set; } // переделать на сущность или ID сущности
+        public virtual Country Country { get; set; } // переделать на сущность или ID сущности
 
-        public string City { get; set; } // переделать на сущность или ID сущности
+        public virtual City City { get; set; } // переделать на сущность или ID сущности
 
         public UserSocialStatus UserSocialStatus { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,5 +18,10 @@ namespace Web.Models
         public string ImageFile { get; set; }
 
         public virtual ICollection<City> Cities { get; set; }
+
+        public Country()
+        {
+            Cities = new Collection<City>();
+        }
     }
 }

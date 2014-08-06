@@ -1,5 +1,7 @@
-﻿using FiilingData.FillingGlobalCriteria;
+﻿using System.Collections.ObjectModel;
+using FiilingData.FillingGlobalCriteria;
 using FiilingData.FillingGlobalCriteria.FillingFirstLevel;
+using Web.Models;
 
 namespace FiilingData
 {
@@ -46,7 +48,25 @@ namespace FiilingData
             // Заполняем глобальные критерии
             //FillingFirstCriteria.FillingGlobalCriteria();
 
-            FillingCountryAndCity.FillingCountriesWithCities();
+            //FillingCountryAndCity.FillingCountriesWithCities();
+
+            using (var uow = new UnitOfWork())
+            {
+                var list = uow.CountryRepository.Get().ToList();
+
+                var city = list.Select(x => x.Cities).ToList();
+
+                var tmp = 1;
+            }
+
+            using (var uow = new UnitOfWork())
+            {
+                var list = uow.CityRepository.Get().ToList();
+
+                var country = list.Select(city => city.Country).ToList();
+
+                var tmp = 1;
+            }
 
             Console.ReadKey();
 
