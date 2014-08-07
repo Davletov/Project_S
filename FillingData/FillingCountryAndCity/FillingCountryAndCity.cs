@@ -123,18 +123,6 @@ namespace FiilingData
                 
             }
 
-            // Запишем данные в таблицу Country
-            using (var uow = new UnitOfWork())
-            {
-                foreach (var city in groupCityList.Take(1000))
-                {
-                    var country = uow.CountryRepository.Get(x => x.ShortName == city.ShortNameCountry).FirstOrDefault();
-                    city.Country = country;
-                    uow.CityRepository.Add(city);
-                }
-                uow.Save();
-            }
-
             var tmp1 = countOfBadRowsInCountry;
             var tmp2 = countOfBadRowsInCity;
         }

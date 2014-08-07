@@ -7,13 +7,13 @@ namespace Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class AddSomeFixToCriteria : IMigrationMetadata
+    public sealed partial class AddSomeFix : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddSomeFixToCriteria));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddSomeFix));
         
         string IMigrationMetadata.Id
         {
-            get { return "201408040924362_AddSomeFixToCriteria"; }
+            get { return "201408051248488_AddSomeFix"; }
         }
         
         string IMigrationMetadata.Source

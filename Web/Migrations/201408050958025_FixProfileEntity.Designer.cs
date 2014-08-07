@@ -7,13 +7,13 @@ namespace Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class AddCriteriaEntities : IMigrationMetadata
+    public sealed partial class FixProfileEntity : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddCriteriaEntities));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FixProfileEntity));
         
         string IMigrationMetadata.Id
         {
-            get { return "201408040752076_AddCriteriaEntities"; }
+            get { return "201408050958025_FixProfileEntity"; }
         }
         
         string IMigrationMetadata.Source

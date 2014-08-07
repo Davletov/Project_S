@@ -9,11 +9,12 @@
     <title>SocialNet | About</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="../../Content/style.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="~/Scripts/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-1.3.2.min.js"></script>   
     <script type="text/javascript" src="~/Scripts/script.js"></script>
     <script type="text/javascript" src="~/Scripts/cufon-yui.js"></script>
     <script type="text/javascript" src="~/Scripts/arial.js"></script>
     <script type="text/javascript" src="~/Scripts/cuf_run.js"></script>
+    <script type="text/javascript" src="~/Scripts/BusinessLogic/selectLocation.js"></script> <!-- Выбор страны и города -->
 </head>
 <body>
     <div class="main">
@@ -50,15 +51,15 @@
                     <div class="mainbar">
                         <div class="article">
 
-                            @using System.Collections                            @using System.ComponentModel.DataAnnotations                            @using Web.Enum                            
-@using Web.Models
-@model Web.Models.Profile
+                            @using Web.Enum                            
+                            @using Web.Models
+                            @model Web.Models.Profile
 
                             @{
                                 ViewBag.Title = "Profile";
                             }
 
-                            <h2>@ViewBag.Title.</h2>
+                            <h2>@ViewBag.Title</h2>
                             <div class="row">
                                 <div class="col-md-8">
                                     <section id="loginForm">
@@ -106,9 +107,22 @@
                                                 <div class="col-md-8">
                                                     @Html.DropDownListFor(m => m.Country,
                                                     new SelectList((List<Country>)ViewData["countryList"], "CountryId", "Name"),
-                                                    "Your country", new {@class = "form-control"})
+                                                    "Your country", new
+                                                    {
+                                                        @class = "form-control"
+                                                    
+                                                    })
                                                 </div>
                                             </div>                                            
+                                            
+                                            <div class="form-group">
+                                                @Html.Label("City", new { @class = "col-md-3 control-label" })
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.City,
+                                                 new SelectList(Enumerable.Empty<City>(), "CityId", "Name"),
+                                                    "Your city", new {@class = "form-control"})
+                                                </div>
+                                            </div>                                             
                                             
                                             <div class="form-group">
                                                 <div class="col-md-offset-2 col-md-10">

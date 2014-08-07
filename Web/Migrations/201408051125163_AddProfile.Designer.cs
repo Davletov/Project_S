@@ -7,13 +7,13 @@ namespace Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class SomeFixWithDateFormat : IMigrationMetadata
+    public sealed partial class AddProfile : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SomeFixWithDateFormat));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddProfile));
         
         string IMigrationMetadata.Id
         {
-            get { return "201408040759508_SomeFixWithDateFormat"; }
+            get { return "201408051125163_AddProfile"; }
         }
         
         string IMigrationMetadata.Source

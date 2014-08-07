@@ -7,13 +7,13 @@ namespace Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class HotFix : IMigrationMetadata
+    public sealed partial class AddEntities : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(HotFix));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddEntities));
         
         string IMigrationMetadata.Id
         {
-            get { return "201408041058577_HotFix"; }
+            get { return "201408070832385_AddEntities"; }
         }
         
         string IMigrationMetadata.Source
