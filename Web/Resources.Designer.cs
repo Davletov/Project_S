@@ -59,7 +59,13 @@ namespace Web {
                 resourceCulture = value;
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;h3&gt;Поможем найти дело жизни, обучим и устроим вас !&lt;/h3&gt;
+        ///&lt;p align =&quot;justify&quot;&gt;Кто раньше мог подумать, что реклама будет персонализированной, тебе предлагают то, что ты любишь, смотришь, читаешь или слушаешь. Google сделал это возможным, и теперь ты видишь только то, что тебе интересно. Но почему только реклама ?! 
+        ///А как же образование ?!&lt;/p&gt;
+        ///&lt;p align =&quot;justify&quot;&gt;Современный мир меняется слишком быстро, информация полученная на 1-м курсе университета зачастую становится уже не актуальной к концу 3-го курса,  [rest of string was truncated]&quot;;.
+        /// </summary>
         public static string About_ProjectS {
             get {
                 return ResourceManager.GetString("About_ProjectS", resourceCulture);

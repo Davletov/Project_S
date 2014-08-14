@@ -79,6 +79,9 @@
     <Reference Include="Microsoft.Owin.Security.Twitter">
       <HintPath>..\packages\Microsoft.Owin.Security.Twitter.2.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
     </Reference>
+    <Reference Include="MvcCheckBoxList">
+      <HintPath>..\packages\MvcCheckBoxList.1.4.4.5\lib\net45\MvcCheckBoxList.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -95,6 +98,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -124,7 +128,70 @@
     <Content Include="Content\bootstrap-social.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\customStyle.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\themes\base\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.menu.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.spinner.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\jquery.ui.tooltip.css" />
+    <Content Include="Content\themes\base\minified\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.menu.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.spinner.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Images\bg.jpg" />
     <Content Include="Images\fbg_bg.jpg" />
@@ -149,9 +216,28 @@
     <Content Include="Content\bootstrap-social.less" />
     <None Include="Resources\About_ProjectS.txt" />
     <Content Include="Scripts\arial.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\BusinessLogic\autoComplete.js" />
+    <Content Include="Scripts\BusinessLogic\selectLocation.js" />
     <Content Include="Scripts\cufon-yui.js" />
     <Content Include="Scripts\cuf_run.js" />
+    <Content Include="Scripts\dist\jstree.js" />
+    <Content Include="Scripts\dist\jstree.min.js" />
+    <Content Include="Scripts\dist\libs\jquery.js" />
+    <Content Include="Scripts\dist\libs\require.js" />
+    <Content Include="Scripts\dist\themes\default\32px.png" />
+    <Content Include="Scripts\dist\themes\default\40px.png" />
+    <Content Include="Scripts\dist\themes\default\style.css" />
+    <Content Include="Scripts\dist\themes\default\style.min.css" />
+    <Content Include="Scripts\dist\themes\default\throbber.gif" />
     <Content Include="Scripts\jquery-1.3.2.min.js" />
+    <Content Include="Scripts\Data\GlobalCriteria.json" />
+    <None Include="Scripts\jquery-2.1.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Views\Shared\_Layout.cshtml">
       <SubType>Code</SubType>
@@ -165,24 +251,37 @@
     <Compile Include="BdContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Enum\UserSocialStatus.cs" />
     <Compile Include="Helpful\CategoryHelper.cs" />
-    <Compile Include="Migrations\201408040752076_AddCriteriaEntities.cs" />
-    <Compile Include="Migrations\201408040752076_AddCriteriaEntities.Designer.cs">
-      <DependentUpon>201408040752076_AddCriteriaEntities.cs</DependentUpon>
+    <Compile Include="Migrations\201408141123210_AddLocationEntities.cs">
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Migrations\201408040759508_SomeFixWithDateFormat.cs" />
-    <Compile Include="Migrations\201408040759508_SomeFixWithDateFormat.Designer.cs">
-      <DependentUpon>201408040759508_SomeFixWithDateFormat.cs</DependentUpon>
+    <Compile Include="Migrations\201408141123210_AddLocationEntities.Designer.cs">
+      <DependentUpon>201408141123210_AddLocationEntities.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201408040924362_AddSomeFixToCriteria.cs" />
-    <Compile Include="Migrations\201408040924362_AddSomeFixToCriteria.Designer.cs">
-      <DependentUpon>201408040924362_AddSomeFixToCriteria.cs</DependentUpon>
+    <Compile Include="Migrations\201408141123220_AddIdentityEntities.cs">
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Migrations\201408041058577_HotFix.cs" />
-    <Compile Include="Migrations\201408041058577_HotFix.Designer.cs">
-      <DependentUpon>201408041058577_HotFix.cs</DependentUpon>
+    <Compile Include="Migrations\201408141123220_AddIdentityEntities.Designer.cs">
+      <DependentUpon>201408141123220_AddIdentityEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408141123230_AddCriteriaEntities.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migrations\201408141123230_AddCriteriaEntities.Designer.cs">
+      <DependentUpon>201408141123230_AddCriteriaEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408141123240_AddProfileEntitity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migrations\201408141123240_AddProfileEntitity.Designer.cs">
+      <DependentUpon>201408141123240_AddProfileEntitity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408141134298_BindProfileWithCriterias.cs" />
+    <Compile Include="Migrations\201408141134298_BindProfileWithCriterias.Designer.cs">
+      <DependentUpon>201408141134298_BindProfileWithCriterias.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\CourseraEntity\Category.cs" />
     <Compile Include="Global.asax.cs">
@@ -208,10 +307,20 @@
     <Compile Include="Models\CourseraEntity\Session.cs" />
     <Compile Include="Models\CourseraEntity\University.cs" />
     <Compile Include="Models\Criteria\CriteriaForCoursera.cs" />
-    <Compile Include="Models\Criteria\FirstLevelCriteria.cs" />
-    <Compile Include="Models\Criteria\SecondLevelCriteria.cs" />
-    <Compile Include="Models\Criteria\ThirdLevelCriteria.cs" />
-    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\Criteria\FirstLevelCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Criteria\SecondLevelCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Criteria\ThirdLevelCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Location\City.cs" />
+    <Compile Include="Models\Location\Country.cs" />
+    <Compile Include="Models\Profile.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Resources.Designer.cs">
@@ -244,6 +353,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Profile\Profile.cshtml" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -253,6 +363,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Location\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201407101234126_AddEntity.resx">
@@ -261,30 +372,25 @@
     <EmbeddedResource Include="Migrations\201407181312109_AddManyToManyEntities.resx">
       <DependentUpon>201407181312109_AddManyToManyEntities.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408040752076_AddCriteriaEntities.resx">
-      <DependentUpon>201408040752076_AddCriteriaEntities.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201408141123210_AddLocationEntities.resx">
+      <DependentUpon>201408141123210_AddLocationEntities.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408040759508_SomeFixWithDateFormat.resx">
-      <DependentUpon>201408040759508_SomeFixWithDateFormat.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201408141123220_AddIdentityEntities.resx">
+      <DependentUpon>201408141123220_AddIdentityEntities.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408040924362_AddSomeFixToCriteria.resx">
-      <DependentUpon>201408040924362_AddSomeFixToCriteria.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201408141123230_AddCriteriaEntities.resx">
+      <DependentUpon>201408141123230_AddCriteriaEntities.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408041058577_HotFix.resx">
-      <DependentUpon>201408041058577_HotFix.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201408141123240_AddProfileEntitity.resx">
+      <DependentUpon>201408141123240_AddProfileEntitity.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408050958025_FixProfileEntity.resx">
-      <DependentUpon>201408050958025_FixProfileEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408051125163_AddProfile.resx">
-      <DependentUpon>201408051125163_AddProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408051248488_AddSomeFix.resx">
-      <DependentUpon>201408051248488_AddSomeFix.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201408141134298_BindProfileWithCriterias.resx">
+      <DependentUpon>201408141134298_BindProfileWithCriterias.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -302,11 +408,10 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51696</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44300/</IISUrl>
+          <IISUrl>https://localhost:44300/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://localhost:44300/</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

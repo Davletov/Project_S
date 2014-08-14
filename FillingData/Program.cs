@@ -1,8 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using FiilingData.FillingGlobalCriteria;
-using FiilingData.FillingGlobalCriteria.FillingFirstLevel;
-using Web.Models;
-
+using System.IO;
+using System.Web.Script.Serialization;
 namespace FiilingData
 {
     using System;
@@ -11,6 +9,10 @@ namespace FiilingData
     using Web.Models.CourseraEntity;
     using Web.UnitOfWork;
     using FiilingData.FillingCourseraData;
+    using FiilingData.FillingGlobalCriteria;
+    using FiilingData.FillingGlobalCriteria.FillingFirstLevel;
+    using Newtonsoft.Json;
+    using Web.Models;
 
     class Program
     {
@@ -46,11 +48,37 @@ namespace FiilingData
 
 
             // Заполняем глобальные критерии
-            //FillingFirstCriteria.FillingGlobalCriteria();
-
-            //FillingCountryAndCity.FillingCountriesWithCities();
+            FillingFirstCriteria.FillingGlobalCriteria();
 
             using (var uow = new UnitOfWork())
+            {
+                var listCategory = uow.FirstLevelCriteriaRepository.Get().ToList();
+
+                var list = JsonConvert.SerializeObject(listCategory, Formatting.None,
+                    new JsonSerializerSettings()
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    });
+
+                string fileName = "GlobalCriteria.json";
+                string path = Path.Combine(Environment.CurrentDirectory, fileName);
+
+                using (FileStream fs = File.Open(path, FileMode.OpenOrCreate))
+                using (var sw = new StreamWriter(fs))
+                using (var jw = new JsonTextWriter(sw))
+                {
+                    jw.Formatting = Formatting.Indented;
+
+                    var serializer = new JsonSerializer();
+                    serializer.Serialize(jw, list);
+                }
+            }
+
+
+            // Заполнение стран и городов
+            //FillingCountryAndCity.FillingCountriesWithCities();
+
+            /*using (var uow = new UnitOfWork())
             {
                 var list = uow.CountryRepository.Get().ToList();
 
@@ -66,46 +94,9 @@ namespace FiilingData
                 var country = list.Select(city => city.Country).ToList();
 
                 var tmp = 1;
-            }
+            }*/
 
             Console.ReadKey();
-
-            //TestGetSomeData();
-        }
-
-        private static void TestGetSomeData()
-        {
-            // Связь многие ко многим работает корректно, удаление отрабатывает, вроде все гуд !
-            using (var uow = new UnitOfWork())
-            {
-                var someCategroy = "chemistry";
-                var categoryByRequest =
-                    uow.CategoryRepository.Get(x => x.Name.Contains(someCategroy) || x.ShortName.Contains(someCategroy))
-                        .Select(x => x.CategoryId)
-                        .ToList();
-
-                var result = new List<Course>();
-                foreach (var category in categoryByRequest)
-                {
-                    var allCourses =
-                        uow.CourseRepository.Get(x => x.Categories.Select(y => y.CategoryId).Contains(category))
-                            .ToList();
-                    result.AddRange(allCourses);
-                }
-                var response = 1;
-            }
-        }
-
-
-        private static void TestDeleting()
-        {
-            using (var uow = new UnitOfWork())
-            {
-                var result = uow.CategoryRepository.Get(x => x.CategoryIdFromApi == 17).FirstOrDefault();
-                uow.CategoryRepository.Delete(result);
-                uow.Save();
-            }
-            var response = 1;
         }
     }
 }

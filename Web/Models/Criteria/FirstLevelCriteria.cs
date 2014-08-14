@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Web.Models.Criteria
+﻿namespace Web.Models.Criteria
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     /// <summary>
     /// 1 уровень критериев (основные направления наук: 
     /// Humanities sciences, Social sciences, Natural Sciences, Natural Sciences, Formal Sciences, Applied Sciences
@@ -15,7 +16,7 @@ namespace Web.Models.Criteria
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int FirstLevelCriteriaId { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Name of Criteria
@@ -27,7 +28,13 @@ namespace Web.Models.Criteria
         /// </summary>
         public string Tags { get; set; }
 
+        public virtual ICollection<Profile> Profiles { get; set; }
+
         public virtual ICollection<SecondLevelCriteria> SecondLevelCriteria { get; set; }
 
+        public FirstLevelCriteria()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 }

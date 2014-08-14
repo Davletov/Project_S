@@ -15,34 +15,110 @@
     <script type="text/javascript" src="~/Scripts/script.js"></script>
     <script type="text/javascript" src="~/Scripts/cufon-yui.js"></script>
     <script type="text/javascript" src="~/Scripts/arial.js"></script>
-    <script type="text/javascript" src="~/Scripts/cuf_run.js"></script>
-    
+    <script type="text/javascript" src="~/Scripts/cuf_run.js"></script>   
+  
     <script type="text/javascript" src="~/Scripts/BusinessLogic/selectLocation.js"></script> <!-- Выбор страны и города -->
+    
+    <link rel="stylesheet" href="~/Scripts/dist/themes/default/style.min.css" />
+    <script src="~/Scripts/dist/libs/jquery.js"></script>
+    <script src="~/Scripts/dist/jstree.min.js"></script>
+    
+    <!-- Вынести все скрипты в отдельные файлы после оптимизации -->
+
+    <!-- Для получения данных для дерева критериев в профайле пользователя -->
+    <script type="text/javascript">  
+        jQuery(document).ready(function ($) {
+            Refresh($);    
+        });
+
+        function Refresh($) {
+            $('#TreeTmp')
+                .bind("before.jstree", function(e, data) {
+                })
+                .jstree({
+                    "core": {
+                        'data': {
+                            "url": function(node) {
+                                var url = "@Url.Action("GetTreeData", "Profile")";
+                                return url;
+                            },
+                            dataFilter: function (data) {
+                                var result = JSON.parse(data);
+                                return result;
+                            },
+                            "type": "POST",
+                            "dataType": "json",
+                            "contentType": "application/json"
+                        }
+                    },
+
+                    "plugins": ["themes", "checkbox", "unique"]
+                });
+        }
+    </script>
+    
+    <!-- Для передачи данных c дерева критериев в контроллер -->
     <script type="text/javascript">
-        $(document).ready(function () {
-            var $country = $('#Country');
-            $country.autocomplete( // не работает !!!!!!!!!!!!!!!!!!!
-            {
-                source: function (request, response) {
-                    $.ajax(
-                    {
-                        url: "/Location/FindByName", type: "GET", dataType: "json",
-                        data: { searchText: request.term, maxResults: 10 },
-                        contentType: "application/json; charset=utf-8",
-                        success: function (data) {
-                            var t = data;
-                        },
+        jQuery(document).ready(function ($) {
+            $(function () {
+                $("#saveProfile").click(function () {
+                    submitMe();
+                });
 
+                function submitMe() {
+                    var checkedIds = [];
+                    var selectedNodes = $("#TreeTmp").jstree(true).get_selected();
+                    selectedNodes.forEach(function(item) {
+                        var pathArr = $("#TreeTmp").jstree(true).get_path(item, false);
+                        var levelOfNode = pathArr.length;
+                        var obj = {};
+                        obj['id'] = item;
+                        obj['level'] = levelOfNode;
+                        checkedIds.push(obj);
                     });
-                },
-                select: function (event, ui) {
-                    $('#Country').val(ui.item.id);
-                },
-                minLength: 1
-            });
 
+                    $.ajax({
+                        url: "@Url.Action("Profile", "Profile")",
+                        type: "GET",
+                        traditional: true,
+                        data: { values: JSON.stringify(checkedIds) },
+                        cache: false,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {}
+                    });
+                }
+
+            });
         });
     </script>
+    
+    <!-- Автодополнение для комбобокса Counry (пока не работает) -->
+    <script type="text/javascript">
+            /*jQuery(function ($){
+                var $country = $('#Country');
+                $country.autocomplete( // не работает !!!!!!!!!!!!!!!!!!!
+                    {
+                        source: function (request, response) {
+                            $.ajax(
+                                {
+                                    url: "/Location/FindByName", type: "GET", dataType: "json",
+                                    data: { searchText: request.term, maxResults: 10 },
+                                    contentType: "application/json; charset=utf-8",
+                                    success: function (data) {
+                                        var t = data;
+                                    },
+
+                                });
+                        },
+                        select: function (event, ui) {
+                            $('#Country').val(ui.item.id);
+                        },
+                        minLength: 1
+                    });
+
+            });*/
+        </script>
     
 
 </head>
@@ -91,40 +167,46 @@
 
                             <h2>@ViewBag.Title</h2>
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-9">
                                     <section id="loginForm">
                                         @using (Html.BeginForm("Profile", "Profile", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                                         {
                                             @Html.ValidationSummary(true)
                                             <div class="form-group">
                                                 @Html.LabelFor(m => m.LoginName, "Login", new { @class = "col-md-3 control-label" })
-                                                <div class="col-md-8">
+                                                <div class="col-md-9">
                                                     @Html.TextBoxFor(m => m.LoginName, new { @class = "form-control" })
                                                     @Html.ValidationMessageFor(m => m.UserName)
                                                 </div>
                                                 
                                             </div>
-                                            
+
                                             <div class="form-group">
                                                 @Html.Label("Birth Date", new { @class = "col-md-3 control-label" })
-                                                <div class="col-md-8">
-                                                    @Html.DropDownListFor(m => m.BirthDay, 
-                                                    Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), 
-                                                    "Day", new { @class = "form-control" })
 
-                                                    @Html.DropDownListFor(m => m.BirthMonth, 
-                                                    Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(i) }),
-                                                 "Month", new { @class = "form-control" })
+                                                    <div class="col-md-3">
+                                                        @Html.DropDownListFor(m => m.BirthDay,
+                                                            Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }),
+                                                            "Day", new { @class = "form-control" })
+                                                    </div>
 
-                                                    @Html.DropDownListFor(m => m.BirthYear, 
-                                                    Enumerable.Range(1900, 114).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }),
-                                                    "Year", new { @class = "form-control" })
-                                                </div>
+                                                    <div class="col-md-3">
+                                                        @Html.DropDownListFor(m => m.BirthMonth,
+                                                            Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(i) }),
+                                                            "Month", new { @class = "form-control" })
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        @Html.DropDownListFor(m => m.BirthYear,
+                                                            Enumerable.Range(1900, 114).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }),
+                                                            "Year", new { @class = "form-control" })
+                                                    </div>
+
                                             </div>
 
                                             <div class="form-group">
                                                 @Html.Label("Social Status", new { @class = "col-md-3 control-label" })
-                                                <div class="col-md-8">
+                                                <div class="col-md-9">
                                                     @Html.DropDownListFor(m => m.UserSocialStatus,
                                                             Enum.GetNames(typeof(UserSocialStatus)).Select(e => new SelectListItem { Text = e }),
                                                             "Social Status", new {@class = "form-control"})
@@ -134,7 +216,7 @@
 
                                             <div class="form-group">
                                                 @Html.Label("Country", new { @class = "col-md-3 control-label" })
-                                                <div class="col-md-8">
+                                                <div class="col-md-9">
                                                     @Html.DropDownListFor(m => m.Country,
                                                     new SelectList((List<Country>)ViewData["countryList"], "CountryId", "Name"),
                                                     "Your country", new { @class = "form-control" })
@@ -143,122 +225,130 @@
                                             
                                             <div class="form-group">
                                                 @Html.Label("City", new { @class = "col-md-3 control-label" })
-                                                <div class="col-md-8">
+                                                <div class="col-md-9">
                                                     @Html.DropDownListFor(m => m.City,
                                                  new SelectList(Enumerable.Empty<City>(), "CityId", "Name"),
                                                     "Your city", new {@class = "form-control"})
                                                 </div>
-                                            </div>                                             
-                                            
-                                            <div class="form-group">
-                                                <div class="col-md-offset-2 col-md-10">
+                                            </div>
 
-                                                </div>
-                                            </div>
+
                                             <div class="form-group">
-                                                <div class="col-md-offset-2 col-md-10">
-                                                    <input type="submit" value="Log in" class="btn btn-default" />
+                                                @Html.Label("Criteria", new { @class = "col-md-3 control-label" })
+                                                <div class="col-md-9">
+                                                    <div id="TreeTmp"></div>
                                                 </div>
                                             </div>
+
+                                            <div class="form-group">
+                                                        <div class="col-md-offset-2 col-md-10">
+
+                                                        </div>
+                                                    </div>
+                                            <div class="form-group">
+                                                        <div class="col-md-offset-2 col-md-10">
+                                                            <input type="submit" id="saveProfile"  value="Save" class="btn btn-default" />
+                                                        </div>
+                                                    </div>
                                         }
-                                    </section>
+                                            </section>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-
+                            <div class="sidebar">
+                                <div class="gadget">
+                                    <h2 class="star"><span>Menu</span></h2>
+                                    <div class="clr"></div>
+                                    <ul class="sb_menu">
+                                        <li class="active"><a href="#">Home</a></li>
+                                        <li>@Html.ActionLink("Profile", "Profile", "Profile")</li>
+                                        <li><a href="#">Style Demo</a></li>
+                                        <li><a href="#">Blog</a></li>
+                                        <li><a href="#">Archives</a></li>
+                                        <li><a href="#">Web Templates</a></li>
+                                    </ul>
+                                </div>
+                                <div class="gadget">
+                                    <h2 class="star"><span>Sponsors</span></h2>
+                                    <div class="clr"></div>
+                                    <ul class="ex_menu">
+                                        <li>
+                                            <a href="http://www.dreamtemplate.com">DreamTemplate</a><br />
+                                            Over 6,000+ Premium Web Templates
+                                        </li>
+                                        <li>
+                                            <a href="http://www.templatesold.com/">TemplateSOLD</a><br />
+                                            Premium WordPress &amp; Joomla Themes
+                                        </li>
+                                        <li>
+                                            <a href="http://www.imhosted.com">ImHosted.com</a><br />
+                                            Affordable Web Hosting Provider
+                                        </li>
+                                        <li>
+                                            <a href="http://www.myvectorstore.com">MyVectorStore</a><br />
+                                            Royalty Free Stock Icons
+                                        </li>
+                                        <li>
+                                            <a href="http://www.evrsoft.com">Evrsoft</a><br />
+                                            Website Builder Software &amp; Tools
+                                        </li>
+                                        <li>
+                                            <a href="http://www.csshub.com/">CSS Hub</a><br />
+                                            Premium CSS Templates
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="gadget">
+                                    <h2 class="star"><span>Wise Words</span></h2>
+                                    <div class="clr"></div>
+                                    <div class="testi">
+                                        <p>
+                                            <span class="q"><img src="~/Images/qoute_1.gif" width="20" height="15" alt="" /></span>
+                                                    We can let circumstances rule us, or we can take charge and rule our lives from within.
+                                                    <span class="q"><img src="~/Images/qoute_2.gif" width="20" height="15" alt="" /></span>
+                                                </p>
+                                                <p class="title"><strong>Earl Nightingale</strong></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clr"></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="sidebar">
-                        <div class="gadget">
-                            <h2 class="star"><span>Menu</span></h2>
-                            <div class="clr"></div>
-                            <ul class="sb_menu">
-                                <li class="active"><a href="#">Home</a></li>
-                                <li>@Html.ActionLink("Profile", "Profile", "Profile")</li>
-                                <li><a href="#">Style Demo</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Archives</a></li>
-                                <li><a href="#">Web Templates</a></li>
-                            </ul>
-                        </div>
-                        <div class="gadget">
-                            <h2 class="star"><span>Sponsors</span></h2>
-                            <div class="clr"></div>
-                            <ul class="ex_menu">
-                                <li>
-                                    <a href="http://www.dreamtemplate.com">DreamTemplate</a><br />
-                                    Over 6,000+ Premium Web Templates
-                                </li>
-                                <li>
-                                    <a href="http://www.templatesold.com/">TemplateSOLD</a><br />
-                                    Premium WordPress &amp; Joomla Themes
-                                </li>
-                                <li>
-                                    <a href="http://www.imhosted.com">ImHosted.com</a><br />
-                                    Affordable Web Hosting Provider
-                                </li>
-                                <li>
-                                    <a href="http://www.myvectorstore.com">MyVectorStore</a><br />
-                                    Royalty Free Stock Icons
-                                </li>
-                                <li>
-                                    <a href="http://www.evrsoft.com">Evrsoft</a><br />
-                                    Website Builder Software &amp; Tools
-                                </li>
-                                <li>
-                                    <a href="http://www.csshub.com/">CSS Hub</a><br />
-                                    Premium CSS Templates
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="gadget">
-                            <h2 class="star"><span>Wise Words</span></h2>
-                            <div class="clr"></div>
-                            <div class="testi">
-                                <p>
-                                    <span class="q"><img src="~/Images/qoute_1.gif" width="20" height="15" alt="" /></span>
-                                    We can let circumstances rule us, or we can take charge and rule our lives from within.
-                                    <span class="q"><img src="~/Images/qoute_2.gif" width="20" height="15" alt="" /></span>
-                                </p>
-                                <p class="title"><strong>Earl Nightingale</strong></p>
+                        <div class="fbg">
+                            <div class="fbg_resize">
+                                <div class="col c1">
+                                    <h2><span>Image Gallery</span></h2>
+                                    <a href="#"><img src="~/Images/pic_1.jpg" width="58" height="58" alt="" /></a>
+                                    <a href="#"><img src="~/Images/pic_2.jpg" width="58" height="58" alt="" /></a>
+                                    <a href="#"><img src="~/Images/pic_3.jpg" width="58" height="58" alt="" /></a>
+                                    <a href="#"><img src="~/Images/pic_4.jpg" width="58" height="58" alt="" /></a>
+                                    <a href="#"><img src="~/Images/pic_5.jpg" width="58" height="58" alt="" /></a>
+                                    <a href="#"><img src="~/Images/pic_6.jpg" width="58" height="58" alt="" /></a>
+                                </div>
+                                <div class="col c2">
+                                    <h2><span>Lorem Ipsum</span></h2>
+                                    <p>
+                                        Lorem ipsum dolor<br />
+                                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. <a href="#">Morbi tincidunt, orci ac convallis aliquam</a>, lectus turpis varius lorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum, dui pede condimentum odio, ac blandit ante orci ut diam.
+                                    </p>
+                                </div>
+                                <div class="col c3">
+                                    <h2><span>About</span></h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo. llorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum. <a href="#">Learn more...</a></p>
+                                </div>
+                                <div class="clr"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="clr"></div>
-                </div>
-            </div>
-        </div>
-        <div class="fbg">
-            <div class="fbg_resize">
-                <div class="col c1">
-                    <h2><span>Image Gallery</span></h2>
-                    <a href="#"><img src="~/Images/pic_1.jpg" width="58" height="58" alt="" /></a>
-                    <a href="#"><img src="~/Images/pic_2.jpg" width="58" height="58" alt="" /></a>
-                    <a href="#"><img src="~/Images/pic_3.jpg" width="58" height="58" alt="" /></a>
-                    <a href="#"><img src="~/Images/pic_4.jpg" width="58" height="58" alt="" /></a>
-                    <a href="#"><img src="~/Images/pic_5.jpg" width="58" height="58" alt="" /></a>
-                    <a href="#"><img src="~/Images/pic_6.jpg" width="58" height="58" alt="" /></a>
-                </div>
-                <div class="col c2">
-                    <h2><span>Lorem Ipsum</span></h2>
-                    <p>
-                        Lorem ipsum dolor<br />
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. <a href="#">Morbi tincidunt, orci ac convallis aliquam</a>, lectus turpis varius lorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum, dui pede condimentum odio, ac blandit ante orci ut diam.
-                    </p>
-                </div>
-                <div class="col c3">
-                    <h2><span>About</span></h2>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo. llorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum. <a href="#">Learn more...</a></p>
-                </div>
-                <div class="clr"></div>
-            </div>
-        </div>
-    </div>
-    <div class="footer">
-        <div class="footer_resize">
-            <p class="lf">&copy; Copyright <a href="#">ProjectS</a>.</p>
-            <p class="rf">2014</p>
-            <div class="clr"></div>
-        </div>
-    </div>
-</body>
+                    <div class="footer">
+                        <div class="footer_resize">
+                            <p class="lf">&copy; Copyright <a href="#">ProjectS</a>.</p>
+                            <p class="rf">2014</p>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                </body>
 </html>

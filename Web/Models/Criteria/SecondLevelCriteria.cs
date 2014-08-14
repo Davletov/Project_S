@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Web.Models.Criteria
+﻿namespace Web.Models.Criteria
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     /// <summary>
     /// 2 уровень критериев: основные предметы каждого из разделов 1-го уровня:
     /// 1 уровень (Humanities sciences) - 2 уровень (History, Linguistics, Literature etc)
@@ -15,7 +16,7 @@ namespace Web.Models.Criteria
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int SecondLevelCriteriaId { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Name of Criteria
@@ -27,8 +28,15 @@ namespace Web.Models.Criteria
         /// </summary>
         public string Tags { get; set; }
 
+        public virtual ICollection<Profile> Profiles { get; set; }
+
         public virtual FirstLevelCriteria FirstLevelCriteria { get; set; }
 
         public virtual ICollection<ThirdLevelCriteria> ThirdLevelCriteria { get; set; }
+
+        public SecondLevelCriteria()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 }

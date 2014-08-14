@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Web.Models.Criteria
+﻿namespace Web.Models.Criteria
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     /// <summary>
     /// 3 уровень критерив (пока последний и самый детализированный уровень критериев)
     /// </summary>
@@ -14,7 +15,7 @@ namespace Web.Models.Criteria
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ThirdLevelCriteriaId { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Name of Criteria
@@ -26,7 +27,13 @@ namespace Web.Models.Criteria
         /// </summary>
         public string Tags { get; set; }
 
+        public virtual ICollection<Profile> Profiles { get; set; }
+
         public virtual SecondLevelCriteria SecondLevelCriteria { get; set; }
 
+        public ThirdLevelCriteria()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 }

@@ -1,11 +1,9 @@
-﻿using Web.Enum;
-using Web.Models;
-using Web.Models.Criteria;
-using Microsoft.AspNet.Identity.EntityFramework;
-
-namespace Web
+﻿namespace Web
 {
     using System.Data.Entity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Web.Models;
+    using Web.Models.Criteria;
     using Web.Models.CourseraEntity;
 
     public class BdContext : IdentityDbContext
@@ -36,11 +34,8 @@ namespace Web
 
         public DbSet<City> Cities { get; set; }
         
-        
         /// <summary>
-        /// Связка многие ко многим (Категория <-> Курсы)
-        /// Каждая категория (Пр.: математика) может иметь несколько курсов
-        /// Каждый курс (Пр.: Математические методы в экономике) может относится к нескольких категориям 
+
         /// </summary>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -53,6 +48,41 @@ namespace Web
 
             // связь многие ко многим через Fluent Api
 
+            /* Связка многие ко многим (Профайл пользователя <-> Критерии (1 - 3 уровень) */
+            modelBuilder.Entity<Profile>().
+                HasMany(c => c.FirstLevelCriteria).
+                WithMany(p => p.Profiles).
+                Map(m =>
+                {
+                    m.MapLeftKey("ProfileId");
+                    m.MapRightKey("FirstLevelCriteriaId");
+                    m.ToTable("ProfileFirstLevelCriteria");
+                });
+
+            modelBuilder.Entity<Profile>().
+                HasMany(c => c.SecondLevelCriteria).
+                WithMany(p => p.Profiles).
+                Map(m =>
+                {
+                    m.MapLeftKey("ProfileId");
+                    m.MapRightKey("SecondLevelCriteriaId");
+                    m.ToTable("ProfileSecondLevelCriteria");
+                });
+
+            modelBuilder.Entity<Profile>().
+                HasMany(c => c.ThirdLevelCriteria).
+                WithMany(p => p.Profiles).
+                Map(m =>
+                {
+                    m.MapLeftKey("ProfileId");
+                    m.MapRightKey("ThirdLevelCriteriaId");
+                    m.ToTable("ProfileThirdLevelCriteria");
+                });
+
+
+            /* Связка многие ко многим (Категория <-> Курсы)
+             * Каждая категория (Пр.: математика) может иметь несколько курсов
+             * Каждый курс (Пр.: Математические методы в экономике) может относится к нескольких категориям */
             // Course <-> Category
             modelBuilder.Entity<Course>().
               HasMany(c => c.Categories).
