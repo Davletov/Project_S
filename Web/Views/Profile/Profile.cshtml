@@ -9,6 +9,7 @@
     <title>SocialNet | About</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="../../Content/style.css" rel="stylesheet" type="text/css" />
+    <link href="../../Content/flags.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="~/Scripts/jquery-2.1.1.min.js"></script>   
     <script type="text/javascript" src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
 
@@ -24,6 +25,27 @@
     <script src="~/Scripts/dist/jstree.min.js"></script>
     
     <!-- Вынести все скрипты в отдельные файлы после оптимизации -->
+    
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(function () {
+
+                debugger;
+                var items = $('#ddlCountry').children();
+                items.each(function (index) {
+                    $(this).addClass('flag.flag-ad');
+                    $(this).css('color', '#FF0000');
+                    var tmp = $(this);
+                    $(this)[0].style = '.flag.flag-ag';
+                    var res = tmp[0].style;
+                });
+
+                //.flag.flag-an
+
+            });
+        });
+    </script>
+    
 
     <!-- Для получения данных для дерева критериев в профайле пользователя -->
     <script type="text/javascript">  
@@ -78,7 +100,7 @@
                     });
 
                     $.ajax({
-                        url: "@Url.Action("Profile", "Profile")",
+                        url: "@Url.Action("Save", "Profile")",
                         type: "GET",
                         traditional: true,
                         data: { values: JSON.stringify(checkedIds) },
@@ -169,87 +191,91 @@
                             <div class="row">
                                 <div class="col-md-9">
                                     <section id="loginForm">
-                                        @using (Html.BeginForm("Profile", "Profile", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                        @using (Html.BeginForm("Profile", "Profile", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                                         {
                                             @Html.ValidationSummary(true)
                                             <div class="form-group">
-                                                @Html.LabelFor(m => m.LoginName, "Login", new { @class = "col-md-3 control-label" })
+                                                @Html.LabelFor(m => m.LoginName, "Login", new {@class = "col-md-3 control-label"})
                                                 <div class="col-md-9">
-                                                    @Html.TextBoxFor(m => m.LoginName, new { @class = "form-control" })
+                                                    @Html.TextBoxFor(m => m.LoginName, new {@class = "form-control"})
                                                     @Html.ValidationMessageFor(m => m.UserName)
                                                 </div>
                                                 
                                             </div>
 
                                             <div class="form-group">
-                                                @Html.Label("Birth Date", new { @class = "col-md-3 control-label" })
+                                                @Html.Label("Birth Date", new {@class = "col-md-3 control-label"})
 
-                                                    <div class="col-md-3">
-                                                        @Html.DropDownListFor(m => m.BirthDay,
-                                                            Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }),
-                                                            "Day", new { @class = "form-control" })
-                                                    </div>
+                                                <div class="col-md-3">
+                                                    @Html.DropDownListFor(m => m.BirthDay,
+                                                        Enumerable.Range(1, 31).Select(i => new SelectListItem {Value = i.ToString(), Text = i.ToString()}),
+                                                        "Day", new {@class = "form-control"})
+                                                </div>
 
-                                                    <div class="col-md-3">
-                                                        @Html.DropDownListFor(m => m.BirthMonth,
-                                                            Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(i) }),
-                                                            "Month", new { @class = "form-control" })
-                                                    </div>
+                                                <div class="col-md-3">
+                                                    @Html.DropDownListFor(m => m.BirthMonth,
+                                                        Enumerable.Range(1, 12).Select(i => new SelectListItem {Value = i.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(i)}),
+                                                        "Month", new {@class = "form-control"})
+                                                </div>
 
-                                                    <div class="col-md-3">
-                                                        @Html.DropDownListFor(m => m.BirthYear,
-                                                            Enumerable.Range(1900, 114).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }),
-                                                            "Year", new { @class = "form-control" })
-                                                    </div>
+                                                <div class="col-md-3">
+                                                    @Html.DropDownListFor(m => m.BirthYear,
+                                                        Enumerable.Range(1900, 114).Select(i => new SelectListItem {Value = i.ToString(), Text = i.ToString()}),
+                                                        "Year", new {@class = "form-control"})
+                                                </div>
 
                                             </div>
 
                                             <div class="form-group">
-                                                @Html.Label("Social Status", new { @class = "col-md-3 control-label" })
+                                                @Html.Label("Social Status", new {@class = "col-md-3 control-label"})
                                                 <div class="col-md-9">
                                                     @Html.DropDownListFor(m => m.UserSocialStatus,
-                                                            Enum.GetNames(typeof(UserSocialStatus)).Select(e => new SelectListItem { Text = e }),
-                                                            "Social Status", new {@class = "form-control"})
+                                                        Enum.GetNames(typeof (UserSocialStatus)).Select(e => new SelectListItem {Text = e}),
+                                                        "Social Status", new {@class = "form-control"})
                                                 </div>
                                             </div>
-                                            
+
 
                                             <div class="form-group">
-                                                @Html.Label("Country", new { @class = "col-md-3 control-label" })
+                                                @Html.Label("Country", new {@class = "col-md-3 control-label"})
                                                 <div class="col-md-9">
                                                     @Html.DropDownListFor(m => m.Country,
-                                                    new SelectList((List<Country>)ViewData["countryList"], "CountryId", "Name"),
-                                                    "Your country", new { @class = "form-control" })
+                                                        new SelectList((List<Country>) ViewData["countryList"], "CountryId", "Name"),
+                                                        "Your country", new {@class = "form-control", @id = "ddlCountry"})
                                                 </div>
-                                            </div>                                            
-                                            
+                                            </div>
+
                                             <div class="form-group">
-                                                @Html.Label("City", new { @class = "col-md-3 control-label" })
+                                                @Html.Label("City", new {@class = "col-md-3 control-label"})
                                                 <div class="col-md-9">
                                                     @Html.DropDownListFor(m => m.City,
-                                                 new SelectList(Enumerable.Empty<City>(), "CityId", "Name"),
-                                                    "Your city", new {@class = "form-control"})
+                                                        new SelectList(Enumerable.Empty<City>(), "CityId", "Name"),
+                                                        "Your city", new {@class = "form-control"})
                                                 </div>
                                             </div>
 
 
                                             <div class="form-group">
-                                                @Html.Label("Criteria", new { @class = "col-md-3 control-label" })
+                                                @Html.Label("Criteria", new {@class = "col-md-3 control-label"})
                                                 <div class="col-md-9">
                                                     <div id="TreeTmp"></div>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                        <div class="col-md-offset-2 col-md-10">
+                                                <div class="col-md-offset-2 col-md-10">
 
-                                                        </div>
-                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+                                        @using (Html.BeginForm("Save", "Profile", FormMethod.Post))
+                                        {
                                             <div class="form-group">
-                                                        <div class="col-md-offset-2 col-md-10">
-                                                            <input type="submit" id="saveProfile"  value="Save" class="btn btn-default" />
-                                                        </div>
-                                                    </div>
+                                                <div class="col-md-offset-2 col-md-10">
+                                                    <input type="submit" id="saveProfile" value="Save" class="btn btn-default" />
+                                                </div>
+                                            </div>
                                         }
                                             </section>
                                         </div>

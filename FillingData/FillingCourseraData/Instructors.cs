@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 
 namespace FiilingData.FillingCourseraData
 {
@@ -16,6 +17,9 @@ namespace FiilingData.FillingCourseraData
         public static void FillingDataAboutInstructors()
         {
             Console.WriteLine("\nЗагрузка инфы по Инструкторам с Coursera Api ...");
+
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
 
             var url = "https://api.coursera.org/api/catalog.v1/instructors?fields=id,photo,photo150,bio,prefixName,firstName,middleName,lastName," +
             "suffixName,fullName,title,department,website,websiteTwitter,websiteFacebook,websiteLinkedin,websiteGplus,shortName";
@@ -55,7 +59,17 @@ namespace FiilingData.FillingCourseraData
                     }
                 }
 
+                stopWatch.Stop();
+
                 Console.WriteLine("Загрузка инфы по Инструкторам с Coursera Api прошла успешно !");
+
+                // Get the elapsed time as a TimeSpan value.
+                TimeSpan ts = stopWatch.Elapsed;
+                // Format and display the TimeSpan value.
+                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
+                Console.WriteLine("RunTime " + elapsedTime);
             }
             catch (Exception ex)
             {

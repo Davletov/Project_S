@@ -1,20 +1,27 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualBasic.FileIO;
-using Web.Models;
-using Web.UnitOfWork;
-
-namespace FiilingData
+﻿namespace FiilingData
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using Microsoft.VisualBasic.FileIO;
+    using Web.Models;
+    using Web.UnitOfWork;
+
     public class FillingCountryAndCity
     {
         public static void FillingCountriesWithCities()
         {
+            Stopwatch stopWatch = new Stopwatch();
+            Console.WriteLine("\nПарсим файлы со странами и городами ...");
+
+            stopWatch.Start();
+
             var countryList = new List<Country>();
             var countOfBadRowsInCountry = 0;
 
             // Парсим csv файл c значениями стран
-            using (var parser = new TextFieldParser(@"D:\Progamming\Project S\docs\Country.csv"))
+            using (var parser = new TextFieldParser(@"D:\Progamming\Project S\docs\Country.csv", System.Text.Encoding.UTF8))
             {
                 parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(",");
@@ -54,7 +61,7 @@ namespace FiilingData
             var cityList = new List<City>();
             var countOfBadRowsInCity = 0;
             // Парсим csv файл c значениями городов
-            using (var parser = new TextFieldParser(@"D:\Progamming\Project S\docs\City.csv"))
+            using (var parser = new TextFieldParser(@"D:\Progamming\Project S\docs\City.csv", System.Text.Encoding.UTF8))
             {
                 while (!parser.EndOfData)
                 {
@@ -82,6 +89,8 @@ namespace FiilingData
             }
 
 
+            Console.WriteLine("\nПарсинг файлов со странами и городами завершен.");
+
             // Формируем список стран (убираем дубликаты, дубликатов в csv файле много, 
             // т.к. это файл IP кодов для стран, строки с одинаковыми странами дублируются)
             var groupCityList =
@@ -89,6 +98,9 @@ namespace FiilingData
                     .GroupBy(x => x.Name)
                     .Select(x => new City { Name = x.Key, ShortNameCountry = x.Select(y => y.ShortNameCountry).FirstOrDefault() })
                     .ToList();
+
+
+            Console.WriteLine("\nСохраняем данные со странами и городами в базе ...");
 
             // Если есть данные в таблице Country, то удалим их
             using (var uow = new UnitOfWork())
@@ -123,8 +135,16 @@ namespace FiilingData
                 
             }
 
-            var tmp1 = countOfBadRowsInCountry;
-            var tmp2 = countOfBadRowsInCity;
+            stopWatch.Stop();
+            Console.WriteLine("\nДанные со странами и городами успешно сохранены в базе.");
+
+            // Get the elapsed time as a TimeSpan value.
+            TimeSpan ts = stopWatch.Elapsed;
+            // Format and display the TimeSpan value.
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            Console.WriteLine("RunTime " + elapsedTime);
         }
 
     }

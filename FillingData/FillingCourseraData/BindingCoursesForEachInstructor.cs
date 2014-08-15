@@ -1,4 +1,6 @@
-﻿namespace FiilingData.FillingCourseraData
+﻿using System.Diagnostics;
+
+namespace FiilingData.FillingCourseraData
 {
     using System;
     using System.Collections.Generic;
@@ -17,6 +19,9 @@
         public static void BindingCoursesForEachInstructor()
         {
             Console.WriteLine("\nСвязывание курсов с инструкторами ...");
+
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
 
             // Url к апи, ктр достает всех инструкторов и связанные с ними курсы
             // (вытаскиваем только необходимые данные: InstructorIdFromApi и список курсов)
@@ -65,7 +70,16 @@
                     uow.Save();
                 }
 
+                stopWatch.Stop();
                 Console.WriteLine("Связывание курсов с инструкторами прошло успешно !");
+
+                // Get the elapsed time as a TimeSpan value.
+                TimeSpan ts = stopWatch.Elapsed;
+                // Format and display the TimeSpan value.
+                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
+                Console.WriteLine("RunTime " + elapsedTime);
             }
             catch (Exception ex)
             {

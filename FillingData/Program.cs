@@ -1,103 +1,53 @@
-﻿using System.Collections.ObjectModel;
-using System.IO;
-using System.Web.Script.Serialization;
-namespace FiilingData
+﻿namespace FiilingData
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Web.Models.CourseraEntity;
-    using Web.UnitOfWork;
     using FiilingData.FillingCourseraData;
     using FiilingData.FillingGlobalCriteria;
-    using FiilingData.FillingGlobalCriteria.FillingFirstLevel;
-    using Newtonsoft.Json;
-    using Web.Models;
 
     class Program
     {
-        /* Заполняем данными, скрипты желательно проводить каждый отдельно и по одному разу, иначе будут дупликаты в базе */
-        /* Идея по доработке скрипта заполнения данных :
-         * За 2 недели на курсере появилось 2 новых курса, так что возможно данный скрипт надо будет запускать и обновлять данные раз в неделю или две
-         * Полный скрипт отрабатывает около 5 минут на локальной машине.
-         * Перед выполнением скрипта надо будет добавить метод, ктр полностью очистит все таблицы. 
-         * Либо надо вытаскивать тока изменненые курсы или новые и обновлять базу (сложный вариант).*/
         static void Main(string[] args)
         {
-            /*Console.Write("Начать заполнение БД данными с Coursera ? \nВнимание, если хоть одна таблица в базе уже заполнена,\n" +
-                          "то повторная процедура заполнения приведет к дупликатам в таблицах!\n" +
-                          "Press y(yes) or n(no): ");
-            var answ = Console.ReadLine();
-            if (answ != null && answ.ToLower() == "y")
+            Console.WriteLine("1. Заполнение данными с Coursera");
+            Console.WriteLine("2. Заполнение глобальных критериев");
+            Console.WriteLine("3. Заполнение стран и городов");
+
+            Console.WriteLine("\n\nНажмите цифру соот.пункту меню или любую другую клавишу для выхода ... ");
+            var ans = Console.ReadLine();
+            int choice;
+            if (int.TryParse(ans, out choice))
             {
-
-                 FillingDataFromCoursera.FillingDataAboutCourses(); // инфа о всех курсах
-                 FillingDataFromCoursera.FillingDataAboutSessions(); // инфа о всех сессиях курса(сроки)
-                 FillingDataFromCoursera.FillingDataAboutInstructors(); // инфа о всех преподавателях
-                 FillingDataFromCoursera.FillingDataAboutUniversities(); // инфа о всех университетах
-                 FillingDataFromCoursera.FillingDataAboutCategories(); // инфа о всех категориях
-
-                 // Устанавливаем связь многие ко многим между сущностями Course and Category and etc
-                 FillingDataFromCoursera.BindingCoursesForEachCategory();
-                 FillingDataFromCoursera.BindingCoursesForEachInstructor();
-                 FillingDataFromCoursera.BindingCoursesForEachSession();
-                 FillingDataFromCoursera.BindingCoursesForEachUniversity();
-
-            }
-            Console.WriteLine("Нажмите любую клавиу для закрытия приложения ...");*/
-
-
-            // Заполняем глобальные критерии
-            FillingFirstCriteria.FillingGlobalCriteria();
-
-            using (var uow = new UnitOfWork())
-            {
-                var listCategory = uow.FirstLevelCriteriaRepository.Get().ToList();
-
-                var list = JsonConvert.SerializeObject(listCategory, Formatting.None,
-                    new JsonSerializerSettings()
-                    {
-                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                    });
-
-                string fileName = "GlobalCriteria.json";
-                string path = Path.Combine(Environment.CurrentDirectory, fileName);
-
-                using (FileStream fs = File.Open(path, FileMode.OpenOrCreate))
-                using (var sw = new StreamWriter(fs))
-                using (var jw = new JsonTextWriter(sw))
+                switch (choice)
                 {
-                    jw.Formatting = Formatting.Indented;
+                    case 1:
+                        FillingDataFromCoursera.FillingDataAboutCourses(); // инфа о всех курсах
+                        FillingDataFromCoursera.FillingDataAboutSessions(); // инфа о всех сессиях курса(сроки)
+                        FillingDataFromCoursera.FillingDataAboutInstructors(); // инфа о всех преподавателях
+                        FillingDataFromCoursera.FillingDataAboutUniversities(); // инфа о всех университетах
+                        FillingDataFromCoursera.FillingDataAboutCategories(); // инфа о всех категориях
 
-                    var serializer = new JsonSerializer();
-                    serializer.Serialize(jw, list);
+                        // Устанавливаем связь многие ко многим между сущностями Course and Category and etc
+                        FillingDataFromCoursera.BindingCoursesForEachCategory();
+                        FillingDataFromCoursera.BindingCoursesForEachInstructor();
+                        FillingDataFromCoursera.BindingCoursesForEachSession();
+                        FillingDataFromCoursera.BindingCoursesForEachUniversity();
+                        break;
+                    case 2:
+                        // Заполняем глобальные критерии
+                        FillingFirstCriteria.FillingGlobalCriteria();
+                        break;
+                    case 3:
+                        // Заполнение стран и городов
+                        FillingCountryAndCity.FillingCountriesWithCities();
+                        break;
+                    default:
+                        Console.WriteLine("Не выбрали ни одну из операций, нажмите любую клавишу для выхода ...");
+                        Console.ReadKey();
+                        break;
                 }
             }
-
-
-            // Заполнение стран и городов
-            //FillingCountryAndCity.FillingCountriesWithCities();
-
-            /*using (var uow = new UnitOfWork())
-            {
-                var list = uow.CountryRepository.Get().ToList();
-
-                var city = list.Select(x => x.Cities).ToList();
-
-                var tmp = 1;
-            }
-
-            using (var uow = new UnitOfWork())
-            {
-                var list = uow.CityRepository.Get().ToList();
-
-                var country = list.Select(city => city.Country).ToList();
-
-                var tmp = 1;
-            }*/
-
-            Console.ReadKey();
         }
+
     }
 }
 

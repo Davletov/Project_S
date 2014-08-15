@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 
 namespace FiilingData.FillingCourseraData
 {
@@ -16,6 +17,9 @@ namespace FiilingData.FillingCourseraData
         public static void FillingDataAboutSessions()
         {
             Console.WriteLine("\nЗагрузка инфы по Сессиям с Coursera Api ...");
+
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
 
             var url = "https://api.coursera.org/api/catalog.v1/sessions?fields=id,courseId,homeLink,status,active,durationString,startDay,startMonth," +
             "startYear,name,signatureTrackCloseTime,signatureTrackOpenTime,signatureTrackPrice,signatureTrackRegularPrice,eligibleForCertificates" +
@@ -56,7 +60,17 @@ namespace FiilingData.FillingCourseraData
                     }
                 }
 
+                stopWatch.Stop();
+
                 Console.WriteLine("Загрузка инфы по Сессиям с Coursera Api прошла успешно !");
+
+                // Get the elapsed time as a TimeSpan value.
+                TimeSpan ts = stopWatch.Elapsed;
+                // Format and display the TimeSpan value.
+                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
+                Console.WriteLine("RunTime " + elapsedTime);
             }
             catch (Exception ex)
             {

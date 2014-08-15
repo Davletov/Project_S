@@ -82,6 +82,12 @@ namespace Web.Controllers
             return RedirectToAction("Index", "Home"); // заглушка (переделать)
         }
 
+        public ViewResult Save(Profile profile, string values)
+        {
+
+            return View("Profile");
+        }
+
         private class ProxyGenerator 
         {
             public Guid id { get; set; }
