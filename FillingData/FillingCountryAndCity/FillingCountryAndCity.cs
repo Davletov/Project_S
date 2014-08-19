@@ -121,18 +121,12 @@
             {
                 foreach (var country in groupCountryList)
                 {
-                    var count = groupCityList.Count(x => x.ShortNameCountry == country.ShortName);
+                    var selectCities = groupCityList.Where(x => x.ShortNameCountry == country.ShortName).ToList();
+                    country.Cities = selectCities;
+                    uow.CountryRepository.Add(country);
 
-                    if (count < 5000)
-                    {
-                        var selectCities = groupCityList.Where(x => x.ShortNameCountry == country.ShortName).ToList();
-                        country.Cities = selectCities;
-                        uow.CountryRepository.Add(country);
-
-                        uow.Save();
-                    }
+                    uow.Save();
                 }
-                
             }
 
             stopWatch.Stop();

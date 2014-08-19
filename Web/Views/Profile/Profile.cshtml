@@ -31,7 +31,7 @@
             $(function () {
 
                 debugger;
-                var items = $('#ddlCountry').children();
+                var items = $('#Country').children();
                 items.each(function (index) {
                     $(this).addClass('flag.flag-ad');
                     $(this).css('color', '#FF0000');
@@ -100,14 +100,19 @@
                     });
 
                     $.ajax({
-                        url: "@Url.Action("Save", "Profile")",
-                        type: "GET",
+                        url: "@Url.Action("Profile", "Profile")",
+                        type: "POST",
                         traditional: true,
                         data: { values: JSON.stringify(checkedIds) },
                         cache: false,
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
-                        success: function (data) {}
+                        success: function(data) {
+                            var tmp = data;
+                        },
+                        error: function(obj, status, err) {
+                            var tmp = err;
+                        }
                     });
                 }
 
@@ -241,7 +246,7 @@
                                                 <div class="col-md-9">
                                                     @Html.DropDownListFor(m => m.Country,
                                                         new SelectList((List<Country>) ViewData["countryList"], "CountryId", "Name"),
-                                                        "Your country", new {@class = "form-control", @id = "ddlCountry"})
+                                                        "Your country", new {@class = "form-control"})
                                                 </div>
                                             </div>
 
@@ -267,10 +272,7 @@
 
                                                 </div>
                                             </div>
-                                        }
 
-                                        @using (Html.BeginForm("Save", "Profile", FormMethod.Post))
-                                        {
                                             <div class="form-group">
                                                 <div class="col-md-offset-2 col-md-10">
                                                     <input type="submit" id="saveProfile" value="Save" class="btn btn-default" />

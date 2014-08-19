@@ -13,6 +13,14 @@ namespace Web.Controllers
     public class ProfileController : Controller
     {
         // Метод для сохранения данных с профайла (переделать, разбить на методы)
+        [HttpGet]
+        public ActionResult Profile()
+        {
+            ViewData["countryList"] = LocationController.GetCountries();
+            return View();
+        }
+
+        [HttpPost]
         public ActionResult Profile(Profile profile, string values)
         {
             var currentUserName = User.Identity.Name;
@@ -72,7 +80,7 @@ namespace Web.Controllers
 
                         uow.ProfileRepository.Update(profile);
                     }
-                    uow.Save();
+                    //uow.Save();
                 }
 
                 ViewData["countryList"] = LocationController.GetCountries();
@@ -82,9 +90,22 @@ namespace Web.Controllers
             return RedirectToAction("Index", "Home"); // заглушка (переделать)
         }
 
-        public ViewResult Save(Profile profile, string values)
+        [HttpPost]
+        public ActionResult Save(Profile profile, string values)
         {
+            var res = Request["Model"];
+            //var profile = new Profile();
+            if (TryUpdateModel(profile))
+            {
+                var tmp = profile;
 
+            }
+            else
+            {
+                ViewBag.Message = "Во время редактирования возникли ошибки";
+            }
+
+            ViewData["countryList"] = LocationController.GetCountries();
             return View("Profile");
         }
 

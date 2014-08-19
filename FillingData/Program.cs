@@ -42,10 +42,11 @@
                         break;
                     default:
                         Console.WriteLine("Не выбрали ни одну из операций, нажмите любую клавишу для выхода ...");
-                        Console.ReadKey();
                         break;
                 }
             }
+
+            Console.ReadKey();
         }
 
     }
