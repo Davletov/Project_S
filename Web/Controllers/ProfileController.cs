@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web.Script.Serialization;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
+using Web.Enum;
 using Web.Models;
+using Web.Models.Criteria;
 
 namespace Web.Controllers
 {
@@ -17,12 +20,39 @@ namespace Web.Controllers
         public ActionResult Profile()
         {
             ViewData["countryList"] = LocationController.GetCountries();
-            return View();
+
+            var currentUserId = User.Identity.GetUserId();
+            if (currentUserId != null)
+            {
+                Profile profile = null;
+                using (var uow = new UnitOfWork.UnitOfWork())
+                {
+                    var profileQuery = uow.ProfileRepository.Get(x => x.Id == currentUserId);
+
+                    if (profileQuery != null)
+                    {
+                        var lists = profileQuery.Select(x => new
+                        {
+                            x.FirstLevelCriteria,
+                            x.SecondLevelCriteria,
+                            x.ThirdLevelCriteria
+                        }).ToList();
+
+                        profile = profileQuery.FirstOrDefault();
+                    }
+                }
+
+                return profile != null ? View(profile) : View();
+            }
+            return RedirectToAction("Index", "Home"); // заглушка (переделать)
         }
 
         [HttpPost]
-        public ActionResult Profile(Profile profile, string values)
+        public ActionResult Profile(string values, string model)
         {
+            var jsTool = new JavaScriptSerializer();
+            var formProxyObj = jsTool.Deserialize<FormProxy>(model);
+
             var currentUserName = User.Identity.Name;
             var currentUserId = User.Identity.GetUserId();
 
@@ -35,52 +65,133 @@ namespace Web.Controllers
                     criteriaData = jss.Deserialize<List<ProxyGenerator>>(values);
                 }
 
+                Profile profile = null;
                 using (var uow = new UnitOfWork.UnitOfWork())
                 {
-                    profile = uow.ProfileRepository.Get(x => x.UserId == currentUserId).FirstOrDefault();
+                    var profileQuery = uow.ProfileRepository.Get(x => x.Id == currentUserId);
 
-                    if (criteriaData != null)
-                    {
-                        foreach (var criteria in criteriaData)
-                        {
-                            switch (criteria.level)
-                            {
-                                case 1:
-                                    if (profile != null)
-                                    {
-                                        var firstLevelCriteria = uow.FirstLevelCriteriaRepository.GetById(criteria.id);
-                                        profile.FirstLevelCriteria.Add(firstLevelCriteria);
-                                    }
-                                    break;
-                                case 2:
-                                    if (profile != null)
-                                    {
-                                        var secondLevelCriteria = uow.SecondLevelCriteriaRepository.GetById(criteria.id);
-                                        profile.SecondLevelCriteria.Add(secondLevelCriteria);
-                                    }
-                                    break;
-                                case 3:
-                                    if (profile != null)
-                                    {
-                                        var thirdLevelCriteria = uow.ThirdLevelCriteriaRepository.GetById(criteria.id);
-                                        profile.ThirdLevelCriteria.Add(thirdLevelCriteria);
-                                    }
-                                    break;
-                            }
-                        }
-                    }
-
-                    if (profile == null)
+                    if (profileQuery.FirstOrDefault() == null)
                     {
                         profile = new Profile {UserId = currentUserId, LoginName = currentUserName};
+                        profile.LoginName = formProxyObj.LoginName;
+                        if (formProxyObj.BirthDay != null) profile.BirthDay = (int)formProxyObj.BirthDay;
+                        if (formProxyObj.BirthMonth != null) profile.BirthMonth = (int)formProxyObj.BirthMonth;
+                        if (formProxyObj.BirthYear != null) profile.BirthYear = (int)formProxyObj.BirthYear;
+
+                        UserSocialStatus var;
+                        var boolTmp = UserSocialStatus.TryParse(formProxyObj.UserSocialStatus, false, out var);
+                        profile.UserSocialStatus = boolTmp ? var : UserSocialStatus.Other;
+
+                        int countryId;
+                        int cityId;
+                        int.TryParse(formProxyObj.Country, out countryId);
+                        int.TryParse(formProxyObj.City, out cityId);
+                        profile.Country = countryId;
+                        profile.City = cityId;
+
+                        profile.CreateDate = new DateTime(2014, 8, 22);
+                        profile.FirstName = "test1";
+                        profile.LastName = "test2";
+
+                        if (criteriaData != null)
+                        {
+                            profile.FirstLevelCriteria = new Collection<FirstLevelCriteria>();
+                            profile.SecondLevelCriteria = new Collection<SecondLevelCriteria>();
+                            profile.ThirdLevelCriteria = new Collection<ThirdLevelCriteria>();
+                            foreach (var criteria in criteriaData)
+                            {
+                                switch (criteria.level)
+                                {
+                                    case 1:
+                                        var firstLevelCriteria = uow.FirstLevelCriteriaRepository.GetById(criteria.id);
+                                        profile.FirstLevelCriteria.Add(firstLevelCriteria);
+                                        break;
+                                    case 2:
+                                        var secondLevelCriteria = uow.SecondLevelCriteriaRepository.GetById(criteria.id);
+                                        profile.SecondLevelCriteria.Add(secondLevelCriteria);
+                                        break;
+                                    case 3:
+                                        var thirdLevelCriteria = uow.ThirdLevelCriteriaRepository.GetById(criteria.id);
+                                        profile.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                                        break;
+                                }
+                            }
+                        }
+
                         uow.ProfileRepository.Add(profile);
                     }
                     else
                     {
+                        profile = profileQuery.FirstOrDefault();
+                        profile.LoginName = formProxyObj.LoginName;
+                        if (formProxyObj.BirthDay != null) profile.BirthDay = (int)formProxyObj.BirthDay;
+                        if (formProxyObj.BirthMonth != null) profile.BirthMonth = (int)formProxyObj.BirthMonth;
+                        if (formProxyObj.BirthYear != null) profile.BirthYear = (int)formProxyObj.BirthYear;
+
+                        UserSocialStatus var;
+                        var boolTmp = UserSocialStatus.TryParse(formProxyObj.UserSocialStatus, false, out var);
+                        profile.UserSocialStatus = boolTmp ? var : UserSocialStatus.Other;
+
+                        int countryId;
+                        int cityId;
+                        int.TryParse(formProxyObj.Country, out countryId);
+                        int.TryParse(formProxyObj.City, out cityId);
+                        profile.Country = countryId;
+                        profile.City = cityId;
+
+                        profile.CreateDate = new DateTime(2014, 8, 22);
+                        profile.FirstName = "test1";
+                        profile.LastName = "test2";
+
+                        if (criteriaData != null)
+                        {
+                            var firstQuery = profileQuery.Select(x => x.FirstLevelCriteria).FirstOrDefault();
+                            var secondQuery = profileQuery.Select(x => x.SecondLevelCriteria).FirstOrDefault();
+                            var thirdQuery = profileQuery.Select(x => x.ThirdLevelCriteria).FirstOrDefault();
+
+                            profile.FirstLevelCriteria = firstQuery ?? new Collection<FirstLevelCriteria>();
+                            profile.SecondLevelCriteria = secondQuery ?? new Collection<SecondLevelCriteria>();
+                            profile.ThirdLevelCriteria = thirdQuery ?? new Collection<ThirdLevelCriteria>();
+
+                            bool exist;
+                            foreach (var criteria in criteriaData)
+                            {
+                                switch (criteria.level)
+                                {
+                                    case 1:
+                                        var firstLevelCriteria = uow.FirstLevelCriteriaRepository.GetById(criteria.id);
+                                        exist = profile.FirstLevelCriteria.Any(x => x == firstLevelCriteria);
+                                        if (!exist)
+                                        {
+                                            profile.FirstLevelCriteria.Add(firstLevelCriteria);
+                                        }
+                                        break;
+                                    case 2:
+                                        var secondLevelCriteria = uow.SecondLevelCriteriaRepository.GetById(criteria.id);
+                                        exist = profile.SecondLevelCriteria.Any(x => x == secondLevelCriteria);
+                                        if (!exist)
+                                        {
+                                            profile.SecondLevelCriteria.Add(secondLevelCriteria);
+                                        }
+                                        break;
+                                    case 3:
+                                        var thirdLevelCriteria = uow.ThirdLevelCriteriaRepository.GetById(criteria.id);
+                                        exist = profile.ThirdLevelCriteria.Any(x => x == thirdLevelCriteria);
+                                        if (!exist)
+                                        {
+                                            profile.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                                        }
+                                        break;
+                                }
+                            }
+                        }
 
                         uow.ProfileRepository.Update(profile);
                     }
-                    //uow.Save();
+
+
+
+                    uow.Save();
                 }
 
                 ViewData["countryList"] = LocationController.GetCountries();
@@ -90,29 +201,42 @@ namespace Web.Controllers
             return RedirectToAction("Index", "Home"); // заглушка (переделать)
         }
 
-        [HttpPost]
-        public ActionResult Save(Profile profile, string values)
+        public class FormProxy
         {
-            var res = Request["Model"];
-            //var profile = new Profile();
-            if (TryUpdateModel(profile))
-            {
-                var tmp = profile;
-
-            }
-            else
-            {
-                ViewBag.Message = "Во время редактирования возникли ошибки";
-            }
-
-            ViewData["countryList"] = LocationController.GetCountries();
-            return View("Profile");
+            public string LoginName { get; set; }
+            public int? BirthDay { get; set; }
+            public int? BirthMonth { get; set; }
+            public int? BirthYear { get; set; }
+            public string UserSocialStatus { get; set; }
+            public string Country { get; set; }
+            public string City { get; set; }
         }
 
         private class ProxyGenerator 
         {
             public Guid id { get; set; }
             public int level { get; set; }
+        }
+
+        [HttpPost]
+        public ActionResult GetCriteria()
+        {
+            var currentUserId = User.Identity.GetUserId();
+            var listCriteriaIds = new List<Guid>();
+            using (var uow = new UnitOfWork.UnitOfWork())
+            {
+                if (currentUserId != null)
+                {
+                    var first = uow.ProfileRepository.GetById(currentUserId).FirstLevelCriteria.Select(x => x.Id).ToList();
+                    var second = uow.ProfileRepository.GetById(currentUserId).SecondLevelCriteria.Select(x => x.Id).ToList();
+                    var third = uow.ProfileRepository.GetById(currentUserId).ThirdLevelCriteria.Select(x => x.Id).ToList();
+                    listCriteriaIds.AddRange(first);
+                    listCriteriaIds.AddRange(second);
+                    listCriteriaIds.AddRange(third);
+                }
+            }
+
+            return Json(listCriteriaIds);
         }
 
         [HttpPost]

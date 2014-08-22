@@ -285,6 +285,10 @@
     <Compile Include="Migrations\201408141134298_BindProfileWithCriterias.Designer.cs">
       <DependentUpon>201408141134298_BindProfileWithCriterias.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201408220719365_FixProfile.cs" />
+    <Compile Include="Migrations\201408220719365_FixProfile.Designer.cs">
+      <DependentUpon>201408220719365_FixProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CourseraEntity\Category.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -388,6 +392,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408141134298_BindProfileWithCriterias.resx">
       <DependentUpon>201408141134298_BindProfileWithCriterias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408220719365_FixProfile.resx">
+      <DependentUpon>201408220719365_FixProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

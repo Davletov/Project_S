@@ -1,4 +1,6 @@
-﻿namespace Web.Controllers
+﻿using Microsoft.AspNet.Identity;
+
+namespace Web.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
@@ -24,7 +26,6 @@
             return countryList;
         }
 
-
         /// <summary>
         /// Список всех городов выбранной страны
         /// </summary>
@@ -34,19 +35,28 @@
         public ActionResult Cities(int countryId)
         {
             var cities = new List<CityProxy>();
+            var currentUserId = User.Identity.GetUserId();
+            int cityId = 0;
             using (var uow = new UnitOfWork.UnitOfWork())
             {
                 cities = uow.CityRepository.Get(x => x.Country.CountryId == countryId)
                     .Select(x =>
                         new CityProxy
                         {
-                            CityId = x.CountryId,
+                            CityId = x.CityId,
                             Name = x.Name,
                         })
                         .ToList();
+
+                if (currentUserId != null)
+                {
+                    cityId = uow.ProfileRepository.GetById(currentUserId).City;
+                }
             }
 
-            return Json(new SelectList(cities, "CityId", "Name"));
+            var data = new SelectList(cities, "CityId", "Name");
+
+            return Json(new { data, cityId });
         }
 
         private class CityProxy

@@ -19,7 +19,7 @@
     <script type="text/javascript" src="~/Scripts/cuf_run.js"></script>   
   
     <script type="text/javascript" src="~/Scripts/BusinessLogic/selectLocation.js"></script> <!-- Выбор страны и города -->
-    
+
     <link rel="stylesheet" href="~/Scripts/dist/themes/default/style.min.css" />
     <script src="~/Scripts/dist/libs/jquery.js"></script>
     <script src="~/Scripts/dist/jstree.min.js"></script>
@@ -29,8 +29,6 @@
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $(function () {
-
-                debugger;
                 var items = $('#Country').children();
                 items.each(function (index) {
                     $(this).addClass('flag.flag-ad');
@@ -52,6 +50,24 @@
         jQuery(document).ready(function ($) {
             Refresh($);    
         });
+
+        function getCriteria($) {
+            $.ajax({
+                url: "/Profile/GetCriteria",
+                dataType: "json",
+                type: "POST",
+                error: function () {
+                    alert("An error occurred.");
+                },
+                success: function (listCriteriaIds) {
+                    listCriteriaIds.forEach(function(id) {
+                        $('#TreeTmp').jstree("select_node", id);
+                    });
+                    $('#TreeTmp').jstree('close_all'); // сворачиваем дерево (возможно будет красиво не сворачивать его)
+                }
+            });
+        }
+
 
         function Refresh($) {
             $('#TreeTmp')
@@ -75,6 +91,9 @@
                     },
 
                     "plugins": ["themes", "checkbox", "unique"]
+                })
+                .on('loaded.jstree', function (e, data) {
+                    getCriteria($);
                 });
         }
     </script>
@@ -83,9 +102,26 @@
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $(function () {
-                $("#saveProfile").click(function () {
+                $("#saveProfile").click(function (event) {
+                    event.preventDefault();
                     submitMe();
                 });
+
+                $.fn.serializeObject = function () {
+                    var o = {};
+                    var a = this.serializeArray();
+                    $.each(a, function () {
+                        if (o[this.name]) {
+                            if (!o[this.name].push) {
+                                o[this.name] = [o[this.name]];
+                            }
+                            o[this.name].push(this.value || '');
+                        } else {
+                            o[this.name] = this.value || '';
+                        }
+                    });
+                    return o;
+                };
 
                 function submitMe() {
                     var checkedIds = [];
@@ -99,13 +135,15 @@
                         checkedIds.push(obj);
                     });
 
+                    var form = $('#ProfileForm');
                     $.ajax({
                         url: "@Url.Action("Profile", "Profile")",
+                        async: false,
                         type: "POST",
                         traditional: true,
-                        data: { values: JSON.stringify(checkedIds) },
+                        data: { values: JSON.stringify(checkedIds), model: JSON.stringify(form.serializeObject()) },
                         cache: false,
-                        contentType: "application/json; charset=utf-8",
+                        //contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function(data) {
                             var tmp = data;
@@ -196,7 +234,7 @@
                             <div class="row">
                                 <div class="col-md-9">
                                     <section id="loginForm">
-                                        @using (Html.BeginForm("Profile", "Profile", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                                        @using (Html.BeginForm("Profile", "Profile", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form", id = "ProfileForm"}))
                                         {
                                             @Html.ValidationSummary(true)
                                             <div class="form-group">

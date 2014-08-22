@@ -1,4 +1,7 @@
-﻿using Web.Models;
+﻿using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+using Web.Models;
 using Web.Models.Criteria;
 
 namespace Web.UnitOfWork
@@ -133,7 +136,35 @@ namespace Web.UnitOfWork
 
         public void Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                foreach (var exc in e.Entries)
+                {
+                    Debug.WriteLine(e.InnerException);
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+
+                /* Добавить логирование в проект */
+
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+
         }
 
         private bool _disposed; // false by deafult

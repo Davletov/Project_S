@@ -29,9 +29,9 @@ namespace Web.Models
 
         public int BirthYear { get; set; }
 
-        public virtual Country Country { get; set; } 
+        public int Country { get; set; } 
 
-        public virtual City City { get; set; }
+        public int City { get; set; }
 
         public UserSocialStatus UserSocialStatus { get; set; }
 
