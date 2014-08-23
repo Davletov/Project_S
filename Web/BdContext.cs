@@ -8,7 +8,10 @@
 
     public class BdContext : IdentityDbContext
     {
-        public BdContext():base("BdContext"){}
+        public BdContext() : base("BdContext")
+        {
+            //Database.SetInitializer(new DropCreateDatabaseAlways<BdContext>());
+        }
 
         public DbSet<Category> Categories { get; set; }
 
@@ -33,7 +36,7 @@
         public DbSet<Country> Countries { get; set; }
 
         public DbSet<City> Cities { get; set; }
-        
+                
         /// <summary>
 
         /// </summary>
