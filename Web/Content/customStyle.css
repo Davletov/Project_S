@@ -1,20 +1,29 @@
 ﻿.custom-combobox {
-        position: relative;
-        display: inline-block;
-    }
- 
-    .custom-combobox-toggle {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        margin-left: -1px;
-        padding: 0;
-        /* support: IE7 */
-        *height: 1.7em;
-        *top: 0.1em;
-    }
- 
-    .custom-combobox-input {
-        margin: 0;
-        padding: 0.3em;
-    }
+    position: relative;
+    display: inline-block;
+  }
+  .custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+  }
+  .custom-combobox-input {
+    margin: 0;
+    padding: 5px 10px;
+
+  }
+  .ui-autocomplete {
+    max-height: 500px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+
+  }
+  /* IE 6 doesn't support max-height
+   * we use height instead, but this forces the menu to always be this tall
+   */
+  * html .ui-autocomplete {
+    height: 500px;
+  }

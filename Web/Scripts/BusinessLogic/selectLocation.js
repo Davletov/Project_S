@@ -17,11 +17,17 @@ function getCities(countryId) {
 
             city.html(items);
 
-            city.val(object.cityId);
+            /* get City for this profile
+             * $('#City').val(object.cityId); Just this command not work
+             * It's not beautiful but it's working */
+            $('#City').val(object.cityId);
+            var textToShow = $('#City').find(":selected").text();
+            $('#City').parent().find("span").find("input").val(textToShow);
         }
     });
 }
 
+/*
 // при смене страны меняем список городов
 $(document).ready(function () {
     var country = $("#Country");
@@ -36,6 +42,6 @@ $(document).ready(function () {
 
         getCities(newCountryId);
     });
-});
+});*/
 
 

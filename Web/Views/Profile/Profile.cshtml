@@ -10,6 +10,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="../../Content/style.css" rel="stylesheet" type="text/css" />
     <link href="../../Content/flags.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/themes/base/minified/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/customStyle.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="~/Scripts/jquery-2.1.1.min.js"></script>   
     <script type="text/javascript" src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
 
@@ -21,7 +23,7 @@
     <script type="text/javascript" src="~/Scripts/BusinessLogic/selectLocation.js"></script> <!-- Выбор страны и города -->
 
     <link rel="stylesheet" href="~/Scripts/dist/themes/default/style.min.css" />
-    <script src="~/Scripts/dist/libs/jquery.js"></script>
+    <!--<script src="~/Scripts/dist/libs/jquery.js"></script>-->
     <script src="~/Scripts/dist/jstree.min.js"></script>
     
     <!-- Вынести все скрипты в отдельные файлы после оптимизации -->
@@ -160,29 +162,157 @@
     
     <!-- Автодополнение для комбобокса Counry (пока не работает) -->
     <script type="text/javascript">
-            /*jQuery(function ($){
-                var $country = $('#Country');
-                $country.autocomplete( // не работает !!!!!!!!!!!!!!!!!!!
-                    {
-                        source: function (request, response) {
-                            $.ajax(
-                                {
-                                    url: "/Location/FindByName", type: "GET", dataType: "json",
-                                    data: { searchText: request.term, maxResults: 10 },
-                                    contentType: "application/json; charset=utf-8",
-                                    success: function (data) {
-                                        var t = data;
-                                    },
+        (function ($) {
+            $.widget("custom.combobox", {
+                _create: function () {
+                    this.wrapper = $("<span>")
+                      .addClass("custom-combobox")
+                      .insertAfter(this.element);
 
-                                });
+                    this.element.hide();
+                    this._createAutocomplete();
+                    this._createShowAllButton();
+                },
+
+                _createAutocomplete: function () {
+                    var selected = this.element.children(":selected"),
+                      value = selected.val() ? selected.text() : "";
+
+                    this.input = $("<input>")
+                      .appendTo(this.wrapper)
+                      .val(value)
+                      .attr("title", "")
+                      .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
+                      .autocomplete({
+                          delay: 0,
+                          minLength: 0,
+                          source: $.proxy(this, "_source")
+                      })
+                      .tooltip({
+                          tooltipClass: "ui-state-highlight"
+                      });
+
+                    this._on(this.input, {
+                        autocompleteselect: function (event, ui) {
+                            ui.item.option.selected = true;
+                            var typeCombo = ui.item.option.parentNode.name; // get Country or City combobox
+                            if (typeCombo == "Country"){
+                                var countryId = ui.item.option.value;
+                                if (countryId.length > 0) {
+                                    getCities(countryId); // reload Cities for selected Country
+                                }
+                            }
+                            
+                            this._trigger("select", event, {
+                                item: ui.item.option
+                            });
                         },
-                        select: function (event, ui) {
-                            $('#Country').val(ui.item.id);
-                        },
-                        minLength: 1
+
+                        autocompletechange: "_removeIfInvalid"
+                    });
+                },
+
+                _createShowAllButton: function () {
+                    var input = this.input,
+                      wasOpen = false;
+
+                    $("<a>")
+                      .attr("tabIndex", -1)
+                      .attr("title", "Show All Items")
+                      .tooltip()
+                      .appendTo(this.wrapper)
+                      .button({
+                          icons: {
+                              primary: "ui-icon-triangle-1-s"
+                          },
+                          text: false
+                      })
+                      .removeClass("ui-corner-all")
+                      .addClass("custom-combobox-toggle ui-corner-right")
+                      .mousedown(function () {
+                          wasOpen = input.autocomplete("widget").is(":visible");
+                      })
+                      .click(function () {
+                          input.focus();
+
+                          // Close if already visible
+                          if (wasOpen) {
+                              return;
+                          }
+
+                          // Pass empty string as value to search for, displaying all results
+                          input.autocomplete("search", "");
+                      });
+                },
+
+                _source: function (request, response) {
+                    var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                    response(this.element.children("option").map(function() {
+                        var text = $(this).text();
+                        if (this.value && (!request.term || matcher.test(text)))
+                            return {
+                                label: text,
+                                value: text,
+                                option: this
+                            };
+                    }));
+                },
+
+                _removeIfInvalid: function (event, ui) {
+
+                    // Selected an item, nothing to do
+                    if (ui.item) {
+                        return;
+                    }
+
+                    // Search for a match (case-insensitive)
+                    var value = this.input.val(),
+                      valueLowerCase = value.toLowerCase(),
+                      valid = false;
+                    this.element.children("option").each(function () {
+                        if ($(this).text().toLowerCase() === valueLowerCase) {
+                            this.selected = valid = true;
+                            return false;
+                        }
                     });
 
-            });*/
+                    // Found a match, nothing to do
+                    if (valid) {
+                        return;
+                    }
+
+                    // Remove invalid value
+                    this.input
+                      .val("")
+                      .attr("title", value + " didn't match any item")
+                      .tooltip("open");
+                    this.element.val("");
+                    this._delay(function () {
+                        this.input.tooltip("close").attr("title", "");
+                    }, 2500);
+                    this.input.autocomplete("instance").term = "";
+                },
+
+                _destroy: function () {
+                    this.wrapper.remove();
+                    this.element.show();
+                }
+            });
+        })(jQuery);
+
+        jQuery(document).ready(function($) {
+            $(function () {
+
+                var countryId = $("#Country").val();
+                if (countryId.length > 0) {
+                    getCities(countryId);
+                }
+
+                $("#Country").combobox();
+                $("#City").combobox();
+            });
+        });
+
         </script>
     
 
@@ -215,7 +345,7 @@
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     </ul>
                 </div>
-                <div class="hbg"><img src="~/Images/header_images.jpg" width="923" height="291" alt="" /></div>
+                <!--<div class="hbg"><img src="~/Images/header_images.jpg" width="923" height="291" alt="" /></div>-->
             </div>
             <div class="content">
                 <div class="content_bg">
@@ -278,13 +408,12 @@
                                                 </div>
                                             </div>
 
-
                                             <div class="form-group">
                                                 @Html.Label("Country", new {@class = "col-md-3 control-label"})
                                                 <div class="col-md-9">
                                                     @Html.DropDownListFor(m => m.Country,
                                                         new SelectList((List<Country>) ViewData["countryList"], "CountryId", "Name"),
-                                                        "Your country", new {@class = "form-control"})
+                                                        "Your country", new { @class = "form-control" })
                                                 </div>
                                             </div>
 
@@ -305,13 +434,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <div class="col-md-offset-2 col-md-10">
-
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
+                                             <div class="form-group">
                                                 <div class="col-md-offset-2 col-md-10">
                                                     <input type="submit" id="saveProfile" value="Save" class="btn btn-default" />
                                                 </div>
