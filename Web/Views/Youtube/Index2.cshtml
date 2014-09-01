@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Web.Models.YouTube.YoutubeMaterial>
+﻿@using Web.Models.YouTube
+@model List<Web.Models.YouTube.YoutubeMaterial>
 @{
     ViewBag.Title = "Index";
 }
@@ -53,26 +54,31 @@
             <div class="content">
                 <div class="content_bg">
                     <div class="mainbar">
-
-                        @{
-                            foreach (var crs in Model)
+                        <div id="filter_bar">
+                            @foreach (var criteria in ViewBag.SecondLevelCriterias as List<string>)
+                            {
+                                @Html.ActionLink(criteria, "Index2", "Youtube", new { criteriaName = criteria}, null)
+                            }
+                        </div>
+                        @{                                                        
+                            foreach (YoutubeMaterial youtubeMaterial in @Model)
                             {
                                 <div class="article">
-                                    <h2><span>@crs.Name</span></h2>
+                                    <h2><span>@youtubeMaterial.Name</span></h2>
                                     <object width="425" height="355">
-                                        <param name="movie" value="https://www.youtube.com/v/@crs.VideoId"></param>
+                                        <param name="movie" value="https://www.youtube.com/v/@youtubeMaterial.VideoId"></param>
                                         <param name="allowFullScreen" value="true"></param>
-                                        <embed src="https://www.youtube.com/v/@crs.VideoId"
+                                        <embed src="https://www.youtube.com/v/@youtubeMaterial.VideoId"
                                                type="application/x-shockwave-flash"
                                                width="425" height="355"
                                                allowfullscreen="true"></embed>
                                     </object>
-                                    <p>@crs.Description</p>
+                                    <p>@youtubeMaterial.Description</p>
                                 </div>
                             }
-                        }
-                        <a href=@Url.Action("Index2", new { pageToken = ViewBag.PrevPageToken })><<</a>
-                        <a href=@Url.Action("Index2", new { pageToken = ViewBag.NextPageToken })>>></a>
+                        }                        
+                        <a href=@Url.Action("Index2", new { pageToken = ViewBag.PrevPageToken, criteriaName = ViewBag.CriteriaName })><<</a>
+                        <a href=@Url.Action("Index2", new { pageToken = ViewBag.NextPageToken, criteriaName = ViewBag.CriteriaName })>>></a>
                         
                     </div>
                     <div class="sidebar">
@@ -125,6 +131,6 @@
             <p class="rf">2014</p>
             <div class="clr"></div>
         </div>
-    </div>
+    </div>    
 </body>
 </html>
