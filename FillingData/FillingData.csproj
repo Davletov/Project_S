@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -85,6 +86,14 @@
     <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_HumanitiesSciences.cs" />
     <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_NaturalSciences.cs" />
     <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_SecondLevelCriteria.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_Journalism.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_HumanPerformanceRecreation.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_HealthcareScience.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_FamilyAndConsumer.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_EnvironmentalAndForestry.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_Education.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_Divinity.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_Business.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_Agriculture.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_ArchitectureAndDesign.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\EngineeringSciences\Filling_ChemicalEngineering.cs" />
