@@ -1,5 +1,6 @@
 ﻿namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 {
+    using System.Collections.Generic;
     using Web.Models.Criteria;
     using Web.UnitOfWork;
 
@@ -7,17 +8,26 @@
     {
         public static void Filling_ChemicalEngineering(ref SecondLevelCriteria chemicalEngineering, UnitOfWork uow)
         {
-            var item_1 = new ThirdLevelCriteria { Name = "Biochemical Engineering", Tags = "biochemical engineering,bioengineering", SecondLevelCriteria = chemicalEngineering };
+            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            {
+                new ThirdLevelCriteria { Name = "Biochemical Engineering", Tags = "biochemical engineering,bioengineering", SecondLevelCriteria = chemicalEngineering },
+                new ThirdLevelCriteria { Name = "Catalysis", Tags = "catalysis", SecondLevelCriteria = chemicalEngineering },
+                new ThirdLevelCriteria { Name = "Molecular engineering", Tags = "molecular engineering", SecondLevelCriteria = chemicalEngineering },
+                new ThirdLevelCriteria { Name = "Nanotechnology", Tags = "nanotechnology", SecondLevelCriteria = chemicalEngineering },
+                new ThirdLevelCriteria { Name = "Polymer engineering", Tags = "polymer engineering", SecondLevelCriteria = chemicalEngineering },
+                new ThirdLevelCriteria { Name = "Petroleum engineering", Tags = "petroleum engineering,process design", SecondLevelCriteria = chemicalEngineering },
+                new ThirdLevelCriteria { Name = "Nuclear engineering", Tags = "nuclear engineering,process design", SecondLevelCriteria = chemicalEngineering },
+                new ThirdLevelCriteria { Name = "Food engineering", Tags = "food engineering,process design", SecondLevelCriteria = chemicalEngineering },
+                new ThirdLevelCriteria { Name = "Reaction engineering", Tags = "reaction engineering", SecondLevelCriteria = chemicalEngineering },
+                new ThirdLevelCriteria { Name = "Thermodynamics", Tags = "thermodynamics", SecondLevelCriteria = chemicalEngineering },
+                new ThirdLevelCriteria { Name = "Transport phenomena", Tags = "transport phenomena", SecondLevelCriteria = chemicalEngineering }
+            };
 
-            var item_2 = new ThirdLevelCriteria { Name = "Catalysis", Tags = "catalysis", SecondLevelCriteria = chemicalEngineering };
-
-            /* продолжить */
-
-            uow.ThirdLevelCriteriaRepository.Add(item_1);
-            uow.ThirdLevelCriteriaRepository.Add(item_2);
-
-            chemicalEngineering.ThirdLevelCriteria.Add(item_1);
-            chemicalEngineering.ThirdLevelCriteria.Add(item_2);
+            foreach (var thirdLevelCriteria in tmpThirdCritList)
+            {
+                uow.ThirdLevelCriteriaRepository.Add(thirdLevelCriteria);
+                chemicalEngineering.ThirdLevelCriteria.Add(thirdLevelCriteria);
+            }
         }
     }
 }

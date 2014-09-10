@@ -103,6 +103,8 @@
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_Agriculture.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_ArchitectureAndDesign.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\EngineeringSciences\Filling_ChemicalEngineering.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\EngineeringSciences\Filling_CivilEngineering.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\EngineeringSciences\Filling_ElectricalEngineering.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\EngineeringSciences\Filling_MechanicalEngineering.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\FormalSciences\Filling_AppliedMathematics.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\FormalSciences\Filling_ComputerSciences.cs" />
