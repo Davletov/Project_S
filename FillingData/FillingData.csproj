@@ -86,6 +86,12 @@
     <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_HumanitiesSciences.cs" />
     <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_NaturalSciences.cs" />
     <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_SecondLevelCriteria.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_Transportation.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_SocialWork.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_PublicAdministration.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_Military.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_LibraryMuseum.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_Law.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_Journalism.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_HumanPerformanceRecreation.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_HealthcareScience.cs" />

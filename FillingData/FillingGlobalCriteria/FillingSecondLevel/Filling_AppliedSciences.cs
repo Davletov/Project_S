@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-
-namespace FiilingData.FillingGlobalCriteria.FillingSecondLevel
+﻿namespace FiilingData.FillingGlobalCriteria.FillingSecondLevel
 {
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using Web.Models.Criteria;
+
     using Web.UnitOfWork;
+    using Web.Models.Criteria;
     using FiilingData.FillingGlobalCriteria.FillingThirdLevel;
 
     public partial class FillingSecondLevelCriteria
@@ -51,8 +51,30 @@ namespace FiilingData.FillingGlobalCriteria.FillingSecondLevel
             var item_10 = new SecondLevelCriteria { Name = "Journalism, media studies and communication", Tags = "journalism, media studies and communication", FirstLevelCriteria = appliedSciences, ThirdLevelCriteria = new Collection<ThirdLevelCriteria>() };
             FillingThirdLevelCriteria.Filling_Journalism(ref item_10, uow);
             tmpSecondCritList.Add(item_10);
-            /* продолжить */
 
+            var item_11 = new SecondLevelCriteria { Name = "Law", Tags = "law", FirstLevelCriteria = appliedSciences, ThirdLevelCriteria = new Collection<ThirdLevelCriteria>() };
+            FillingThirdLevelCriteria.Filling_Law(ref item_11, uow);
+            tmpSecondCritList.Add(item_11);
+
+            var item_12 = new SecondLevelCriteria { Name = "Library and museum studies", Tags = "library studies,museum studies", FirstLevelCriteria = appliedSciences, ThirdLevelCriteria = new Collection<ThirdLevelCriteria>() };
+            FillingThirdLevelCriteria.Filling_LibraryMuseum(ref item_12, uow);
+            tmpSecondCritList.Add(item_12);
+
+            var item_13 = new SecondLevelCriteria { Name = "Military sciences", Tags = "military sciences", FirstLevelCriteria = appliedSciences, ThirdLevelCriteria = new Collection<ThirdLevelCriteria>() };
+            FillingThirdLevelCriteria.Filling_Military(ref item_13, uow);
+            tmpSecondCritList.Add(item_13);
+
+            var item_14 = new SecondLevelCriteria { Name = "Public administration", Tags = "public administration", FirstLevelCriteria = appliedSciences, ThirdLevelCriteria = new Collection<ThirdLevelCriteria>() };
+            FillingThirdLevelCriteria.Filling_PublicAdministration(ref item_14, uow);
+            tmpSecondCritList.Add(item_14);
+
+            var item_15 = new SecondLevelCriteria { Name = "Social work", Tags = "social work", FirstLevelCriteria = appliedSciences, ThirdLevelCriteria = new Collection<ThirdLevelCriteria>() };
+            FillingThirdLevelCriteria.Filling_SocialWork(ref item_15, uow);
+            tmpSecondCritList.Add(item_15);
+
+            var item_16 = new SecondLevelCriteria { Name = "Transportation", Tags = "transportation", FirstLevelCriteria = appliedSciences, ThirdLevelCriteria = new Collection<ThirdLevelCriteria>() };
+            FillingThirdLevelCriteria.Filling_Transportation(ref item_16, uow);
+            tmpSecondCritList.Add(item_16);
 
             foreach (var secondLevelCriteria in tmpSecondCritList)
             {

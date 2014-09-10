@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
+﻿namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 {
+    using System.Collections.Generic;
     using Web.Models.Criteria;
     using Web.UnitOfWork;
 
