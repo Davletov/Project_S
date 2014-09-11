@@ -22,7 +22,7 @@
 
     <script type="text/javascript" src="~/Scripts/BusinessLogic/selectLocation.js"></script> <!-- Выбор страны и города -->
 
-    <!-- <script type="text/json" src="~/Scripts/BusinessLogic/jsonData.json"></script> -->  <!-- Попытка подключить так !!!! -->
+    <script type="text/json" src="~/Scripts/BusinessLogic/jsonData.js"></script>
 
     <link rel="stylesheet" href="~/Scripts/dist/themes/default/style.min.css" />
     <!--<script src="~/Scripts/dist/libs/jquery.js"></script>-->
@@ -81,17 +81,10 @@
                     "core": {
                         'data': {
                             "url": function(node) {
-                                var url = "@Url.Action("GetTreeData", "Profile")"; //"../Scripts/BusinessLogic/jsonData.json"; -> такая байда не пашет
+                                var url = "../Scripts/BusinessLogic/jsonData.js";
                                 return url;
                             },
-                            'data' : function (node) {
-                                return { 'id' : node.id };
-                            },
-                            dataFilter: function (data) {
-                                var result = JSON.parse(data);
-                                return result;
-                            },
-                            "type": "POST",
+                            "type": "GET",
                             "dataType": "json",
                             "contentType": "application/json"
                         }
