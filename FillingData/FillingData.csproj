@@ -113,6 +113,10 @@
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\FormalSciences\Filling_Logic.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\FormalSciences\Filling_ComputerSciences.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\HumanitiesSciences\Filling_History.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\HumanitiesSciences\Filling_Arts.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\HumanitiesSciences\Filling_Religion.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\HumanitiesSciences\Filling_Philosophy.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\HumanitiesSciences\Filling_Literature.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\HumanitiesSciences\Filling_Linguistics.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\NaturalSciences\Filling_Earth.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\NaturalSciences\Filling_PhysicsSpaceSciences.cs" />
