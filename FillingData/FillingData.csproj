@@ -85,7 +85,7 @@
     <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_FormalSciences.cs" />
     <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_HumanitiesSciences.cs" />
     <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_NaturalSciences.cs" />
-    <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_SecondLevelCriteria.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingSecondLevel\Filling_SocialSciences.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_Transportation.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_SocialWork.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\AppliedSciences\Filling_PublicAdministration.cs" />
@@ -124,6 +124,14 @@
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\NaturalSciences\Filling_Biology.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\NaturalSciences\Filling_PhysicsSpaceSciences.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\SocialSciences\Filling_Anthropology.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\SocialSciences\Filling_Sociology.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\SocialSciences\Filling_Psychology.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\SocialSciences\Filling_PoliticalScience.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\SocialSciences\Filling_Geography.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\SocialSciences\Filling_GenderSexuality.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\SocialSciences\Filling_Economics.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\SocialSciences\Filling_CulturalEthnic.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\SocialSciences\Filling_AreaStudies.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\SocialSciences\Filling_Archaeology.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
