@@ -19,8 +19,10 @@
     <script type="text/javascript" src="~/Scripts/cufon-yui.js"></script>
     <script type="text/javascript" src="~/Scripts/arial.js"></script>
     <script type="text/javascript" src="~/Scripts/cuf_run.js"></script>   
-  
+
     <script type="text/javascript" src="~/Scripts/BusinessLogic/selectLocation.js"></script> <!-- Выбор страны и города -->
+
+    <!-- <script type="text/json" src="~/Scripts/BusinessLogic/jsonData.json"></script> -->  <!-- Попытка подключить так !!!! -->
 
     <link rel="stylesheet" href="~/Scripts/dist/themes/default/style.min.css" />
     <!--<script src="~/Scripts/dist/libs/jquery.js"></script>-->
@@ -48,9 +50,9 @@
     
 
     <!-- Для получения данных для дерева критериев в профайле пользователя -->
-    <script type="text/javascript">  
+    <script type="text/javascript">
         jQuery(document).ready(function ($) {
-            Refresh($);    
+            Refresh($);
         });
 
         function getCriteria($) {
@@ -79,8 +81,11 @@
                     "core": {
                         'data': {
                             "url": function(node) {
-                                var url = "@Url.Action("GetTreeData", "Profile")";
+                                var url = "@Url.Action("GetTreeData", "Profile")"; //"../Scripts/BusinessLogic/jsonData.json"; -> такая байда не пашет
                                 return url;
+                            },
+                            'data' : function (node) {
+                                return { 'id' : node.id };
                             },
                             dataFilter: function (data) {
                                 var result = JSON.parse(data);
