@@ -107,6 +107,10 @@
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\EngineeringSciences\Filling_ElectricalEngineering.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\EngineeringSciences\Filling_MechanicalEngineering.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\FormalSciences\Filling_AppliedMathematics.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\FormalSciences\Filling_SystemsScience.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\FormalSciences\Filling_Statistics.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\FormalSciences\Filling_PureMathematics.cs" />
+    <Compile Include="FillingGlobalCriteria\FillingThirdLevel\FormalSciences\Filling_Logic.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\FormalSciences\Filling_ComputerSciences.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\HumanitiesSciences\Filling_History.cs" />
     <Compile Include="FillingGlobalCriteria\FillingThirdLevel\HumanitiesSciences\Filling_Linguistics.cs" />
