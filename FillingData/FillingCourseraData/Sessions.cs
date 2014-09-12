@@ -18,7 +18,7 @@ namespace FiilingData.FillingCourseraData
         {
             Console.WriteLine("\nЗагрузка инфы по Сессиям с Coursera Api ...");
 
-            Stopwatch stopWatch = new Stopwatch();
+            var stopWatch = new Stopwatch();
             stopWatch.Start();
 
             var url = "https://api.coursera.org/api/catalog.v1/sessions?fields=id,courseId,homeLink,status,active,durationString,startDay,startMonth," +

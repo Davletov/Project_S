@@ -22,7 +22,7 @@
 
     <script type="text/javascript" src="~/Scripts/BusinessLogic/selectLocation.js"></script> <!-- Выбор страны и города -->
 
-    <script type="text/json" src="~/Scripts/BusinessLogic/jsonData.js"></script>
+    <script type="text/json" src="~/Scripts/BusinessLogic/jsonData.js"></script> <!-- Глобальные критерии -->
 
     <link rel="stylesheet" href="~/Scripts/dist/themes/default/style.min.css" />
     <!--<script src="~/Scripts/dist/libs/jquery.js"></script>-->
@@ -81,7 +81,7 @@
                     "core": {
                         'data': {
                             "url": function(node) {
-                                var url = "../Scripts/BusinessLogic/jsonData.js";
+                                var url = "@Url.Content("../Scripts/BusinessLogic/jsonData.js")";
                                 return url;
                             },
                             "type": "GET",

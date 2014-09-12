@@ -18,7 +18,7 @@ namespace FiilingData.FillingCourseraData
         /// </summary>
         public static void BindingCoursesForEachCategory()
         {
-            Stopwatch stopWatch = new Stopwatch();
+            var stopWatch = new Stopwatch();
             Console.WriteLine("\nСвязывание курсов с категориями ...");
 
             stopWatch.Start();

@@ -12,7 +12,7 @@
     {
         public static void FillingCountriesWithCities()
         {
-            Stopwatch stopWatch = new Stopwatch();
+            var stopWatch = new Stopwatch();
             Console.WriteLine("\nПарсим файлы со странами и городами ...");
 
             stopWatch.Start();

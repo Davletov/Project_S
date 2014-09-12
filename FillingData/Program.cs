@@ -35,6 +35,7 @@
                     case 2:
                         // Заполняем глобальные критерии
                         FillingFirstCriteria.FillingGlobalCriteria();
+                        FillingFirstCriteria.WriteCriteriaToJson();
                         break;
                     case 3:
                         // Заполнение стран и городов
@@ -48,7 +49,6 @@
 
             Console.ReadKey();
         }
-
     }
 }
 

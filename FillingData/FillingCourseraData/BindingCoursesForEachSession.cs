@@ -20,7 +20,7 @@ namespace FiilingData.FillingCourseraData
         {
             Console.WriteLine("\nСвязывание курсов с сессиями ...");
 
-            Stopwatch stopWatch = new Stopwatch();
+            var stopWatch = new Stopwatch();
             stopWatch.Start();
 
             // Url к апи, ктр достает все сессии и связанные с ними курсы
