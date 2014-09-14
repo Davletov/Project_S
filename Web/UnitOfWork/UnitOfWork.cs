@@ -37,6 +37,10 @@ namespace Web.UnitOfWork
         private BaseRepository<SecondLevelCriteria> _secondLevelCriteriaRepository;
         private BaseRepository<ThirdLevelCriteria> _thirdLevelCriteriaRepository;
         private BaseRepository<CriteriaForCoursera> _criteriaForCourseraRepository;
+        private BaseRepository<Profile1LevelCriteria> _pfirstLevelCriteriaRepository;
+        private BaseRepository<Profile2LevelCriteria> _psecondLevelCriteriaRepository;
+        private BaseRepository<Profile3LevelCriteria> _pthirdLevelCriteriaRepository;
+        
         private BaseRepository<Country> _countryRepository;
         private BaseRepository<City> _cityRepository;
 
@@ -77,6 +81,29 @@ namespace Web.UnitOfWork
             get
             {
                 return _thirdLevelCriteriaRepository ?? (_thirdLevelCriteriaRepository = new BaseRepository<ThirdLevelCriteria>(_context));
+            }
+        }
+
+        public BaseRepository<Profile1LevelCriteria> Profile1LevelCriteriaRepostiRepository
+        {
+            get
+            {
+                return _pfirstLevelCriteriaRepository ?? (_pfirstLevelCriteriaRepository = new BaseRepository<Profile1LevelCriteria>(_context));
+            }
+        }
+
+        public BaseRepository<Profile2LevelCriteria> Profile2LevelCriteriaRepostiRepository
+        {
+            get
+            {
+                return _psecondLevelCriteriaRepository ?? (_psecondLevelCriteriaRepository = new BaseRepository<Profile2LevelCriteria>(_context));
+            }
+        }
+        public BaseRepository<Profile3LevelCriteria> Profile3LevelCriteriaRepostiRepository
+        {
+            get
+            {
+                return _pthirdLevelCriteriaRepository ?? (_pthirdLevelCriteriaRepository = new BaseRepository<Profile3LevelCriteria>(_context));
             }
         }
 

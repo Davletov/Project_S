@@ -28,7 +28,7 @@
         /// </summary>
         public string Tags { get; set; }
 
-        public virtual ICollection<Profile> Profiles { get; set; }
+        //public virtual ICollection<Profile> Profiles { get; set; }
 
         public virtual ICollection<SecondLevelCriteria> SecondLevelCriteria { get; set; }
 

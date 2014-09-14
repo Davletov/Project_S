@@ -33,9 +33,9 @@ namespace Web.Controllers
                     {
                         var lists = profileQuery.Select(x => new
                         {
-                            x.FirstLevelCriteria,
-                            x.SecondLevelCriteria,
-                            x.ThirdLevelCriteria
+                            FirstLevelCriteria =x.FirstLevelCriteria.Select(y => y.Criteria),
+                            SecondLevelCriteria = x.SecondLevelCriteria.Select(y => y.Criteria),
+                            ThirdLevelCriteria = x.ThirdLevelCriteria.Select(y => y.Criteria)
                         }).ToList();
 
                         profile = profileQuery.FirstOrDefault();
@@ -95,24 +95,39 @@ namespace Web.Controllers
 
                         if (criteriaData != null)
                         {
-                            profile.FirstLevelCriteria = new Collection<FirstLevelCriteria>();
-                            profile.SecondLevelCriteria = new Collection<SecondLevelCriteria>();
-                            profile.ThirdLevelCriteria = new Collection<ThirdLevelCriteria>();
+                            profile.FirstLevelCriteria = new Collection<Profile1LevelCriteria>();
+                            profile.SecondLevelCriteria = new Collection<Profile2LevelCriteria>();
+                            profile.ThirdLevelCriteria = new Collection<Profile3LevelCriteria>();
                             foreach (var criteria in criteriaData)
                             {
                                 switch (criteria.level)
                                 {
                                     case 1:
                                         var firstLevelCriteria = uow.FirstLevelCriteriaRepository.GetById(criteria.id);
-                                        profile.FirstLevelCriteria.Add(firstLevelCriteria);
+                                        var newProfileCriteria = new Profile1LevelCriteria()
+                                        {
+                                            Criteria = firstLevelCriteria,
+                                            Profile = profile
+                                        };
+                                        uow.Profile1LevelCriteriaRepostiRepository.Add(newProfileCriteria);                                        
                                         break;
                                     case 2:
                                         var secondLevelCriteria = uow.SecondLevelCriteriaRepository.GetById(criteria.id);
-                                        profile.SecondLevelCriteria.Add(secondLevelCriteria);
+                                        var newProfileCriteria2 = new Profile2LevelCriteria()
+                                        {
+                                            Criteria = secondLevelCriteria,
+                                            Profile = profile
+                                        };
+                                        uow.Profile2LevelCriteriaRepostiRepository.Add(newProfileCriteria2); 
                                         break;
                                     case 3:
                                         var thirdLevelCriteria = uow.ThirdLevelCriteriaRepository.GetById(criteria.id);
-                                        profile.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                                        var newProfileCriteria3 = new Profile3LevelCriteria()
+                                        {
+                                            Criteria = thirdLevelCriteria,
+                                            Profile = profile
+                                        };
+                                        uow.Profile3LevelCriteriaRepostiRepository.Add(newProfileCriteria3); 
                                         break;
                                 }
                             }
@@ -149,9 +164,9 @@ namespace Web.Controllers
                             var secondQuery = profileQuery.Select(x => x.SecondLevelCriteria).FirstOrDefault();
                             var thirdQuery = profileQuery.Select(x => x.ThirdLevelCriteria).FirstOrDefault();
 
-                            profile.FirstLevelCriteria = firstQuery ?? new Collection<FirstLevelCriteria>();
-                            profile.SecondLevelCriteria = secondQuery ?? new Collection<SecondLevelCriteria>();
-                            profile.ThirdLevelCriteria = thirdQuery ?? new Collection<ThirdLevelCriteria>();
+                            profile.FirstLevelCriteria = firstQuery ?? new Collection<Profile1LevelCriteria>();
+                            profile.SecondLevelCriteria = secondQuery ?? new Collection<Profile2LevelCriteria>();
+                            profile.ThirdLevelCriteria = thirdQuery ?? new Collection<Profile3LevelCriteria>();
 
                             bool exist;
                             foreach (var criteria in criteriaData)
@@ -160,26 +175,41 @@ namespace Web.Controllers
                                 {
                                     case 1:
                                         var firstLevelCriteria = uow.FirstLevelCriteriaRepository.GetById(criteria.id);
-                                        exist = profile.FirstLevelCriteria.Any(x => x == firstLevelCriteria);
+                                        exist = uow.Profile1LevelCriteriaRepostiRepository.Get().AsEnumerable().Any(x => x.Criteria == firstLevelCriteria);
                                         if (!exist)
                                         {
-                                            profile.FirstLevelCriteria.Add(firstLevelCriteria);
+                                            var newProfileCriteria = new Profile1LevelCriteria()
+                                            {
+                                                Criteria = firstLevelCriteria,
+                                                Profile = profile
+                                            };
+                                            uow.Profile1LevelCriteriaRepostiRepository.Add(newProfileCriteria);   
                                         }
                                         break;
                                     case 2:
                                         var secondLevelCriteria = uow.SecondLevelCriteriaRepository.GetById(criteria.id);
-                                        exist = profile.SecondLevelCriteria.Any(x => x == secondLevelCriteria);
+                                        exist = uow.Profile2LevelCriteriaRepostiRepository.Get().AsEnumerable().Any(x => x.Criteria == secondLevelCriteria);
                                         if (!exist)
                                         {
-                                            profile.SecondLevelCriteria.Add(secondLevelCriteria);
+                                            var newProfileCriteria = new Profile2LevelCriteria()
+                                            {
+                                                Criteria = secondLevelCriteria,
+                                                Profile = profile
+                                            };
+                                            uow.Profile2LevelCriteriaRepostiRepository.Add(newProfileCriteria);
                                         }
                                         break;
                                     case 3:
                                         var thirdLevelCriteria = uow.ThirdLevelCriteriaRepository.GetById(criteria.id);
-                                        exist = profile.ThirdLevelCriteria.Any(x => x == thirdLevelCriteria);
+                                        exist = uow.Profile3LevelCriteriaRepostiRepository.Get().AsEnumerable().Any(x => x.Criteria == thirdLevelCriteria);
                                         if (!exist)
                                         {
-                                            profile.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                                            var newProfileCriteria = new Profile3LevelCriteria()
+                                            {
+                                                Criteria = thirdLevelCriteria,
+                                                Profile = profile
+                                            };
+                                            uow.Profile3LevelCriteriaRepostiRepository.Add(newProfileCriteria);
                                         }
                                         break;
                                 }
@@ -227,9 +257,9 @@ namespace Web.Controllers
             {
                 if (currentUserId != null)
                 {
-                    var first = uow.ProfileRepository.GetById(currentUserId).FirstLevelCriteria.Select(x => x.Id).ToList();
-                    var second = uow.ProfileRepository.GetById(currentUserId).SecondLevelCriteria.Select(x => x.Id).ToList();
-                    var third = uow.ProfileRepository.GetById(currentUserId).ThirdLevelCriteria.Select(x => x.Id).ToList();
+                    var first = uow.ProfileRepository.GetById(currentUserId).FirstLevelCriteria.Select(x => x.CriteriaId).ToList();
+                    var second = uow.ProfileRepository.GetById(currentUserId).SecondLevelCriteria.Select(x => x.CriteriaId).ToList();
+                    var third = uow.ProfileRepository.GetById(currentUserId).ThirdLevelCriteria.Select(x => x.CriteriaId).ToList();
                     listCriteriaIds.AddRange(first);
                     listCriteriaIds.AddRange(second);
                     listCriteriaIds.AddRange(third);

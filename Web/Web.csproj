@@ -375,6 +375,9 @@
     <Compile Include="Models\Profile.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Profile1LevelCriteria.cs" />
+    <Compile Include="Models\Profile2LevelCriteria.cs" />
+    <Compile Include="Models\Profile3LevelCriteria.cs" />
     <Compile Include="Models\YouTube\YoutubeMaterial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
@@ -468,7 +471,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51696</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44300/</IISUrl>
+          <IISUrl>http://localhost:44300/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://localhost:44300/</CustomServerUrl>

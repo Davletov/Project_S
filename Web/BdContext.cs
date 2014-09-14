@@ -36,6 +36,12 @@
         public DbSet<Country> Countries { get; set; }
 
         public DbSet<City> Cities { get; set; }
+
+        public DbSet<Profile1LevelCriteria> Profile1LevelCriterias { get; set; }
+
+        public DbSet<Profile2LevelCriteria> Profile2LevelCriterias { get; set; }
+
+        public DbSet<Profile3LevelCriteria> Profile3LevelCriterias { get; set; }
                 
         /// <summary>
 
@@ -53,34 +59,34 @@
 
             /* Связка многие ко многим (Профайл пользователя <-> Критерии (1 - 3 уровень) */
             modelBuilder.Entity<Profile>().
-                HasMany(c => c.FirstLevelCriteria).
+                HasMany(c => c.FirstLevelCriteria)/*.
                 WithMany(p => p.Profiles).
                 Map(m =>
                 {
                     m.MapLeftKey("ProfileId");
                     m.MapRightKey("FirstLevelCriteriaId");
                     m.ToTable("ProfileFirstLevelCriteria");
-                });
+                })*/;
 
             modelBuilder.Entity<Profile>().
-                HasMany(c => c.SecondLevelCriteria).
-                WithMany(p => p.Profiles).
+                HasMany(c => c.SecondLevelCriteria);
+                /*WithMany(p => p.Profiles).
                 Map(m =>
                 {
                     m.MapLeftKey("ProfileId");
                     m.MapRightKey("SecondLevelCriteriaId");
                     m.ToTable("ProfileSecondLevelCriteria");
-                });
+                })*/;
 
             modelBuilder.Entity<Profile>().
-                HasMany(c => c.ThirdLevelCriteria).
+                HasMany(c => c.ThirdLevelCriteria)/*.
                 WithMany(p => p.Profiles).
                 Map(m =>
                 {
                     m.MapLeftKey("ProfileId");
                     m.MapRightKey("ThirdLevelCriteriaId");
                     m.ToTable("ProfileThirdLevelCriteria");
-                });
+                })*/;
 
 
             /* Связка многие ко многим (Категория <-> Курсы)
