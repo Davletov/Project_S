@@ -2,7 +2,8 @@
 {
     using System.Data.Entity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using Web.Models;
+    using Web.Models.Location;
+    using Web.Models.Profile;
     using Web.Models.Criteria;
     using Web.Models.CourseraEntity;
 
@@ -10,7 +11,6 @@
     {
         public BdContext() : base("BdContext")
         {
-            //Database.SetInitializer(new DropCreateDatabaseAlways<BdContext>());
         }
 
         public DbSet<Category> Categories { get; set; }
@@ -43,9 +43,6 @@
 
         public DbSet<Profile3LevelCriteria> Profile3LevelCriterias { get; set; }
                 
-        /// <summary>
-
-        /// </summary>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FirstLevelCriteria>().HasMany(t => t.SecondLevelCriteria).WithRequired();
@@ -55,38 +52,15 @@
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
 
-            // связь многие ко многим через Fluent Api
-
-            /* Связка многие ко многим (Профайл пользователя <-> Критерии (1 - 3 уровень) */
+            /* Связка (Профайл пользователя <-> Критерии (1 - 3 уровень) */
             modelBuilder.Entity<Profile>().
-                HasMany(c => c.FirstLevelCriteria)/*.
-                WithMany(p => p.Profiles).
-                Map(m =>
-                {
-                    m.MapLeftKey("ProfileId");
-                    m.MapRightKey("FirstLevelCriteriaId");
-                    m.ToTable("ProfileFirstLevelCriteria");
-                })*/;
+                HasMany(c => c.FirstLevelCriteria);
 
             modelBuilder.Entity<Profile>().
                 HasMany(c => c.SecondLevelCriteria);
-                /*WithMany(p => p.Profiles).
-                Map(m =>
-                {
-                    m.MapLeftKey("ProfileId");
-                    m.MapRightKey("SecondLevelCriteriaId");
-                    m.ToTable("ProfileSecondLevelCriteria");
-                })*/;
 
             modelBuilder.Entity<Profile>().
-                HasMany(c => c.ThirdLevelCriteria)/*.
-                WithMany(p => p.Profiles).
-                Map(m =>
-                {
-                    m.MapLeftKey("ProfileId");
-                    m.MapRightKey("ThirdLevelCriteriaId");
-                    m.ToTable("ProfileThirdLevelCriteria");
-                })*/;
+                HasMany(c => c.ThirdLevelCriteria);
 
 
             /* Связка многие ко многим (Категория <-> Курсы)

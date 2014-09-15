@@ -1,13 +1,14 @@
-﻿using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.Security;
-using Web.Models;
-
-namespace Web.Controllers
+﻿namespace Web.Controllers
 {
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Threading.Tasks;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.Owin.Security;
+    using Web.Models;
+    using Web.Models.Profile;
+
     [Authorize]
     public class AccountController : Controller
     {

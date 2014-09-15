@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNet.Identity;
-
-namespace Web.Controllers
+﻿namespace Web.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
     using System.Collections.Generic;
-    using Web.Models;
+    using Microsoft.AspNet.Identity;
+    using Web.Models.Location;
     
     /// <summary>
     /// Контроллер для обработки Страны и города в профайле пользователя

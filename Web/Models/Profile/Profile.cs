@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Web.Enum;
-// You can add profile data for the user by adding more properties to your Profile class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-using Web.Models.Criteria;
-
-namespace Web.Models
+﻿namespace Web.Models.Profile
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Web.Enum;
+
     [Table("Profile")]
     public class Profile : IdentityUser
     {

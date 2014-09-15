@@ -5,7 +5,7 @@
     using System.Diagnostics;
     using System.Linq;
     using Microsoft.VisualBasic.FileIO;
-    using Web.Models;
+    using Web.Models.Location;
     using Web.UnitOfWork;
 
     public class FillingCountryAndCity

@@ -56,7 +56,7 @@
                     .Replace("Id", "id");
 
             string currentAssemblyPath = Path.GetDirectoryName(typeof(UnitOfWork).Assembly.Location) ?? string.Empty;
-            var path = Directory.GetParent(currentAssemblyPath).Parent.Parent.FullName + @"\Web\Scripts\BusinessLogic";
+            var path = Directory.GetParent(currentAssemblyPath).Parent.Parent.FullName + @"\Web\Scripts\Data";
             string fileName = Path.Combine(path, "jsonData.js");
             File.WriteAllText(fileName, str);
 

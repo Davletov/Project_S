@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Google.Apis.Services;
-using Google.Apis.YouTube.v3;
-using Google.Apis.YouTube.v3.Data;
-using Google.GData.Client;
-using Google.GData.YouTube;
-using Google.YouTube;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Web.Models;
-using Web.Models.Criteria;
-using Web.Models.YouTube;
-using Video = Google.YouTube.Video;
-using YouTubeService = Google.Apis.YouTube.v3.YouTubeService;
-
-namespace Web.Controllers
+﻿namespace Web.Controllers
 {
+    using System.Linq;
+    using System.Web.Mvc;
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
+    using Google.Apis.Services;
+    using Google.Apis.YouTube.v3;
+    using Google.Apis.YouTube.v3.Data;
+    using Google.GData.Client;
+    using Google.GData.YouTube;
+    using Google.YouTube;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Web.Models.Profile;
+    using Web.Models.YouTube;
+    using Video = Google.YouTube.Video;
+    using YouTubeService = Google.Apis.YouTube.v3.YouTubeService;
+
     public class YoutubeController : Controller
     {
         public const string APPLICATION_NAME = "test_with_youtubeapi";

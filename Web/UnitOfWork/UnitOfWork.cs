@@ -1,11 +1,11 @@
-﻿using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
-using Web.Models;
-using Web.Models.Criteria;
-
-namespace Web.UnitOfWork
+﻿namespace Web.UnitOfWork
 {
+    using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Validation;
+    using System.Diagnostics;
+    using Web.Models.Location;
+    using Web.Models.Criteria;
+    using Web.Models.Profile;
     using System;
     using Web.Models.CourseraEntity;
     using Web.Repository;

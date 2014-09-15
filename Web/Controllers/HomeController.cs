@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Web.Models;
-using Web.Models.CourseraEntity;
-
-namespace Web.Controllers
+﻿namespace Web.Controllers
 {
+    using System.Linq;
+    using System.Web.Mvc;
+    using System.Collections.Generic;
+    using Microsoft.AspNet.Identity;
+    using Web.Models.Profile;
+    using Web.Models.CourseraEntity;
+
     [RequireHttps]
     public class HomeController : Controller
     {

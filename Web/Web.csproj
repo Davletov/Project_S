@@ -266,7 +266,7 @@
     <Content Include="Scripts\arial.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\BusinessLogic\autoComplete.js" />
+    <Content Include="Scripts\BusinessLogic\criteriaTree.js" />
     <Content Include="Scripts\BusinessLogic\selectLocation.js" />
     <Content Include="Scripts\cufon-yui.js" />
     <Content Include="Scripts\cuf_run.js" />
@@ -280,8 +280,7 @@
     <Content Include="Scripts\dist\themes\default\style.min.css" />
     <Content Include="Scripts\dist\themes\default\throbber.gif" />
     <Content Include="Scripts\jquery-1.3.2.min.js" />
-    <Content Include="Scripts\Data\GlobalCriteria.json" />
-    <Content Include="Scripts\BusinessLogic\jsonData.js" />
+    <Content Include="Scripts\Data\jsonData.js" />
     <None Include="Scripts\jquery-2.1.1-vsdoc.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -337,6 +336,10 @@
     <Compile Include="Migrations\201408220719365_FixProfile.Designer.cs">
       <DependentUpon>201408220719365_FixProfile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201409150617037_SeparateProfileAndCriterias.cs" />
+    <Compile Include="Migrations\201409150617037_SeparateProfileAndCriterias.Designer.cs">
+      <DependentUpon>201409150617037_SeparateProfileAndCriterias.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CourseraEntity\Category.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -372,12 +375,12 @@
     </Compile>
     <Compile Include="Models\Location\City.cs" />
     <Compile Include="Models\Location\Country.cs" />
-    <Compile Include="Models\Profile.cs">
+    <Compile Include="Models\Profile\Profile.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Profile1LevelCriteria.cs" />
-    <Compile Include="Models\Profile2LevelCriteria.cs" />
-    <Compile Include="Models\Profile3LevelCriteria.cs" />
+    <Compile Include="Models\Profile\Profile1LevelCriteria.cs" />
+    <Compile Include="Models\Profile\Profile2LevelCriteria.cs" />
+    <Compile Include="Models\Profile\Profile3LevelCriteria.cs" />
     <Compile Include="Models\YouTube\YoutubeMaterial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
@@ -450,6 +453,9 @@
     <EmbeddedResource Include="Migrations\201408220719365_FixProfile.resx">
       <DependentUpon>201408220719365_FixProfile.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409150617037_SeparateProfileAndCriterias.resx">
+      <DependentUpon>201409150617037_SeparateProfileAndCriterias.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -471,7 +477,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51696</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44300/</IISUrl>
+          <IISUrl>https://localhost:44300/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://localhost:44300/</CustomServerUrl>
