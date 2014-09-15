@@ -51,7 +51,7 @@
                     criteriaData = jss.Deserialize<List<ProxyGenerator>>(values);
                 }
 
-                Profile profile = null;
+                Profile profile;
                 using (var uow = new UnitOfWork.UnitOfWork())
                 {
                     var profileQuery = uow.ProfileRepository.Get(x => x.Id == currentUserId);
@@ -65,7 +65,7 @@
                         if (formProxyObj.BirthYear != null) profile.BirthYear = (int)formProxyObj.BirthYear;
 
                         UserSocialStatus var;
-                        var boolTmp = UserSocialStatus.TryParse(formProxyObj.UserSocialStatus, false, out var);
+                        var boolTmp = Enum.TryParse(formProxyObj.UserSocialStatus, false, out var);
                         profile.UserSocialStatus = boolTmp ? var : UserSocialStatus.Other;
 
                         int countryId;
@@ -90,30 +90,18 @@
                                 {
                                     case 1:
                                         var firstLevelCriteria = uow.FirstLevelCriteriaRepository.GetById(criteria.id);
-                                        var newProfileCriteria = new Profile1LevelCriteria()
-                                        {
-                                            Criteria = firstLevelCriteria,
-                                            Profile = profile
-                                        };
-                                        uow.Profile1LevelCriteriaRepostiRepository.Add(newProfileCriteria);                                        
+                                        var newProfileCriteria = new Profile1LevelCriteria { Criteria = firstLevelCriteria, Profile = profile };
+                                        uow.Profile1LevelCriteriaRepository.Add(newProfileCriteria);                                        
                                         break;
                                     case 2:
                                         var secondLevelCriteria = uow.SecondLevelCriteriaRepository.GetById(criteria.id);
-                                        var newProfileCriteria2 = new Profile2LevelCriteria()
-                                        {
-                                            Criteria = secondLevelCriteria,
-                                            Profile = profile
-                                        };
-                                        uow.Profile2LevelCriteriaRepostiRepository.Add(newProfileCriteria2); 
+                                        var newProfileCriteria2 = new Profile2LevelCriteria { Criteria = secondLevelCriteria, Profile = profile };
+                                        uow.Profile2LevelCriteriaRepository.Add(newProfileCriteria2); 
                                         break;
                                     case 3:
                                         var thirdLevelCriteria = uow.ThirdLevelCriteriaRepository.GetById(criteria.id);
-                                        var newProfileCriteria3 = new Profile3LevelCriteria()
-                                        {
-                                            Criteria = thirdLevelCriteria,
-                                            Profile = profile
-                                        };
-                                        uow.Profile3LevelCriteriaRepostiRepository.Add(newProfileCriteria3); 
+                                        var newProfileCriteria3 = new Profile3LevelCriteria { Criteria = thirdLevelCriteria, Profile = profile };
+                                        uow.Profile3LevelCriteriaRepository.Add(newProfileCriteria3); 
                                         break;
                                 }
                             }
@@ -146,60 +134,67 @@
 
                         if (criteriaData != null)
                         {
-                            var firstQuery = profileQuery.Select(x => x.FirstLevelCriteria).FirstOrDefault();
-                            var secondQuery = profileQuery.Select(x => x.SecondLevelCriteria).FirstOrDefault();
-                            var thirdQuery = profileQuery.Select(x => x.ThirdLevelCriteria).FirstOrDefault();
+                            var curUserFirstCriteriasQuery = uow.Profile1LevelCriteriaRepository.Get().Where(x => x.Profile.Id == profile.Id);
+                            var curUserSecondCriteriasQuery = uow.Profile2LevelCriteriaRepository.Get().Where(x => x.Profile.Id == profile.Id);
+                            var curUserThirdCriteriasQuery = uow.Profile3LevelCriteriaRepository.Get().Where(x => x.Profile.Id == profile.Id);
 
-                            profile.FirstLevelCriteria = firstQuery ?? new Collection<Profile1LevelCriteria>();
-                            profile.SecondLevelCriteria = secondQuery ?? new Collection<Profile2LevelCriteria>();
-                            profile.ThirdLevelCriteria = thirdQuery ?? new Collection<Profile3LevelCriteria>();
+                            // get current user's criterias from repository
+                            var curUserFirstCriteriaIds = curUserFirstCriteriasQuery.Select(x => x.Criteria.Id).ToList();
+                            var curUserSecondCriteriaIds = curUserSecondCriteriasQuery.Select(x => x.Criteria.Id).ToList();
+                            var curUserThirdCriteriaIds = curUserThirdCriteriasQuery.Select(x => x.Criteria.Id).ToList();
 
-                            bool exist;
-                            foreach (var criteria in criteriaData)
+                            // get current user's criterias from client side
+                            var jstreeFirstCriteriaIds = criteriaData.Where(x => x.level == 1).Select(x => x.id).ToList();
+                            var jstreeSecondCriteriaIds = criteriaData.Where(x => x.level == 2).Select(x => x.id).ToList();
+                            var jstreeThirdCriteriaIds = criteriaData.Where(x => x.level == 3).Select(x => x.id).ToList();
+
+                            // find criterias, which need add to repository
+                            var needToAddFirstCriterias = jstreeFirstCriteriaIds.Except(curUserFirstCriteriaIds);
+                            var needToAddSecondCriterias = jstreeSecondCriteriaIds.Except(curUserSecondCriteriaIds);
+                            var needToAddThirdCriterias = jstreeThirdCriteriaIds.Except(curUserThirdCriteriaIds);
+
+                            // find criterias, which need delete from repository
+                            var needToDeleteFirstCriterias = curUserFirstCriteriaIds.Except(jstreeFirstCriteriaIds);
+                            var needToDeleteSecondCriterias = curUserSecondCriteriaIds.Except(jstreeSecondCriteriaIds);
+                            var neddToDeleteThirdCriterias = curUserThirdCriteriaIds.Except(jstreeThirdCriteriaIds);
+
+                            // Add criterias to profile
+                            foreach (var firstCriteria in needToAddFirstCriterias)
                             {
-                                switch (criteria.level)
-                                {
-                                    case 1:
-                                        var firstLevelCriteria = uow.FirstLevelCriteriaRepository.GetById(criteria.id);
-                                        exist = uow.Profile1LevelCriteriaRepostiRepository.Get().AsEnumerable().Any(x => x.Criteria == firstLevelCriteria);
-                                        if (!exist)
-                                        {
-                                            var newProfileCriteria = new Profile1LevelCriteria()
-                                            {
-                                                Criteria = firstLevelCriteria,
-                                                Profile = profile
-                                            };
-                                            uow.Profile1LevelCriteriaRepostiRepository.Add(newProfileCriteria);   
-                                        }
-                                        break;
-                                    case 2:
-                                        var secondLevelCriteria = uow.SecondLevelCriteriaRepository.GetById(criteria.id);
-                                        exist = uow.Profile2LevelCriteriaRepostiRepository.Get().AsEnumerable().Any(x => x.Criteria == secondLevelCriteria);
-                                        if (!exist)
-                                        {
-                                            var newProfileCriteria = new Profile2LevelCriteria()
-                                            {
-                                                Criteria = secondLevelCriteria,
-                                                Profile = profile
-                                            };
-                                            uow.Profile2LevelCriteriaRepostiRepository.Add(newProfileCriteria);
-                                        }
-                                        break;
-                                    case 3:
-                                        var thirdLevelCriteria = uow.ThirdLevelCriteriaRepository.GetById(criteria.id);
-                                        exist = uow.Profile3LevelCriteriaRepostiRepository.Get().AsEnumerable().Any(x => x.Criteria == thirdLevelCriteria);
-                                        if (!exist)
-                                        {
-                                            var newProfileCriteria = new Profile3LevelCriteria()
-                                            {
-                                                Criteria = thirdLevelCriteria,
-                                                Profile = profile
-                                            };
-                                            uow.Profile3LevelCriteriaRepostiRepository.Add(newProfileCriteria);
-                                        }
-                                        break;
-                                }
+                                var firstLevelCriteria = uow.FirstLevelCriteriaRepository.GetById(firstCriteria);
+                                var newProfileCriteria = new Profile1LevelCriteria { Criteria = firstLevelCriteria, Profile = profile };
+                                uow.Profile1LevelCriteriaRepository.Add(newProfileCriteria); 
                             }
+                            foreach (var secondCriteria in needToAddSecondCriterias)
+                            {
+                                var secondLevelCriteria = uow.SecondLevelCriteriaRepository.GetById(secondCriteria);
+                                var newProfileCriteria = new Profile2LevelCriteria { Criteria = secondLevelCriteria, Profile = profile };
+                                uow.Profile2LevelCriteriaRepository.Add(newProfileCriteria);
+                            }
+                            foreach (var thirdCriteria in needToAddThirdCriterias)
+                            {
+                                var thirdLevelCriteria = uow.ThirdLevelCriteriaRepository.GetById(thirdCriteria);
+                                var newProfileCriteria = new Profile3LevelCriteria { Criteria = thirdLevelCriteria, Profile = profile };
+                                uow.Profile3LevelCriteriaRepository.Add(newProfileCriteria);
+                            }
+
+                            // Delete criterias from profile
+                            foreach (var firstCriteria in needToDeleteFirstCriterias)
+                            {
+                                var newProfileCriteria = curUserFirstCriteriasQuery.Where(x => x.Criteria.Id == firstCriteria).Select(x => x.Id).FirstOrDefault();
+                                uow.Profile1LevelCriteriaRepository.Delete(newProfileCriteria);
+                            }
+                            foreach (var secondCriteria in needToDeleteSecondCriterias)
+                            {
+                                var newProfileCriteria = curUserSecondCriteriasQuery.Where(x => x.Criteria.Id == secondCriteria).Select(x => x.Id).FirstOrDefault();
+                                uow.Profile2LevelCriteriaRepository.Delete(newProfileCriteria);
+                            }
+                            foreach (var thirdCriteria in neddToDeleteThirdCriterias)
+                            {
+                                var newProfileCriteria = curUserThirdCriteriasQuery.Where(x => x.Criteria.Id == thirdCriteria).Select(x => x.Id).FirstOrDefault();
+                                uow.Profile3LevelCriteriaRepository.Delete(newProfileCriteria);
+                            }
+
                         }
 
                         uow.ProfileRepository.Update(profile);

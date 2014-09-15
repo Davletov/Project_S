@@ -84,7 +84,7 @@
             }
         }
 
-        public BaseRepository<Profile1LevelCriteria> Profile1LevelCriteriaRepostiRepository
+        public BaseRepository<Profile1LevelCriteria> Profile1LevelCriteriaRepository
         {
             get
             {
@@ -92,14 +92,14 @@
             }
         }
 
-        public BaseRepository<Profile2LevelCriteria> Profile2LevelCriteriaRepostiRepository
+        public BaseRepository<Profile2LevelCriteria> Profile2LevelCriteriaRepository
         {
             get
             {
                 return _psecondLevelCriteriaRepository ?? (_psecondLevelCriteriaRepository = new BaseRepository<Profile2LevelCriteria>(_context));
             }
         }
-        public BaseRepository<Profile3LevelCriteria> Profile3LevelCriteriaRepostiRepository
+        public BaseRepository<Profile3LevelCriteria> Profile3LevelCriteriaRepository
         {
             get
             {
