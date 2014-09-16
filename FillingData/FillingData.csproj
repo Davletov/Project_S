@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FillingCountryAndCity\FillingCountryAndCity.cs" />
+    <Compile Include="FillingCourseraData\BindingGlobalCriteriasWithCourseraCriterias.cs" />
     <Compile Include="FillingCourseraData\BindingCoursesForEachUniversity.cs" />
     <Compile Include="FillingCourseraData\BindingCoursesForEachInstructor.cs" />
     <Compile Include="FillingCourseraData\BindingCoursesForEachSession.cs" />

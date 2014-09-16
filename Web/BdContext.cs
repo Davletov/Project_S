@@ -31,7 +31,7 @@
 
         public DbSet<ThirdLevelCriteria> ThirdLevelCriterias { get; set; }
 
-        public DbSet<CriteriaForCoursera> CriteriaForCoursera { get; set; }
+        public DbSet<CriteriaWithCourseraCategory> CriteriaWithCourseraCategory { get; set; }
 
         public DbSet<Country> Countries { get; set; }
 
@@ -42,7 +42,7 @@
         public DbSet<Profile2LevelCriteria> Profile2LevelCriterias { get; set; }
 
         public DbSet<Profile3LevelCriteria> Profile3LevelCriterias { get; set; }
-                
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FirstLevelCriteria>().HasMany(t => t.SecondLevelCriteria).WithRequired();

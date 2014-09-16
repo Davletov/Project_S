@@ -1,10 +1,12 @@
 ﻿namespace Web.Models.CourseraEntity
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using Newtonsoft.Json;
     using Web.Helpful;
+    using Web.Models.Criteria;
 
     public class Category
     {
@@ -48,5 +50,6 @@
         [JsonConverter(typeof(ConvertToCourse))]
         public ICollection<Course> Courses { get; set; }
 
+        public virtual CriteriaWithCourseraCategory CriteriaWithCourseraCategory { get; set; }
     }
 }

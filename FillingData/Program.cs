@@ -10,7 +10,8 @@
         {
             Console.WriteLine("1. Заполнение данными с Coursera");
             Console.WriteLine("2. Заполнение глобальных критериев");
-            Console.WriteLine("3. Заполнение стран и городов");
+            Console.WriteLine("3. Связывание глобальных критериев и критериев Coursera");
+            Console.WriteLine("4. Заполнение стран и городов");
 
             Console.WriteLine("\n\nНажмите цифру соот.пункту меню или любую другую клавишу для выхода ... ");
             var ans = Console.ReadLine();
@@ -38,6 +39,10 @@
                         FillingFirstCriteria.WriteCriteriaToJson();
                         break;
                     case 3:
+                        // Связывание глобальных критериев и критериев Coursera
+                        FillingDataFromCoursera.BindingGlobalCriteriasWithCourseraCriterias();
+                        break;
+                    case 4:
                         // Заполнение стран и городов
                         FillingCountryAndCity.FillingCountriesWithCities();
                         break;

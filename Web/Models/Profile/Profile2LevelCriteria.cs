@@ -12,7 +12,7 @@
 
         public Guid CriteriaId { get; set; }
 
-        public virtual Models.Profile.Profile Profile { get; set; }
+        public virtual Profile Profile { get; set; }
 
         public long ProfileId { get; set; }
     }
