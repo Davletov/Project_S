@@ -40,5 +40,7 @@ namespace Web.Models.Criteria
         }
 
         public ICollection<Category> Categories { get; set; }
+
+        public ICollection<Course> Courses { get; set; }
     }
 }

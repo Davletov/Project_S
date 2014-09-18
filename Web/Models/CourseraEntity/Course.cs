@@ -1,4 +1,6 @@
-﻿namespace Web.Models.CourseraEntity
+﻿using Web.Models.Criteria;
+
+namespace Web.Models.CourseraEntity
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -198,6 +200,10 @@
         /// </summary>
         [JsonProperty("universities ")]
         public ICollection<University> Universities { get; set; }
+
+        public ICollection<SecondLevelCriteria> SecondLevelCriterias { get; set; }
+
+        public ICollection<ThirdLevelCriteria> ThirdLevelCriterias { get; set; }
 
     }
 }

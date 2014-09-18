@@ -147,6 +147,30 @@
                   m.MapRightKey("ThirdLevelId");
                   m.ToTable("CategoryWithThirdLevel");
               });
+
+            // Course <-> ThirdLevelCriteria
+            modelBuilder.Entity<Course>().
+             HasMany(c => c.ThirdLevelCriterias).
+             WithMany(p => p.Courses).
+             Map(
+              m =>
+              {
+                  m.MapLeftKey("CourseId");
+                  m.MapRightKey("ThirdLevelId");
+                  m.ToTable("CourseWithThirdLevel");
+              });
+
+            // Course <-> SecondLevelCriteria
+            modelBuilder.Entity<Course>().
+             HasMany(c => c.SecondLevelCriterias).
+             WithMany(p => p.Courses).
+             Map(
+              m =>
+              {
+                  m.MapLeftKey("CourseId");
+                  m.MapRightKey("SecondLevelId");
+                  m.ToTable("CourseWithSecondLevel");
+              });
         }
     }
 }
