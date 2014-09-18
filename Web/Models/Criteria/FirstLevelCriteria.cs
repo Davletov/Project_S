@@ -1,4 +1,6 @@
-﻿namespace Web.Models.Criteria
+﻿using Web.Models.CourseraEntity;
+
+namespace Web.Models.Criteria
 {
     using System;
     using System.Collections.Generic;
@@ -34,5 +36,7 @@
         {
             Id = Guid.NewGuid();
         }
+
+        public ICollection<Category> Categories { get; set; }
     }
 }

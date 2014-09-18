@@ -31,8 +31,6 @@
 
         public DbSet<ThirdLevelCriteria> ThirdLevelCriterias { get; set; }
 
-        public DbSet<CriteriaWithCourseraCategory> CriteriaWithCourseraCategory { get; set; }
-
         public DbSet<Country> Countries { get; set; }
 
         public DbSet<City> Cities { get; set; }
@@ -113,6 +111,42 @@
                    m.MapRightKey("UniversityId");
                    m.ToTable("CourseUniversities");
                });
+
+            // Category <-> FirstLevelCriteria
+            modelBuilder.Entity<Category>().
+             HasMany(c => c.FirstLevelCriterias).
+             WithMany(p => p.Categories).
+             Map(
+              m =>
+              {
+                  m.MapLeftKey("CategoryId");
+                  m.MapRightKey("FirstLevelId");
+                  m.ToTable("CategoryWithFirstLevel");
+              });
+
+            // Category <-> SecondLevelCriteria
+            modelBuilder.Entity<Category>().
+             HasMany(c => c.SecondLevelCriterias).
+             WithMany(p => p.Categories).
+             Map(
+              m =>
+              {
+                  m.MapLeftKey("CategoryId");
+                  m.MapRightKey("SecondLevelId");
+                  m.ToTable("CategoryWithSecondLevel");
+              });
+
+            // Category <-> ThirdLevelCriteria
+            modelBuilder.Entity<Category>().
+             HasMany(c => c.ThirdLevelCriterias).
+             WithMany(p => p.Categories).
+             Map(
+              m =>
+              {
+                  m.MapLeftKey("CategoryId");
+                  m.MapRightKey("ThirdLevelId");
+                  m.ToTable("CategoryWithThirdLevel");
+              });
         }
     }
 }

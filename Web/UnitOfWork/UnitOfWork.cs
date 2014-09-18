@@ -36,7 +36,6 @@
         private BaseRepository<FirstLevelCriteria> _firstLevelCriteriaRepository;
         private BaseRepository<SecondLevelCriteria> _secondLevelCriteriaRepository;
         private BaseRepository<ThirdLevelCriteria> _thirdLevelCriteriaRepository;
-        private BaseRepository<CriteriaWithCourseraCategory> _criteriaWithCourseraCategoryRepository;
         private BaseRepository<Profile1LevelCriteria> _pfirstLevelCriteriaRepository;
         private BaseRepository<Profile2LevelCriteria> _psecondLevelCriteriaRepository;
         private BaseRepository<Profile3LevelCriteria> _pthirdLevelCriteriaRepository;
@@ -104,14 +103,6 @@
             get
             {
                 return _pthirdLevelCriteriaRepository ?? (_pthirdLevelCriteriaRepository = new BaseRepository<Profile3LevelCriteria>(_context));
-            }
-        }
-
-        public BaseRepository<CriteriaWithCourseraCategory> CriteriaWithCourseraCategoryRepository
-        {
-            get
-            {
-                return _criteriaWithCourseraCategoryRepository ?? (_criteriaWithCourseraCategoryRepository = new BaseRepository<CriteriaWithCourseraCategory>(_context));
             }
         }
 

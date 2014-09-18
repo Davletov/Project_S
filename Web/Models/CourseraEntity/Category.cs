@@ -50,6 +50,10 @@
         [JsonConverter(typeof(ConvertToCourse))]
         public ICollection<Course> Courses { get; set; }
 
-        public virtual CriteriaWithCourseraCategory CriteriaWithCourseraCategory { get; set; }
+        public ICollection<FirstLevelCriteria> FirstLevelCriterias { get; set; }
+
+        public ICollection<SecondLevelCriteria> SecondLevelCriterias { get; set; }
+
+        public ICollection<ThirdLevelCriteria> ThirdLevelCriterias { get; set; }
     }
 }
