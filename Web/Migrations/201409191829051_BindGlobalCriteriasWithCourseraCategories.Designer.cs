@@ -7,13 +7,13 @@ namespace Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class BindCoursesWithGlobalCriterias : IMigrationMetadata
+    public sealed partial class BindGlobalCriteriasWithCourseraCategories : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(BindCoursesWithGlobalCriterias));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(BindGlobalCriteriasWithCourseraCategories));
         
         string IMigrationMetadata.Id
         {
-            get { return "201409181326206_BindCoursesWithGlobalCriterias"; }
+            get { return "201409191829051_BindGlobalCriteriasWithCourseraCategories"; }
         }
         
         string IMigrationMetadata.Source

@@ -340,9 +340,9 @@
     <Compile Include="Migrations\201409150617037_SeparateProfileAndCriterias.Designer.cs">
       <DependentUpon>201409150617037_SeparateProfileAndCriterias.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201409181326206_BindCoursesWithGlobalCriterias.cs" />
-    <Compile Include="Migrations\201409181326206_BindCoursesWithGlobalCriterias.Designer.cs">
-      <DependentUpon>201409181326206_BindCoursesWithGlobalCriterias.cs</DependentUpon>
+    <Compile Include="Migrations\201409191829051_BindGlobalCriteriasWithCourseraCategories.cs" />
+    <Compile Include="Migrations\201409191829051_BindGlobalCriteriasWithCourseraCategories.Designer.cs">
+      <DependentUpon>201409191829051_BindGlobalCriteriasWithCourseraCategories.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\CourseraEntity\Category.cs" />
     <Compile Include="Global.asax.cs">
@@ -459,8 +459,8 @@
     <EmbeddedResource Include="Migrations\201409150617037_SeparateProfileAndCriterias.resx">
       <DependentUpon>201409150617037_SeparateProfileAndCriterias.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409181326206_BindCoursesWithGlobalCriterias.resx">
-      <DependentUpon>201409181326206_BindCoursesWithGlobalCriterias.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201409191829051_BindGlobalCriteriasWithCourseraCategories.resx">
+      <DependentUpon>201409191829051_BindGlobalCriteriasWithCourseraCategories.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

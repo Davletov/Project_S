@@ -1,6 +1,8 @@
 ﻿namespace FiilingData.FillingCourseraData
 {
+    using System;
     using System.Linq;
+    using System.Diagnostics;
     using System.Collections.ObjectModel;
     using Web.UnitOfWork;
     using Web.Models.CourseraEntity;
@@ -12,6 +14,10 @@
         /// </summary>
         public static void BindingGlobalCriteriasWithCourseraCriterias()
         {
+            var stopWatch = new Stopwatch();
+            Console.WriteLine("\nСвязывание глоб.критериев с категориями Coursera ...");
+
+            stopWatch.Start();
             using (var uow = new UnitOfWork())
             {
                 var secondLevCriteriaId = uow.SecondLevelCriteriaRepository.Get().Where(x => x.Name == "Philosophy").Select(x => x.Id).FirstOrDefault();
@@ -75,6 +81,17 @@
             BindByCourseName("Sociology", new[] { "Sociology" });
             BindByCourseName("Systems science", new[] { "Systems" });
             BindByCourseName("Transportation", new[] { "Transportation", "logistics" });
+
+            stopWatch.Stop();
+            Console.WriteLine("Связывание глоб.критериев с категориями Coursera прошло успешно !");
+
+            // Get the elapsed time as a TimeSpan value.
+            TimeSpan ts = stopWatch.Elapsed;
+            // Format and display the TimeSpan value.
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            Console.WriteLine("RunTime " + elapsedTime);
         }
 
         // Связываем глобальные критерии 2-го и 3-го уровня с категориями курсеры
