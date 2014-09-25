@@ -1,4 +1,5 @@
 ﻿@using Web.Models.CourseraEntity
+@model List<Web.Models.CourseraEntity.CourseraMaterial>
 @{
     ViewBag.Title = "Index";
 }
@@ -14,7 +15,10 @@
     <script type="text/javascript" src="~/Scripts/cufon-yui.js"></script>
     <script type="text/javascript" src="~/Scripts/arial.js"></script>
     <script type="text/javascript" src="~/Scripts/cuf_run.js"></script>
-    <style type="text/css">.content_bg { }</style>
+    <style type="text/css">
+        .content_bg {
+        }
+    </style>
 </head>
 <body>
     <div class="main">
@@ -37,12 +41,11 @@
                 <div class="menu_nav">
                     @Html.Partial("_LoginPartial")
                     <ul>
-                        <li class="active">@Html.ActionLink("MyPoints", "Index", "Home")</li> 
+                        <li class="active">@Html.ActionLink("MyPoints", "Index", "Home")</li>
                         <li>@Html.ActionLink("Support", "Support", "Home")</li>
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Blog", "Blog", "Home")</li>
-                        <li>@Html.ActionLink("Coursera", "Index", "Coursera")</li>
-                        <li>@Html.ActionLink("Youtube", "Index2", "Youtube")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     </ul>
                     <div class="clr"></div>
                 </div>
@@ -51,26 +54,22 @@
             <div class="content">
                 <div class="content_bg">
                     <div class="mainbar">
-                        
                         @{
-                            var crses = (List<Course>)ViewData["chemistryCourses"];
-                            foreach (var crs in crses)
+                            foreach (CourseraMaterial course in @Model)
                             {
                                 <div class="article">
-                                    <h2><span>@crs.Name</span></h2>
+                                    <h2><span>@course.Name</span></h2>
                                     <div class="clr"></div>
                                     <p class="post-data"><span class="date">March 16, 2018</span> &nbsp;|&nbsp; Posted by <a href="#">Owner</a> &nbsp;|&nbsp; Filed under <a href="#">templates</a>, <a href="#">internet</a></p>
 
-                                    <img src=@crs.LargeIcon width="613" height="193" alt="" />
-                                    <p>@crs.ShortDescription</p>
+                                    <img src=@course.LargeIcon width="613" height="193" alt="" />
+                                    <p>@course.Description</p>
 
                                     <p class="spec"><a href="#" class="com fr">Comments (3)</a> <a href="#" class="rm fl">Read more</a></p>
                                     <div class="clr"></div>
                                 </div>
                             }
-                        }
-
-                        <div class="pagenavi"><span class="pages">Page 1 of 2</span><span class="current">1</span><a href="#">2</a><a href="#">&raquo;</a></div>
+}
                     </div>
                     <div class="sidebar">
                         <div class="gadget">
@@ -94,11 +93,11 @@
             <div class="fbg_resize">
                 <div class="col c1">
                     <h2><span>Image Gallery</span></h2>
-                    <a href="#"><img src="~/Images/pic_1.jpg" width="58" height="58" alt="" /></a> 
-                    <a href="#"><img src="~/Images/pic_2.jpg" width="58" height="58" alt="" /></a> 
-                    <a href="#"><img src="~/Images/pic_3.jpg" width="58" height="58" alt="" /></a> 
-                    <a href="#"><img src="~/Images/pic_4.jpg" width="58" height="58" alt="" /></a> 
-                    <a href="#"><img src="~/Images/pic_5.jpg" width="58" height="58" alt="" /></a> 
+                    <a href="#"><img src="~/Images/pic_1.jpg" width="58" height="58" alt="" /></a>
+                    <a href="#"><img src="~/Images/pic_2.jpg" width="58" height="58" alt="" /></a>
+                    <a href="#"><img src="~/Images/pic_3.jpg" width="58" height="58" alt="" /></a>
+                    <a href="#"><img src="~/Images/pic_4.jpg" width="58" height="58" alt="" /></a>
+                    <a href="#"><img src="~/Images/pic_5.jpg" width="58" height="58" alt="" /></a>
                     <a href="#"><img src="~/Images/pic_6.jpg" width="58" height="58" alt="" /></a>
                 </div>
                 <div class="col c2">
@@ -125,4 +124,3 @@
     </div>
 </body>
 </html>
-

@@ -298,6 +298,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="BdContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CourseraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -366,6 +367,7 @@
     <Compile Include="Models\CourseraEntity\Course.cs" />
     <Compile Include="Models\CourseraEntity\CourseCategories.cs" />
     <Compile Include="Models\CourseraEntity\CourseInstructors.cs" />
+    <Compile Include="Models\CourseraEntity\CourseraMaterial.cs" />
     <Compile Include="Models\CourseraEntity\CourseSessions.cs" />
     <Compile Include="Models\CourseraEntity\CourseUniversities.cs" />
     <Compile Include="Models\CourseraEntity\Instructor.cs" />
@@ -424,6 +426,7 @@
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Views\Youtube\Index.cshtml" />
     <Content Include="Views\Youtube\Index2.cshtml" />
+    <Content Include="Views\Coursera\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
