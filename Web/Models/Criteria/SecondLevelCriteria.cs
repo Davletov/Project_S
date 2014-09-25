@@ -39,8 +39,6 @@ namespace Web.Models.Criteria
             Id = Guid.NewGuid();
         }
 
-        public ICollection<Category> Categories { get; set; }
-
-        public ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
     }
 }

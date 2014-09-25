@@ -36,7 +36,5 @@ namespace Web.Models.Criteria
         {
             Id = Guid.NewGuid();
         }
-
-        public ICollection<Category> Categories { get; set; }
     }
 }

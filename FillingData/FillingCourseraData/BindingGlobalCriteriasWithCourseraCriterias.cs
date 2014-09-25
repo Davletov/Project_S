@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Diagnostics;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using Web.UnitOfWork;
     using Web.Models.CourseraEntity;
@@ -15,17 +16,18 @@
         public static void BindingGlobalCriteriasWithCourseraCriterias()
         {
             var stopWatch = new Stopwatch();
-            Console.WriteLine("\nСвязывание глоб.критериев с категориями Coursera ...");
+            Console.WriteLine("\nСвязывание глоб.критериев с курсами Coursera ...");
 
             stopWatch.Start();
             using (var uow = new UnitOfWork())
             {
-                var secondLevCriteriaId = uow.SecondLevelCriteriaRepository.Get().Where(x => x.Name == "Philosophy").Select(x => x.Id).FirstOrDefault();
-                var res2 = uow.ThirdLevelCriteriaRepository.Get().Where(x => x.SecondLevelCriteria.Id == secondLevCriteriaId).Select(x => x.Categories).ToList();
-                var tmp = res2;
+                var secLevCourses = uow.SecondLevelCriteriaRepository.Get().Where(x => x.Name == "Philosophy").Select(x => x.Courses).ToList();
+                var secondLevId = uow.SecondLevelCriteriaRepository.Get().Where(x => x.Name == "Electrical Engineering").Select(x => x.Id).FirstOrDefault();
+                var list = uow.ThirdLevelCriteriaRepository.Get().Where(x => x.SecondLevelCriteria.Id == secondLevId).Select(x => x.Courses).ToList();
+                var tmp = list;
             }
 
-            // Связываем 2-й и 3-й уровень глоб.критериев с категориями Coursera
+            // Связываем 2-й и 3-й уровень глоб.критериев с курсами Coursera (по соот.категориям Coursera)
             BindSecondLevelCriterias("Arts", "Arts");
             BindSecondLevelCriterias("Agriculture", "Energy & Earth Sciences"); // ?
             BindSecondLevelCriterias("Anthropology", "Biology & Life Sciences"); // ?
@@ -62,10 +64,10 @@
 
 
             BindByCourseName("Area studies", new[] { "Area studies" });
-            BindByCourseName("Divinity", new[] { "Divinity", "religion" });
-            BindByCourseName("Electrical Engineering", new[] { "Electrical", "Engineering" });
+            BindByCourseName("Divinity", new[] { "Divinity", "religio" });
+            BindByCourseName("Electrical Engineering", new[] { "Electric"});
             BindByCourseName("Environmental studies and forestry", new[] { "Environmental", "forestry" });
-            BindByCourseName("Gender and sexuality studies", new[] { "Gender", "sexuality" });
+            BindByCourseName("Gender and sexuality studies", new[] { "Gender", "sex" });
             BindByCourseName("Geography", new[] { "Geography" });
             BindByCourseName("History", new[] { "History" });
             BindByCourseName("Journalism, media studies and communication", new[] { "Journalism", "media studies" });
@@ -76,14 +78,14 @@
             BindByCourseName("Political science", new[] { "Political", "policy" });
             BindByCourseName("Psychology", new[] { "Psychology" });
             BindByCourseName("Public administration", new[] { "Public administration", "administration" });
-            BindByCourseName("Religion", new[] { "Religion" });
+            BindByCourseName("Religion", new[] { "Religio" });
             BindByCourseName("Social work", new[] { "Social" });
             BindByCourseName("Sociology", new[] { "Sociology" });
             BindByCourseName("Systems science", new[] { "Systems" });
             BindByCourseName("Transportation", new[] { "Transportation", "logistics" });
 
             stopWatch.Stop();
-            Console.WriteLine("Связывание глоб.критериев с категориями Coursera прошло успешно !");
+            Console.WriteLine("Связывание глоб.критериев с курсами Coursera прошло успешно !");
 
             // Get the elapsed time as a TimeSpan value.
             TimeSpan ts = stopWatch.Elapsed;
@@ -94,7 +96,9 @@
             Console.WriteLine("RunTime " + elapsedTime);
         }
 
-        // Связываем глобальные критерии 2-го и 3-го уровня с категориями курсеры
+        // Связываем глобальные критерии 2-го с курсами курсеры (по категориям курсеры)
+        // однозначное соот-е : Пр.: Law - Law
+        // критерии 3-го уровня в этом случае будут иметь пустые списки курсов
         private static void BindSecondLevelCriterias(string globalSecondLevCriteria, string courseraCriteria)
         {
             // Связывание глоб.критериев с категориями курсеры
@@ -102,25 +106,17 @@
             {
                 var secGlobalCriteria = uow.SecondLevelCriteriaRepository.Get().FirstOrDefault(x => x.Name == globalSecondLevCriteria); // 2-й уровень Global Criteria
 
-                var courseraCategory = uow.CategoryRepository.Get().FirstOrDefault(x => x.Name.ToLower() == courseraCriteria.ToLower()); // Категория Coursera
+                // Курсы Coursera соотв.категории
+                var courseraCoursesList = uow.CategoryRepository.Get()
+                    .Where(x => x.Name.ToLower() == courseraCriteria.ToLower())
+                    .SelectMany(x => x.Courses)
+                    .ToList();
 
-                if (secGlobalCriteria == null || courseraCategory == null) return;
+                if (secGlobalCriteria == null || courseraCoursesList.Count <= 0) return;
 
-                secGlobalCriteria.Categories = new Collection<Category> {courseraCategory};
+                secGlobalCriteria.Courses = new Collection<Course>();
+                secGlobalCriteria.Courses = courseraCoursesList;
                 uow.SecondLevelCriteriaRepository.Update(secGlobalCriteria);
-
-                var thirdCriterias = uow.ThirdLevelCriteriaRepository.Get()
-                    .Where(x => x.SecondLevelCriteria.Id == secGlobalCriteria.Id).ToList();
-
-                // Все критерии 3-го уровня из globalCriteria(2-й уровень) связываем с courseraCriteria
-                foreach (var thirdCriteria in thirdCriterias)
-                {
-                    thirdCriteria.Categories = new Collection<Category>();
-                    thirdCriteria.Categories = new Collection<Category> {courseraCategory};
-
-                    uow.ThirdLevelCriteriaRepository.Update(thirdCriteria);
-                }
-
                 uow.Save();
             }
         }
@@ -144,8 +140,14 @@
             {
                 var secGlobalCriteria = uow.SecondLevelCriteriaRepository.Get().FirstOrDefault(x => x.Name.ToLower() == globalCriteriaName.ToLower()); // 2-й уровень Global Criteria
 
-                var courses = uow.CourseRepository.Get().Where(x => globalCriteriaTags.Contains(x.Name.ToLower()) || globalCriteriaTags.Contains(x.ShortName.ToLower())).ToList();
-
+                var courses = new List<Course>();
+                foreach (var globalCriteriaTag in globalCriteriaTags)
+                {
+                    courses.AddRange(uow.CourseRepository.Get()
+                        .Where(x => x.Name.ToLower().Contains(globalCriteriaTag) 
+                            || x.ShortName.ToLower().Contains(globalCriteriaTag)).ToList());
+                }
+                
                 if (secGlobalCriteria == null || !courses.Any()) return;
 
                 secGlobalCriteria.Courses = new Collection<Course>();
