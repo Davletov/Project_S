@@ -8,6 +8,8 @@
 
         public string LargeIcon { get; set; }
 
+        public string SmallIcon { get; set; }
+
         public string AboutTheCourse { get; set; }
 
     }

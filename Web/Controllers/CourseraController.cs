@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Web.Mvc;
+    using PagedList;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Web.Models.CourseraEntity;
@@ -12,7 +13,7 @@
         private readonly UserManager<Profile> userManager = new UserManager<Profile>(new UserStore<Profile>(new BdContext()));
 
         // GET: Coursera
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
             Profile user = userManager.FindById(User.Identity.GetUserId());
             if (user != null)
@@ -28,10 +29,12 @@
                     Name = course.Name,
                     Description = course.ShortDescription,
                     AboutTheCourse = course.AboutTheCourse,
-                    LargeIcon = course.LargeIcon
+                    LargeIcon = course.LargeIcon,
+                    SmallIcon = course.SmallIcon
                 }).ToList();
 
-                return View(courseMaterials);
+                int pageSize = 5;
+                return View(courseMaterials.ToPagedList(page, pageSize));
 
             }
 
