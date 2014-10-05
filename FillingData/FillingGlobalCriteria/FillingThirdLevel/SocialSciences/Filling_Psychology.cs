@@ -1,8 +1,9 @@
-﻿namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
+﻿using Web.DataAccess.Repository;
+
+namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 {
     using System.Collections.Generic;
-    using Web.Models.Criteria;
-    using Web.UnitOfWork;
+    using Web.Models.Criteria;    
 
     public partial class FillingThirdLevelCriteria
     {
@@ -59,7 +60,7 @@
 
             foreach (var thirdLevelCriteria in tmpThirdCritList)
             {
-                uow.ThirdLevelCriteriaRepository.Add(thirdLevelCriteria);
+                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
                 psychology.ThirdLevelCriteria.Add(thirdLevelCriteria);
             }
         }

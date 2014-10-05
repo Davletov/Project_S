@@ -1,11 +1,13 @@
-﻿namespace Web.Controllers
+﻿using Web.DataAccess.Repository;
+using Web.Models.CourseraEntity;
+using Web.Models.Profile;
+
+namespace Web.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
     using System.Collections.Generic;
-    using Microsoft.AspNet.Identity;
-    using Web.Models.Profile;
-    using Web.Models.CourseraEntity;
+    using Microsoft.AspNet.Identity;    
 
     [RequireHttps]
     public class HomeController : Controller
@@ -16,12 +18,12 @@
             var resultCourses = new List<Course>();
             string userId = User.Identity.GetUserId();
             Profile currentProfile;
-            using (var uow = new UnitOfWork.UnitOfWork())
+            using (var uow = new UnitOfWork())
             {
-                currentProfile = uow.ProfileRepository.Get(x => x.UserId == userId).FirstOrDefault();
+                currentProfile = uow.Repository<Profile>().Get(x => x.UserId == userId).FirstOrDefault();
             }
 
-            using (var uow = new UnitOfWork.UnitOfWork())
+            using (var uow = new UnitOfWork())
             {
                 //var criterias = currentProfile.UserCriterias.Select(x => x.Name).ToList();
 

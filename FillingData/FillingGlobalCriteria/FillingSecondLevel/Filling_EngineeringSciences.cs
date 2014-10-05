@@ -1,9 +1,10 @@
-﻿namespace FiilingData.FillingGlobalCriteria.FillingSecondLevel
+﻿using Web.DataAccess.Repository;
+
+namespace FiilingData.FillingGlobalCriteria.FillingSecondLevel
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using Web.Models.Criteria;
-    using Web.UnitOfWork;
+    using Web.Models.Criteria;    
     using FiilingData.FillingGlobalCriteria.FillingThirdLevel;
 
     public partial class FillingSecondLevelCriteria
@@ -29,7 +30,7 @@
 
             foreach (var secondLevelCriteria in tmpSecondCritList)
             {
-                uow.SecondLevelCriteriaRepository.Add(secondLevelCriteria);
+                uow.Repository<SecondLevelCriteria>().Add(secondLevelCriteria);
                 engineeringSciences.SecondLevelCriteria.Add(secondLevelCriteria);
             }
         }

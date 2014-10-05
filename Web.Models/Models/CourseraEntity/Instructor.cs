@@ -3,8 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using Newtonsoft.Json;
-    using Web.Helpful;
+    using Newtonsoft.Json;    
 
     public class Instructor
     {
@@ -126,7 +125,7 @@
         /// Связка многие ко многим (Инструкторы <-> Курсы)
         /// </summary>
         [JsonProperty("courses")]
-        [JsonConverter(typeof(ConvertToCourse))]
+        //[JsonConverter(typeof(ConvertToCourse))]
         public ICollection<Course> Courses { get; set; }
 
     }

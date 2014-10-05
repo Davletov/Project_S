@@ -69,7 +69,7 @@
 
             List<YoutubeMaterial> materials = new List<YoutubeMaterial>();
             string query = string.Join(",",
-                user.SecondLevelCriteria.Select(x => x.Criteria).Where(x => x.Name == criteriaName).Select(x => x.Name));
+                user.ThirdLevelCriteria.Select(x => x.Criteria).Where(x => x.Name == criteriaName).Select(x => x.Name));
 
 
             SearchResource.ListRequest searchListRequest = youtubeService.Search.List("snippet");

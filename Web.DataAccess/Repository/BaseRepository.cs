@@ -1,13 +1,14 @@
-﻿namespace Web.Repository
-{
-    using System;
-    using System.Linq;
-    using System.Data.Entity;
-    using System.Linq.Expressions;
-    using System.Data.Entity.Infrastructure;
+﻿using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Linq.Expressions;
+using Web.Repository;
 
+namespace Web.DataAccess.Repository
+{
     // Базовый репозиторий
-    public class BaseRepository<TEntity> where TEntity : class
+    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         internal BdContext Context;
         internal DbSet<TEntity> DbSet;

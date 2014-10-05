@@ -4,8 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using Newtonsoft.Json;
-    using Web.Helpful;
+    using Newtonsoft.Json;    
     using Web.Models.Criteria;
 
     public class Category
@@ -47,7 +46,7 @@
         /// Каждый курс (Пр.: Математические методы в экономике) может относится к нескольких категориям 
         /// </summary>
         [JsonProperty("courses")]
-        [JsonConverter(typeof(ConvertToCourse))]
+        //[JsonConverter(typeof(ConvertToCourse))]
         public ICollection<Course> Courses { get; set; }
     }
 }

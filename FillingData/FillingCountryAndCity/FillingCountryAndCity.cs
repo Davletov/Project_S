@@ -1,12 +1,13 @@
-﻿namespace FiilingData
+﻿using Web.DataAccess.Repository;
+
+namespace FiilingData
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
     using Microsoft.VisualBasic.FileIO;
-    using Web.Models.Location;
-    using Web.UnitOfWork;
+    using Web.Models.Location;    
 
     public class FillingCountryAndCity
     {
@@ -105,15 +106,15 @@
             // Если есть данные в таблице Country, то удалим их
             using (var uow = new UnitOfWork())
             {
-                var countruIdsInRepo = uow.CountryRepository.Get().Select(x => x.CountryId).ToList();
+                var countruIdsInRepo = uow.Repository<Country>().Get().Select(x => x.CountryId).ToList();
                 var countCountryInRepo = countruIdsInRepo.Count();
                 if (countCountryInRepo > 0)
                 {
                     foreach (var country in countruIdsInRepo)
                     {
-                        uow.CountryRepository.Delete(country);
+                        uow.Repository<Country>().Delete(country);
                     }
-                    uow.Save();
+                    uow.Commit();
                 }
             }
 
@@ -123,9 +124,9 @@
                 {
                     var selectCities = groupCityList.Where(x => x.ShortNameCountry == country.ShortName).ToList();
                     country.Cities = selectCities;
-                    uow.CountryRepository.Add(country);
+                    uow.Repository<Country>().Add(country);
 
-                    uow.Save();
+                    uow.Commit();
                 }
             }
 

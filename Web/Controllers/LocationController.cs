@@ -1,10 +1,13 @@
-﻿namespace Web.Controllers
+﻿using Web.DataAccess.Repository;
+using Web.Models.Location;
+using Web.Models.Profile;
+
+namespace Web.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
     using System.Collections.Generic;
-    using Microsoft.AspNet.Identity;
-    using Web.Models.Location;
+    using Microsoft.AspNet.Identity;    
     
     /// <summary>
     /// Контроллер для обработки Страны и города в профайле пользователя
@@ -18,9 +21,9 @@
         public static List<Country> GetCountries()
         {
             List<Country> countryList;
-            using (var uow = new UnitOfWork.UnitOfWork())
+            using (var uow = new UnitOfWork())
             {
-                countryList = uow.CountryRepository.Get().ToList();
+                countryList = uow.Repository<Country>().Get().ToList();
             }
             return countryList;
         }
@@ -36,9 +39,9 @@
             var cities = new List<CityProxy>();
             var currentUserId = User.Identity.GetUserId();
             int cityId = 0;
-            using (var uow = new UnitOfWork.UnitOfWork())
+            using (var uow = new UnitOfWork())
             {
-                cities = uow.CityRepository.Get(x => x.Country.CountryId == countryId)
+                cities = uow.Repository<City>().Get(x => x.Country.CountryId == countryId)
                     .Select(x =>
                         new CityProxy
                         {
@@ -49,7 +52,7 @@
 
                 if (currentUserId != null)
                 {
-                    cityId = uow.ProfileRepository.GetById(currentUserId).City;
+                    cityId = uow.Repository<Profile>().GetById(currentUserId).City;
                 }
             }
 

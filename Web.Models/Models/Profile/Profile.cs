@@ -1,10 +1,11 @@
-﻿namespace Web.Models.Profile
+﻿using Web.Enum;
+
+namespace Web.Models.Profile
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using Web.Enum;
+    using Microsoft.AspNet.Identity.EntityFramework;    
 
     [Table("Profile")]
     public class Profile : IdentityUser

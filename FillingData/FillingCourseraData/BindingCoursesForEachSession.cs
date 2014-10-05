@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Web.DataAccess.Repository;
 
 namespace FiilingData.FillingCourseraData
 {
@@ -6,10 +7,8 @@ namespace FiilingData.FillingCourseraData
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using Newtonsoft.Json;
-    using Web.Helpful;
-    using Web.Models.CourseraEntity;
-    using Web.UnitOfWork;
+    using Newtonsoft.Json;    
+    using Web.Models.CourseraEntity;    
 
     public static partial class FillingDataFromCoursera
     {
@@ -42,7 +41,7 @@ namespace FiilingData.FillingCourseraData
                         // SessionIdFromApi - глобальный идентификатор Сессий (внутренняя идентификация в Coursera API)
                         // Находим в нашей базе сессию по идентификатору SessionIdFromApi (в нем список курсов пока Null)
                         var findSessn =
-                            uow.SessionRepository.Get(x => x.SessionIdFromApi == sessn.SessionIdFromApi)
+                            uow.Repository<Session>().Get(x => x.SessionIdFromApi == sessn.SessionIdFromApi)
                                 .FirstOrDefault();
                         if (findSessn != null && sessn.Courses != null)
                         {
@@ -53,7 +52,7 @@ namespace FiilingData.FillingCourseraData
                             {
                                 // находим в нашей базе соотв.курс
                                 var addCourse =
-                                    uow.CourseRepository.Get(x => x.CourseIdFromApi == course.CourseIdFromApi)
+                                    uow.Repository<Course>().Get(x => x.CourseIdFromApi == course.CourseIdFromApi)
                                         .FirstOrDefault();
 
                                 // и добавляем его в список Courses в сущности Сессия
@@ -63,11 +62,11 @@ namespace FiilingData.FillingCourseraData
                                 }
                             }
 
-                            uow.SessionRepository.Update(findSessn);
+                            uow.Repository<Session>().Update(findSessn);
                         }
                     }
 
-                    uow.Save();
+                    uow.Commit();
                 }
 
                 stopWatch.Stop();
@@ -106,7 +105,7 @@ namespace FiilingData.FillingCourseraData
             /// Каждый курс (Пр.: Математические методы в экономике) может относится к нескольких категориям 
             /// </summary>
             [JsonProperty("courses")]
-            [JsonConverter(typeof(ConvertToCourse))]
+            //[JsonConverter(typeof(ConvertToCourse))]
             public ICollection<Course> Courses { get; set; }
         }
 

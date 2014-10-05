@@ -1,9 +1,10 @@
-﻿namespace FiilingData.FillingGlobalCriteria.FillingFirstLevel
+﻿using Web.DataAccess.Repository;
+
+namespace FiilingData.FillingGlobalCriteria.FillingFirstLevel
 {
     using System.Linq;
     using System.Collections.ObjectModel;
-    using Web.Models.Criteria;
-    using Web.UnitOfWork;
+    using Web.Models.Criteria;    
     using FiilingData.FillingGlobalCriteria.FillingSecondLevel;
     
     public partial class FillingFirstLevelCriteria
@@ -13,7 +14,7 @@
             // Сначала удаляем из таблиц данные связанные с критерием SocialSciences
             using (var uow = new UnitOfWork())
             {
-                var socSciences = uow.FirstLevelCriteriaRepository.Get(x => x.Name == "Social sciences").FirstOrDefault();
+                var socSciences = uow.Repository<FirstLevelCriteria>().Get(x => x.Name == "Social sciences").FirstOrDefault();
                 if (socSciences != null)
                 {
                     var secondLevelCriterias = socSciences.SecondLevelCriteria.ToList();
@@ -23,13 +24,13 @@
                         var thirdLevelCriteriaList = secondLevel.ThirdLevelCriteria.ToList();
                         foreach (var thirdLevel in thirdLevelCriteriaList)
                         {
-                            uow.ThirdLevelCriteriaRepository.Delete(thirdLevel);
+                            uow.Repository<ThirdLevelCriteria>().Delete(thirdLevel);
                         }
-                        uow.SecondLevelCriteriaRepository.Delete(secondLevel);
+                        uow.Repository<SecondLevelCriteria>().Delete(secondLevel);
                     }
-                    uow.FirstLevelCriteriaRepository.Delete(socSciences);
+                    uow.Repository<FirstLevelCriteria>().Delete(socSciences);
                 }
-                uow.Save();
+                uow.Commit();
             }
 
             // Добавляем данные связанные с критерием HumanitiesSciences
@@ -43,8 +44,8 @@
                 };
 
                 FillingSecondLevelCriteria.Filling_SocialSciences(ref socialSciences, uow);
-                uow.FirstLevelCriteriaRepository.Add(socialSciences);
-                uow.Save();
+                uow.Repository<FirstLevelCriteria>().Add(socialSciences);
+                uow.Commit();
             }
         }
     }

@@ -5,8 +5,7 @@ namespace Web.Models.CourseraEntity
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using Newtonsoft.Json;
-    using Web.Helpful;
+    using Newtonsoft.Json;    
 
     public class Course
     {

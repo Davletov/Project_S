@@ -1,9 +1,10 @@
-﻿namespace FiilingData.FillingGlobalCriteria.FillingFirstLevel
+﻿using Web.DataAccess.Repository;
+
+namespace FiilingData.FillingGlobalCriteria.FillingFirstLevel
 {
     using System.Linq;
     using System.Collections.ObjectModel;
-    using Web.Models.Criteria;
-    using Web.UnitOfWork;
+    using Web.Models.Criteria;    
     using FiilingData.FillingGlobalCriteria.FillingSecondLevel;
 
     public partial class FillingFirstLevelCriteria
@@ -13,7 +14,7 @@
             // Сначала удаляем из таблиц данные связанные с критерием AppliedSciences
             using (var uow = new UnitOfWork())
             {
-                var applSciences = uow.FirstLevelCriteriaRepository.Get(x => x.Name == "Applied Sciences").FirstOrDefault();
+                var applSciences = uow.Repository<FirstLevelCriteria>().Get(x => x.Name == "Applied Sciences").FirstOrDefault();
                 if (applSciences != null)
                 {
                     var secondLevelCriterias = applSciences.SecondLevelCriteria.ToList();
@@ -23,13 +24,13 @@
                         var thirdLevelCriteriaList = secondLevel.ThirdLevelCriteria.ToList();
                         foreach (var thirdLevel in thirdLevelCriteriaList)
                         {
-                            uow.ThirdLevelCriteriaRepository.Delete(thirdLevel);
+                            uow.Repository<ThirdLevelCriteria>().Delete(thirdLevel);
                         }
-                        uow.SecondLevelCriteriaRepository.Delete(secondLevel);
+                        uow.Repository<SecondLevelCriteria>().Delete(secondLevel);
                     }
-                    uow.FirstLevelCriteriaRepository.Delete(applSciences);
+                    uow.Repository<FirstLevelCriteria>().Delete(applSciences);
                 }
-                uow.Save();
+                uow.Commit();
             }
 
             // Добавляем данные связанные с критерием AppliedSciences
@@ -43,8 +44,8 @@
                 };
 
                 FillingSecondLevelCriteria.Filling_AppliedSciences(ref appliedSciences, uow);
-                uow.FirstLevelCriteriaRepository.Add(appliedSciences);
-                uow.Save();
+                uow.Repository<FirstLevelCriteria>().Add(appliedSciences);
+                uow.Commit();
             }
         }
     }

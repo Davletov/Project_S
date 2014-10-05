@@ -2,7 +2,7 @@ namespace Web.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<BdContext>
+  /*  internal sealed class Configuration : DbMigrationsConfiguration<BdContext>
     {
         public Configuration()
         {
@@ -24,5 +24,5 @@ namespace Web.Migrations
             //    );
             //
         }
-    }
+    }*/
 }

@@ -1,13 +1,13 @@
 ﻿using System.Diagnostics;
 using System.Linq;
+using Web.DataAccess.Repository;
 
 namespace FiilingData.FillingCourseraData
 {
     using System;
     using System.Collections.Generic;
     using Newtonsoft.Json;
-    using Web.Models.CourseraEntity;
-    using Web.UnitOfWork;
+    using Web.Models.CourseraEntity;    
 
     /// <summary>
     /// Скрипт для заполнения данными локальной бд о универах курсов с coursera.org 
@@ -35,16 +35,16 @@ namespace FiilingData.FillingCourseraData
                     // Если в таблице University уже есть какие то данные, то удалим их
                     using (var uowDel = new UnitOfWork())
                     {
-                        var universityList = uowDel.UniversityRepository.Get().Select(x => x.UniversityId).ToList();
+                        var universityList = uowDel.Repository<University>().Get().Select(x => x.UniversityId).ToList();
                         var countRowsInExistingBase = universityList.Count;
                         if (countRowsInExistingBase > 0)
                         {
                             foreach (var universityId in universityList)
                             {
-                                uowDel.SessionRepository.Delete(universityId);
+                                uowDel.Repository<Session>().Delete(universityId);
                             }
 
-                            uowDel.Save();
+                            uowDel.Commit();
                         }
                     }
 
@@ -53,10 +53,10 @@ namespace FiilingData.FillingCourseraData
                     {
                         foreach (var university in resultList)
                         {
-                            uowTmp.UniversityRepository.Add(university);
+                            uowTmp.Repository<University>().Add(university);
                         }
 
-                        uowTmp.Save();
+                        uowTmp.Commit();
                     }
                 }
 

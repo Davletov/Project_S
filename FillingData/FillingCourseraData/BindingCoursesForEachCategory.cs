@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Web.DataAccess.Repository;
 
 namespace FiilingData.FillingCourseraData
 {
@@ -6,10 +7,8 @@ namespace FiilingData.FillingCourseraData
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using Newtonsoft.Json;
-    using Web.Helpful;
-    using Web.Models.CourseraEntity;
-    using Web.UnitOfWork;
+    using Newtonsoft.Json;    
+    using Web.Models.CourseraEntity;    
 
     public static partial class FillingDataFromCoursera
     {
@@ -43,7 +42,7 @@ namespace FiilingData.FillingCourseraData
                         // CategoryIdFromApi - глобальный идентификатор Категорий (внутренняя идентификация в Coursera API)
                         // Находим в нашей базе категорию по идентификатору CategoryIdFromApi (в ней список курсов пока Null)
                         var findCategory =
-                            uow.CategoryRepository.Get(x => x.CategoryIdFromApi == categ.CategoryIdFromApi)
+                            uow.Repository<Category>().Get(x => x.CategoryIdFromApi == categ.CategoryIdFromApi)
                                 .FirstOrDefault();
                         if (findCategory != null && categ.Courses != null)
                         {
@@ -53,7 +52,7 @@ namespace FiilingData.FillingCourseraData
                             {
                                 // находим в нашей базе соотв.курс
                                 var addCourse =
-                                    uow.CourseRepository.Get(x => x.CourseIdFromApi == course.CourseIdFromApi)
+                                    uow.Repository<Course>().Get(x => x.CourseIdFromApi == course.CourseIdFromApi)
                                         .FirstOrDefault();
 
                                 // и добавляем его в список Courses в сущности Категория
@@ -63,11 +62,11 @@ namespace FiilingData.FillingCourseraData
                                 }
                             }
 
-                            uow.CategoryRepository.Update(findCategory);
+                            uow.Repository<Category>().Update(findCategory);
                         }
                     }
 
-                    uow.Save();
+                    uow.Commit();
                 }
 
                 stopWatch.Stop();
@@ -105,7 +104,7 @@ namespace FiilingData.FillingCourseraData
             /// Каждый курс (Пр.: Математические методы в экономике) может относится к нескольких категориям 
             /// </summary>
             [JsonProperty("courses")]
-            [JsonConverter(typeof(ConvertToCourse))]
+            //[JsonConverter(typeof(ConvertToCourse))]
             public ICollection<Course> Courses { get; set; }
         }
 

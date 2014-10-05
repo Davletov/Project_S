@@ -20,6 +20,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -303,15 +305,12 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="BdContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CourseraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\YoutubeController.cs" />
-    <Compile Include="Enum\UserSocialStatus.cs" />
-    <Compile Include="Helpful\CategoryHelper.cs" />
     <Compile Include="Migrations\201408141123210_AddLocationEntities.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -356,11 +355,9 @@
     <Compile Include="Migrations\201409250820030_DeleteCategoriesFromGlobalCriterias.Designer.cs">
       <DependentUpon>201409250820030_DeleteCategoriesFromGlobalCriterias.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\CourseraEntity\Category.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpful\ConvertToCourse.cs" />
     <Compile Include="Migrations\201407101234126_AddEntity.cs" />
     <Compile Include="Migrations\201407101234126_AddEntity.Designer.cs">
       <DependentUpon>201407101234126_AddEntity.cs</DependentUpon>
@@ -370,43 +367,13 @@
       <DependentUpon>201407181312109_AddManyToManyEntities.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CourseraEntity\Course.cs" />
-    <Compile Include="Models\CourseraEntity\CourseCategories.cs" />
-    <Compile Include="Models\CourseraEntity\CourseInstructors.cs" />
-    <Compile Include="Models\CourseraEntity\CourseraMaterial.cs" />
-    <Compile Include="Models\CourseraEntity\CourseSessions.cs" />
-    <Compile Include="Models\CourseraEntity\CourseUniversities.cs" />
-    <Compile Include="Models\CourseraEntity\Instructor.cs" />
-    <Compile Include="Models\CourseraEntity\Session.cs" />
-    <Compile Include="Models\CourseraEntity\University.cs" />
-    <Compile Include="Models\Criteria\FirstLevelCriteria.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\Criteria\SecondLevelCriteria.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\Criteria\ThirdLevelCriteria.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\Location\City.cs" />
-    <Compile Include="Models\Location\Country.cs" />
-    <Compile Include="Models\Profile\Profile.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\Profile\Profile1LevelCriteria.cs" />
-    <Compile Include="Models\Profile\Profile2LevelCriteria.cs" />
-    <Compile Include="Models\Profile\Profile3LevelCriteria.cs" />
-    <Compile Include="Models\YouTube\YoutubeMaterial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -485,6 +452,16 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Web.DataAccess\Web.DataAccess.csproj">
+      <Project>{4EE68091-FDB9-4928-BD5E-E27D101951C1}</Project>
+      <Name>Web.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Web.Models\Web.Models.csproj">
+      <Project>{220F636B-33C6-4028-A23E-3CAFD8CF6554}</Project>
+      <Name>Web.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -513,6 +490,13 @@
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

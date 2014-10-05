@@ -1,9 +1,10 @@
-﻿namespace FiilingData.FillingGlobalCriteria.FillingFirstLevel
+﻿using Web.DataAccess.Repository;
+
+namespace FiilingData.FillingGlobalCriteria.FillingFirstLevel
 {
     using System.Linq;
     using System.Collections.ObjectModel;
-    using Web.Models.Criteria;
-    using Web.UnitOfWork;
+    using Web.Models.Criteria;    
     using FiilingData.FillingGlobalCriteria.FillingSecondLevel;
 
     public partial class FillingFirstLevelCriteria
@@ -13,7 +14,7 @@
             // Сначала удаляем из таблиц данные связанные с критерием NaturalSciences
             using (var uow = new UnitOfWork())
             {
-                var natSciences = uow.FirstLevelCriteriaRepository.Get(x => x.Name == "Natural Sciences").FirstOrDefault();
+                var natSciences = uow.Repository<FirstLevelCriteria>().Get(x => x.Name == "Natural Sciences").FirstOrDefault();
                 if (natSciences != null)
                 {
                     var secondLevelCriterias = natSciences.SecondLevelCriteria.ToList();
@@ -23,13 +24,13 @@
                         var thirdLevelCriteriaList = secondLevel.ThirdLevelCriteria.ToList();
                         foreach (var thirdLevel in thirdLevelCriteriaList)
                         {
-                            uow.ThirdLevelCriteriaRepository.Delete(thirdLevel);
+                            uow.Repository<ThirdLevelCriteria>().Delete(thirdLevel);
                         }
-                        uow.SecondLevelCriteriaRepository.Delete(secondLevel);
+                        uow.Repository<SecondLevelCriteria>().Delete(secondLevel);
                     }
-                    uow.FirstLevelCriteriaRepository.Delete(natSciences);
+                    uow.Repository<FirstLevelCriteria>().Delete(natSciences);
                 }
-                uow.Save();
+                uow.Commit();
             }
 
             // Добавляем данные связанные с критерием HumanitiesSciences
@@ -42,8 +43,8 @@
                     SecondLevelCriteria = new Collection<SecondLevelCriteria>()
                 };
                 FillingSecondLevelCriteria.Filling_NaturalSciences(ref naturalSciences, uow);
-                uow.FirstLevelCriteriaRepository.Add(naturalSciences);
-                uow.Save();
+                uow.Repository<FirstLevelCriteria>().Add(naturalSciences);
+                uow.Commit();
             }
         }
     }
