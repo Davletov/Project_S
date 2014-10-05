@@ -125,7 +125,6 @@
         /// Связка многие ко многим (Инструкторы <-> Курсы)
         /// </summary>
         [JsonProperty("courses")]
-        //[JsonConverter(typeof(ConvertToCourse))]
         public ICollection<Course> Courses { get; set; }
 
     }

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Web.DataAccess.Repository;
+using Web.Helpful;
 
 namespace FiilingData.FillingCourseraData
 {
@@ -104,7 +105,7 @@ namespace FiilingData.FillingCourseraData
             /// Каждый курс (Пр.: Математические методы в экономике) может относится к нескольких категориям 
             /// </summary>
             [JsonProperty("courses")]
-            //[JsonConverter(typeof(ConvertToCourse))]
+            [JsonConverter(typeof(ConvertToCourse))]
             public ICollection<Course> Courses { get; set; }
         }
 

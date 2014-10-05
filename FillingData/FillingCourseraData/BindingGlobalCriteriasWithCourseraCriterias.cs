@@ -1,7 +1,4 @@
-﻿using Web.DataAccess.Repository;
-using Web.Models.Criteria;
-
-namespace FiilingData.FillingCourseraData
+﻿namespace FiilingData.FillingCourseraData
 {
     using System;
     using System.Linq;
@@ -9,6 +6,8 @@ namespace FiilingData.FillingCourseraData
     using System.Collections.Generic;
     using System.Collections.ObjectModel;    
     using Web.Models.CourseraEntity;
+    using Web.DataAccess.Repository;
+    using Web.Models.Criteria;
 
     public static partial class FillingDataFromCoursera
     {
@@ -30,39 +29,35 @@ namespace FiilingData.FillingCourseraData
             }
 
             // Связываем 2-й и 3-й уровень глоб.критериев с курсами Coursera (по соот.категориям Coursera)
-            BindSecondLevelCriterias("Arts", "Arts");
-            BindSecondLevelCriterias("Agriculture", "Energy & Earth Sciences"); // ?
-            BindSecondLevelCriterias("Anthropology", "Biology & Life Sciences"); // ?
-            BindSecondLevelCriterias("Applied Mathematics", "Mathematics");
-            BindSecondLevelCriterias("Archaeology", "Energy & Earth Sciences"); // ?
-            BindSecondLevelCriterias("Architecture and design", "Engineering"); // ?
-            BindSecondLevelCriterias("Biology", "Biology & Life Sciences");
-            BindSecondLevelCriterias("Business", "Business & Management");
-            BindSecondLevelCriterias("Chemical Engineering", "Chemistry");
-            BindSecondLevelCriterias("Chemistry", "Chemistry");
-            BindSecondLevelCriterias("Civil Engineering", "Engineering");
-            BindSecondLevelCriterias("Computer sciences", "Computer Science: Artificial Intelligence"); // Computer sciences - переработать
-            BindSecondLevelCriterias("Computer sciences", "Computer Science: Software Engineering");
-            BindSecondLevelCriterias("Computer sciences", "Computer Science: Systems & Security");
-            BindSecondLevelCriterias("Computer sciences", "Computer Science: Theory");
-            BindSecondLevelCriterias("Cultural and ethnic studies", "Humanities"); // ?
-            BindSecondLevelCriterias("Earth sciences", "Energy & Earth Sciences");
-            BindSecondLevelCriterias("Earth sciences", "Physical & Earth Sciences");
-            BindSecondLevelCriterias("Economics", "Economics & Finance");
-            BindSecondLevelCriterias("Education", "Education");
-            BindSecondLevelCriterias("Family and consumer science", "Food and Nutrition");
-            BindSecondLevelCriterias("Family and consumer science", "Health & Society");
-            BindSecondLevelCriterias("Healthcare science", "Health & Society");
-            BindSecondLevelCriterias("Human physical performance and recreation", "Health & Society"); // ?
-            BindSecondLevelCriterias("Law", "Law");
-            BindSecondLevelCriterias("Linguistics", "-");
-            BindSecondLevelCriterias("Literature", "Humanities");
-            BindSecondLevelCriterias("Materials Science and Engineering", "Physical & Earth Sciences"); // ?
-            BindSecondLevelCriterias("Mechanical Engineering", "Engineering");
-            BindSecondLevelCriterias("Philosophy", "Humanities");
-            BindSecondLevelCriterias("Physics and Space sciences", "Physics");
-            BindSecondLevelCriterias("Statistics", "Statistics and Data Analysis");
-            BindSecondLevelCriterias("Pure Mathematics", "Mathematics");
+            BindSecondLevelCriterias("Arts", new[] { "Arts"});
+            BindSecondLevelCriterias("Agriculture", new[] { "Energy & Earth Sciences"}); // ?
+            BindSecondLevelCriterias("Anthropology", new[] { "Biology & Life Sciences"}); // ?
+            BindSecondLevelCriterias("Applied Mathematics", new[] { "Mathematics"});
+            BindSecondLevelCriterias("Archaeology", new[] { "Energy & Earth Sciences"}); // ?
+            BindSecondLevelCriterias("Architecture and design", new[] { "Engineering"}); // ?
+            BindSecondLevelCriterias("Biology", new[] { "Biology & Life Sciences"});
+            BindSecondLevelCriterias("Business", new[] { "Business & Management"});
+            BindSecondLevelCriterias("Chemical Engineering", new[] { "Chemistry"});
+            BindSecondLevelCriterias("Chemistry", new[] { "Chemistry"});
+            BindSecondLevelCriterias("Civil Engineering", new[] { "Engineering"});
+            BindSecondLevelCriterias("Computer sciences", new[] { "Computer Science: Artificial Intelligence",
+                "Computer Science: Software Engineering", "Computer Science: Systems & Security", "Computer Science: Theory"}); 
+            BindSecondLevelCriterias("Cultural and ethnic studies",new[] { "Humanities" }); // ?
+            BindSecondLevelCriterias("Earth sciences", new[] { "Energy & Earth Sciences", "Physical & Earth Sciences"});
+            BindSecondLevelCriterias("Economics", new[] {"Economics & Finance"});
+            BindSecondLevelCriterias("Education", new[] {"Education"});
+            BindSecondLevelCriterias("Family and consumer science", new[] { "Food and Nutrition", "Health & Society"});
+            BindSecondLevelCriterias("Healthcare science", new[] { "Health & Society" });
+            BindSecondLevelCriterias("Human physical performance and recreation", new[] { "Health & Society" }); // ?
+            BindSecondLevelCriterias("Law", new[] { "Law" });
+            BindSecondLevelCriterias("Linguistics", new[] { "-" });
+            BindSecondLevelCriterias("Literature", new[] { "Humanities" });
+            BindSecondLevelCriterias("Materials Science and Engineering", new[] { "Physical & Earth Sciences" }); // ?
+            BindSecondLevelCriterias("Mechanical Engineering", new[] {"Engineering"});
+            BindSecondLevelCriterias("Philosophy", new[] {"Humanities"});
+            BindSecondLevelCriterias("Physics and Space sciences", new[] {"Physics"});
+            BindSecondLevelCriterias("Statistics", new[] {"Statistics and Data Analysis"});
+            BindSecondLevelCriterias("Pure Mathematics", new[] {"Mathematics"});
 
 
             BindByCourseName("Area studies", new[] { "Area studies" });
@@ -101,18 +96,33 @@ namespace FiilingData.FillingCourseraData
         // Связываем глобальные критерии 2-го с курсами курсеры (по категориям курсеры)
         // однозначное соот-е : Пр.: Law - Law
         // критерии 3-го уровня в этом случае будут иметь пустые списки курсов
-        private static void BindSecondLevelCriterias(string globalSecondLevCriteria, string courseraCriteria)
+        private static void BindSecondLevelCriterias(string globalSecondLevCriteria, string[] courseraCriterias)
         {
+            if (courseraCriterias.Any())
+            {
+                for (var i = 0; i < courseraCriterias.Length; ++i)
+                {
+                    courseraCriterias[i] = courseraCriterias[i].ToLower();
+                }
+            }
+            else
+            {
+                return;
+            }
+
             // Связывание глоб.критериев с категориями курсеры
             using (var uow = new UnitOfWork())
             {
                 var secGlobalCriteria = uow.Repository<SecondLevelCriteria>().Get().FirstOrDefault(x => x.Name == globalSecondLevCriteria); // 2-й уровень Global Criteria
 
-                // Курсы Coursera соотв.категории
-                var courseraCoursesList = uow.Repository<Category>().Get()
-                    .Where(x => x.Name.ToLower() == courseraCriteria.ToLower())
-                    .SelectMany(x => x.Courses)
-                    .ToList();
+                // Курсы Coursera соотв.категорий
+                var courseraCoursesList = new List<Course>();
+                foreach (var courseraCriteria in courseraCriterias)
+                {
+                    courseraCoursesList.AddRange(uow.Repository<Category>().Get()
+                        .Where(x => x.Name.ToLower().Contains(courseraCriteria)
+                            || x.ShortName.ToLower().Contains(courseraCriteria)).SelectMany(x => x.Courses).ToList());
+                }
 
                 if (secGlobalCriteria == null || courseraCoursesList.Count <= 0) return;
 
