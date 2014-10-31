@@ -1,4 +1,4 @@
-/* 
+/*
   главная лента сайта
 */
 
@@ -9,6 +9,11 @@
 
 .container {
   width: 1000px;
+}
+
+.mainfeed {
+  width: 700px;
+  float: left;
 }
 
 /*!
