@@ -7,35 +7,35 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_Statistics(ref SecondLevelCriteria statistics, UnitOfWork uow)
+        public static void Filling_Statistics(ref Criteria statistics, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria { Name = "Data mining", Tags = "data mining,computational statistics", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Regression", Tags = "regression,computational statistics", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Simulation", Tags = "simulation,computational statistics", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Bootstrap", Tags = "bootstrap,statistics,computational statistics", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Block design and Analysis of variance", Tags = "block design,analysis of variance,design of experiments", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Response surface methodology", Tags = "response surface methodology,design of experiments", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Sample Survey", Tags = "sample survey", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Sampling theory", Tags = "sampling theory", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Biostatistics", Tags = "biostatistics,statistical modelling", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Epidemiology", Tags = "epidemiology,statistical modelling", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Multivariate analysis", Tags = "multivariate analysis,statistical modelling", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Structural equation model", Tags = "structural equation model,statistical modelling", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Time series", Tags = "time series,statistical modelling", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Reliability theory", Tags = "reliability theory,statistical modelling", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Quality control", Tags = "quality control,statistical modelling", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Decision theory", Tags = "decision theory,statistical theory", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Mathematical statistics", Tags = "mathematical statistics,statistical theory", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Probability", Tags = "probability,statistical theory", SecondLevelCriteria = statistics },
-                new ThirdLevelCriteria { Name = "Survey methodology", Tags = "survey methodology,statistical theory", SecondLevelCriteria = statistics }
+                new Criteria { Name = "Data mining", Tags = "data mining,computational statistics", Parent = statistics },
+                new Criteria { Name = "Regression", Tags = "regression,computational statistics", Parent = statistics },
+                new Criteria { Name = "Simulation", Tags = "simulation,computational statistics", Parent = statistics },
+                new Criteria { Name = "Bootstrap", Tags = "bootstrap,statistics,computational statistics", Parent = statistics },
+                new Criteria { Name = "Block design and Analysis of variance", Tags = "block design,analysis of variance,design of experiments", Parent = statistics },
+                new Criteria { Name = "Response surface methodology", Tags = "response surface methodology,design of experiments", Parent = statistics },
+                new Criteria { Name = "Sample Survey", Tags = "sample survey", Parent = statistics },
+                new Criteria { Name = "Sampling theory", Tags = "sampling theory", Parent = statistics },
+                new Criteria { Name = "Biostatistics", Tags = "biostatistics,statistical modelling", Parent = statistics },
+                new Criteria { Name = "Epidemiology", Tags = "epidemiology,statistical modelling", Parent = statistics },
+                new Criteria { Name = "Multivariate analysis", Tags = "multivariate analysis,statistical modelling", Parent = statistics },
+                new Criteria { Name = "Structural equation model", Tags = "structural equation model,statistical modelling", Parent = statistics },
+                new Criteria { Name = "Time series", Tags = "time series,statistical modelling", Parent = statistics },
+                new Criteria { Name = "Reliability theory", Tags = "reliability theory,statistical modelling", Parent = statistics },
+                new Criteria { Name = "Quality control", Tags = "quality control,statistical modelling", Parent = statistics },
+                new Criteria { Name = "Decision theory", Tags = "decision theory,statistical theory", Parent = statistics },
+                new Criteria { Name = "Mathematical statistics", Tags = "mathematical statistics,statistical theory", Parent = statistics },
+                new Criteria { Name = "Probability", Tags = "probability,statistical theory", Parent = statistics },
+                new Criteria { Name = "Survey methodology", Tags = "survey methodology,statistical theory", Parent = statistics }
             };
 
             foreach (var thirdLevelCriteria in tmpThirdCritList)
             {
-                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                statistics.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                statistics.Children.Add(thirdLevelCriteria);
             }
         }
     }

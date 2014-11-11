@@ -7,25 +7,25 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_MaterialsEngineering(ref SecondLevelCriteria materialsEngineering, UnitOfWork uow)
+        public static void Filling_MaterialsEngineering(ref Criteria materialsEngineering, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria { Name = "Biomaterials", Tags = "biomaterials", SecondLevelCriteria = materialsEngineering },
-                new ThirdLevelCriteria { Name = "Ceramic engineering", Tags = "ceramic engineering", SecondLevelCriteria = materialsEngineering },
-                new ThirdLevelCriteria { Name = "Crystallography", Tags = "crystallography", SecondLevelCriteria = materialsEngineering },
-                new ThirdLevelCriteria { Name = "Nanomaterials", Tags = "nanomaterials", SecondLevelCriteria = materialsEngineering },
-                new ThirdLevelCriteria { Name = "Photonics", Tags = "photonics", SecondLevelCriteria = materialsEngineering },
-                new ThirdLevelCriteria { Name = "Physical metallurgy", Tags = "physical metallurgy", SecondLevelCriteria = materialsEngineering },
-                new ThirdLevelCriteria { Name = "Polymer engineering", Tags = "polymer engineering", SecondLevelCriteria = materialsEngineering },
-                new ThirdLevelCriteria { Name = "Polymer science", Tags = "polymer science", SecondLevelCriteria = materialsEngineering },
-                new ThirdLevelCriteria { Name = "Semiconductors", Tags = "semiconductors", SecondLevelCriteria = materialsEngineering }
+                new Criteria { Name = "Biomaterials", Tags = "biomaterials", Parent = materialsEngineering },
+                new Criteria { Name = "Ceramic engineering", Tags = "ceramic engineering", Parent = materialsEngineering },
+                new Criteria { Name = "Crystallography", Tags = "crystallography", Parent = materialsEngineering },
+                new Criteria { Name = "Nanomaterials", Tags = "nanomaterials", Parent = materialsEngineering },
+                new Criteria { Name = "Photonics", Tags = "photonics", Parent = materialsEngineering },
+                new Criteria { Name = "Physical metallurgy", Tags = "physical metallurgy", Parent = materialsEngineering },
+                new Criteria { Name = "Polymer engineering", Tags = "polymer engineering", Parent = materialsEngineering },
+                new Criteria { Name = "Polymer science", Tags = "polymer science", Parent = materialsEngineering },
+                new Criteria { Name = "Semiconductors", Tags = "semiconductors", Parent = materialsEngineering }
             };
 
             foreach (var thirdLevelCriteria in tmpThirdCritList)
             {
-                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                materialsEngineering.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                materialsEngineering.Children.Add(thirdLevelCriteria);
             }
         }
     }

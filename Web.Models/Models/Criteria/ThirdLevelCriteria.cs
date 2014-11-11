@@ -10,7 +10,7 @@ namespace Web.Models.Criteria
     /// <summary>
     /// 3 уровень критерив (пока последний и самый детализированный уровень критериев)
     /// </summary>
-    public class ThirdLevelCriteria
+    public class Third1LevelCriteria
     {
         /// <summary>
         /// private Id for database identity
@@ -29,9 +29,9 @@ namespace Web.Models.Criteria
         /// </summary>
         public string Tags { get; set; }
 
-        public virtual SecondLevelCriteria SecondLevelCriteria { get; set; }
+        public virtual Criteria SecondLevelCriteria { get; set; }
 
-        public ThirdLevelCriteria()
+        public Third1LevelCriteria()
         {
             Id = Guid.NewGuid();
         }

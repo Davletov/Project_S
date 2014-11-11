@@ -200,9 +200,9 @@ namespace Web.Models.CourseraEntity
         [JsonProperty("universities ")]
         public ICollection<University> Universities { get; set; }
 
-        public virtual ICollection<SecondLevelCriteria> SecondLevelCriterias { get; set; }
+        public virtual ICollection<Criteria.Criteria> SecondLevelCriterias { get; set; }
 
-        public virtual ICollection<ThirdLevelCriteria> ThirdLevelCriterias { get; set; }
+        public virtual ICollection<Criteria.Criteria> ThirdLevelCriterias { get; set; }
 
     }
 }

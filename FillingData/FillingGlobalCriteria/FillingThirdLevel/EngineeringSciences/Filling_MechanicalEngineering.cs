@@ -7,35 +7,35 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_MechanicalEngineering(ref SecondLevelCriteria mechanicalEngineering, UnitOfWork uow)
+        public static void Filling_MechanicalEngineering(ref Criteria mechanicalEngineering, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria { Name = "Aeronautics engineering", Tags = "aeronautics engineering,aerospace engineering", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Astronautics engineering", Tags = "astronautics engineering,aerospace engineering", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Acoustical engineering", Tags = "acoustical engineering", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Automotive engineering", Tags = "automotive engineering", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Biomedical engineering", Tags = "biomedical engineering", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Biomechanical engineering", Tags = "biomechanical engineering", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Continuum mechanics", Tags = "continuum mechanics", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Fluid mechanics", Tags = "fluid mechanics", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Heat transfer", Tags = "heat transfer", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Industrial engineering", Tags = "industrial engineering", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Manufacturing engineering", Tags = "manufacturing engineering", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Marine engineering", Tags = "marine engineering", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Mass transfer", Tags = "mass transfer", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Mechatronics", Tags = "mechatronics", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Nanoengineering", Tags = "nanoengineering", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Ocean engineering", Tags = "ocean engineering", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Optical engineering", Tags = "optical engineering", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Robotics", Tags = "robotics", SecondLevelCriteria = mechanicalEngineering },
-                new ThirdLevelCriteria { Name = "Thermodynamics", Tags = "thermodynamics", SecondLevelCriteria = mechanicalEngineering }
+                new Criteria { Name = "Aeronautics engineering", Tags = "aeronautics engineering,aerospace engineering", Parent = mechanicalEngineering },
+                new Criteria { Name = "Astronautics engineering", Tags = "astronautics engineering,aerospace engineering", Parent = mechanicalEngineering },
+                new Criteria { Name = "Acoustical engineering", Tags = "acoustical engineering", Parent = mechanicalEngineering },
+                new Criteria { Name = "Automotive engineering", Tags = "automotive engineering", Parent = mechanicalEngineering },
+                new Criteria { Name = "Biomedical engineering", Tags = "biomedical engineering", Parent = mechanicalEngineering },
+                new Criteria { Name = "Biomechanical engineering", Tags = "biomechanical engineering", Parent = mechanicalEngineering },
+                new Criteria { Name = "Continuum mechanics", Tags = "continuum mechanics", Parent = mechanicalEngineering },
+                new Criteria { Name = "Fluid mechanics", Tags = "fluid mechanics", Parent = mechanicalEngineering },
+                new Criteria { Name = "Heat transfer", Tags = "heat transfer", Parent = mechanicalEngineering },
+                new Criteria { Name = "Industrial engineering", Tags = "industrial engineering", Parent = mechanicalEngineering },
+                new Criteria { Name = "Manufacturing engineering", Tags = "manufacturing engineering", Parent = mechanicalEngineering },
+                new Criteria { Name = "Marine engineering", Tags = "marine engineering", Parent = mechanicalEngineering },
+                new Criteria { Name = "Mass transfer", Tags = "mass transfer", Parent = mechanicalEngineering },
+                new Criteria { Name = "Mechatronics", Tags = "mechatronics", Parent = mechanicalEngineering },
+                new Criteria { Name = "Nanoengineering", Tags = "nanoengineering", Parent = mechanicalEngineering },
+                new Criteria { Name = "Ocean engineering", Tags = "ocean engineering", Parent = mechanicalEngineering },
+                new Criteria { Name = "Optical engineering", Tags = "optical engineering", Parent = mechanicalEngineering },
+                new Criteria { Name = "Robotics", Tags = "robotics", Parent = mechanicalEngineering },
+                new Criteria { Name = "Thermodynamics", Tags = "thermodynamics", Parent = mechanicalEngineering }
             };
 
              foreach (var thirdLevelCriteria in tmpThirdCritList)
              {
-                 uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                 mechanicalEngineering.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                 uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                 mechanicalEngineering.Children.Add(thirdLevelCriteria);
              }
         }
     }

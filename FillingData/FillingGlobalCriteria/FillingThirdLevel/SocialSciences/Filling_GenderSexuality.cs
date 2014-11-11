@@ -7,27 +7,27 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_GenderSexuality(ref SecondLevelCriteria genderSexuality, UnitOfWork uow)
+        public static void Filling_GenderSexuality(ref Criteria genderSexuality, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria { Name = "Feminine psychology", Tags = "feminine psychology", SecondLevelCriteria = genderSexuality },
-                new ThirdLevelCriteria { Name = "Gender studies", Tags = "gender studies,gender theory", SecondLevelCriteria = genderSexuality },
-                new ThirdLevelCriteria { Name = "Heterosexism", Tags = "heterosexism", SecondLevelCriteria = genderSexuality },
-                new ThirdLevelCriteria { Name = "Human sexual behavior", Tags = "human sexual behavior", SecondLevelCriteria = genderSexuality },
-                new ThirdLevelCriteria { Name = "Human sexuality", Tags = "human sexuality", SecondLevelCriteria = genderSexuality },
-                new ThirdLevelCriteria { Name = "Masculine psychology", Tags = "masculine psychology", SecondLevelCriteria = genderSexuality },
-                new ThirdLevelCriteria { Name = "Men's studies", Tags = "men's studies", SecondLevelCriteria = genderSexuality },
-                new ThirdLevelCriteria { Name = "Queer studies", Tags = "queer studies,queer theory", SecondLevelCriteria = genderSexuality },
-                new ThirdLevelCriteria { Name = "Sex education", Tags = "sex education", SecondLevelCriteria = genderSexuality },
-                new ThirdLevelCriteria { Name = "Sexology", Tags = "sexology", SecondLevelCriteria = genderSexuality },
-                new ThirdLevelCriteria { Name = "women's studies", Tags = "women's studies", SecondLevelCriteria = genderSexuality }
+                new Criteria { Name = "Feminine psychology", Tags = "feminine psychology", Parent = genderSexuality },
+                new Criteria { Name = "Gender studies", Tags = "gender studies,gender theory", Parent = genderSexuality },
+                new Criteria { Name = "Heterosexism", Tags = "heterosexism", Parent = genderSexuality },
+                new Criteria { Name = "Human sexual behavior", Tags = "human sexual behavior", Parent = genderSexuality },
+                new Criteria { Name = "Human sexuality", Tags = "human sexuality", Parent = genderSexuality },
+                new Criteria { Name = "Masculine psychology", Tags = "masculine psychology", Parent = genderSexuality },
+                new Criteria { Name = "Men's studies", Tags = "men's studies", Parent = genderSexuality },
+                new Criteria { Name = "Queer studies", Tags = "queer studies,queer theory", Parent = genderSexuality },
+                new Criteria { Name = "Sex education", Tags = "sex education", Parent = genderSexuality },
+                new Criteria { Name = "Sexology", Tags = "sexology", Parent = genderSexuality },
+                new Criteria { Name = "women's studies", Tags = "women's studies", Parent = genderSexuality }
             };
 
             foreach (var thirdLevelCriteria in tmpThirdCritList)
             {
-                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                genderSexuality.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                genderSexuality.Children.Add(thirdLevelCriteria);
             }
         }
     }

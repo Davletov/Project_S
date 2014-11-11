@@ -23,9 +23,9 @@ namespace FiilingData.FillingCourseraData
             stopWatch.Start();
             using (var uow = new UnitOfWork())
             {
-                var secLevCourses = uow.Repository<SecondLevelCriteria>().Get().Where(x => x.Name == "Philosophy").Select(x => x.Courses).ToList();
-                var secondLevId = uow.Repository<SecondLevelCriteria>().Get().Where(x => x.Name == "Electrical Engineering").Select(x => x.Id).FirstOrDefault();
-                var list = uow.Repository<ThirdLevelCriteria>().Get().Where(x => x.SecondLevelCriteria.Id == secondLevId).Select(x => x.Courses).ToList();
+                var secLevCourses = uow.Repository<Criteria>().Get().Where(x => x.Name == "Philosophy").Select(x => x.Courses).ToList();
+                var secondLevId = uow.Repository<Criteria>().Get().Where(x => x.Name == "Electrical Engineering").Select(x => x.Id).FirstOrDefault();
+                var list = uow.Repository<Criteria>().Get().Where(x => x.Parent.Id == secondLevId).Select(x => x.Courses).ToList();
                 var tmp = list;
             }
 
@@ -106,7 +106,7 @@ namespace FiilingData.FillingCourseraData
             // Связывание глоб.критериев с категориями курсеры
             using (var uow = new UnitOfWork())
             {
-                var secGlobalCriteria = uow.Repository<SecondLevelCriteria>().Get().FirstOrDefault(x => x.Name == globalSecondLevCriteria); // 2-й уровень Global Criteria
+                var secGlobalCriteria = uow.Repository<Criteria>().Get().FirstOrDefault(x => x.Name == globalSecondLevCriteria); // 2-й уровень Global Criteria
 
                 // Курсы Coursera соотв.категории
                 var courseraCoursesList = uow.Repository<Category>().Get()
@@ -118,7 +118,7 @@ namespace FiilingData.FillingCourseraData
 
                 secGlobalCriteria.Courses = new Collection<Course>();
                 secGlobalCriteria.Courses = courseraCoursesList;
-                uow.Repository<SecondLevelCriteria>().Update(secGlobalCriteria);
+                uow.Repository<Criteria>().Update(secGlobalCriteria);
                 uow.Commit();
             }
         }
@@ -140,7 +140,7 @@ namespace FiilingData.FillingCourseraData
 
             using (var uow = new UnitOfWork())
             {
-                var secGlobalCriteria = uow.Repository<SecondLevelCriteria>().Get().FirstOrDefault(x => x.Name.ToLower() == globalCriteriaName.ToLower()); // 2-й уровень Global Criteria
+                var secGlobalCriteria = uow.Repository<Criteria>().Get().FirstOrDefault(x => x.Name.ToLower() == globalCriteriaName.ToLower()); // 2-й уровень Global Criteria
 
                 var courses = new List<Course>();
                 foreach (var globalCriteriaTag in globalCriteriaTags)
@@ -154,10 +154,10 @@ namespace FiilingData.FillingCourseraData
 
                 secGlobalCriteria.Courses = new Collection<Course>();
                 secGlobalCriteria.Courses = courses;
-                uow.Repository<SecondLevelCriteria>().Update(secGlobalCriteria);
+                uow.Repository<Criteria>().Update(secGlobalCriteria);
 
-                var thirdCriterias = uow.Repository<ThirdLevelCriteria>().Get()
-                    .Where(x => x.SecondLevelCriteria.Id == secGlobalCriteria.Id).ToList();
+                var thirdCriterias = uow.Repository<Criteria>().Get()
+                    .Where(x => x.Parent.Id == secGlobalCriteria.Id).ToList();
 
                 // Все критерии 3-го уровня из globalCriteria(2-й уровень) связываем с courses
                 foreach (var thirdCriteria in thirdCriterias)
@@ -165,7 +165,7 @@ namespace FiilingData.FillingCourseraData
                     thirdCriteria.Courses = new Collection<Course>();
                     thirdCriteria.Courses = courses;
 
-                    uow.Repository<ThirdLevelCriteria>().Update(thirdCriteria);
+                    uow.Repository<Criteria>().Update(thirdCriteria);
                 }
 
                 uow.Commit();

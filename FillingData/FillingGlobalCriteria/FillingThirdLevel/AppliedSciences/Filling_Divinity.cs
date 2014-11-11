@@ -7,35 +7,35 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_Divinity(ref SecondLevelCriteria divinity, UnitOfWork uow)
+        public static void Filling_Divinity(ref Criteria divinity, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria {Name = "Canon law", Tags = "canon law", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Church history", Tags = "church history", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Pastoral counseling", Tags = "pastoral counseling,field ministry", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Pastoral theology", Tags = "pastoral theology,field ministry", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Religious education techniques", Tags = "religious education techniques,field ministry", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Homiletics", Tags = "homiletics,field ministry", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Liturgy", Tags = "liturgy,field ministry", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Sacred music", Tags = "sacred music,field ministry", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Missiology", Tags = "missiology,field ministry", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Biblical Hebrew", Tags = "biblical Hebrew,scriptural study", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Biblical studies", Tags = "biblical studies,sacred scripture,scriptural study", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "New Testament Greek", Tags = "new testament greek,scriptural study", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Latin", Tags = "latin,scriptural study", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Old Church Slavonic", Tags = "old church slavonic,scriptural study", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Dogmatic theology", Tags = "dogmatic theology,theology", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Ecclesiology", Tags = "ecclesiology,theology", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Sacramental theology", Tags = "sacramental theology,theology", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Systematic theology", Tags = "systematic theology,theology", SecondLevelCriteria = divinity},
-                new ThirdLevelCriteria {Name = "Christian ethics", Tags = "christian ethics,theology", SecondLevelCriteria = divinity}
+                new Criteria {Name = "Canon law", Tags = "canon law", Parent = divinity},
+                new Criteria {Name = "Church history", Tags = "church history", Parent = divinity},
+                new Criteria {Name = "Pastoral counseling", Tags = "pastoral counseling,field ministry", Parent = divinity},
+                new Criteria {Name = "Pastoral theology", Tags = "pastoral theology,field ministry", Parent = divinity},
+                new Criteria {Name = "Religious education techniques", Tags = "religious education techniques,field ministry", Parent = divinity},
+                new Criteria {Name = "Homiletics", Tags = "homiletics,field ministry", Parent = divinity},
+                new Criteria {Name = "Liturgy", Tags = "liturgy,field ministry", Parent = divinity},
+                new Criteria {Name = "Sacred music", Tags = "sacred music,field ministry", Parent = divinity},
+                new Criteria {Name = "Missiology", Tags = "missiology,field ministry", Parent = divinity},
+                new Criteria {Name = "Biblical Hebrew", Tags = "biblical Hebrew,scriptural study", Parent = divinity},
+                new Criteria {Name = "Biblical studies", Tags = "biblical studies,sacred scripture,scriptural study", Parent = divinity},
+                new Criteria {Name = "New Testament Greek", Tags = "new testament greek,scriptural study", Parent = divinity},
+                new Criteria {Name = "Latin", Tags = "latin,scriptural study", Parent = divinity},
+                new Criteria {Name = "Old Church Slavonic", Tags = "old church slavonic,scriptural study", Parent = divinity},
+                new Criteria {Name = "Dogmatic theology", Tags = "dogmatic theology,theology", Parent = divinity},
+                new Criteria {Name = "Ecclesiology", Tags = "ecclesiology,theology", Parent = divinity},
+                new Criteria {Name = "Sacramental theology", Tags = "sacramental theology,theology", Parent = divinity},
+                new Criteria {Name = "Systematic theology", Tags = "systematic theology,theology", Parent = divinity},
+                new Criteria {Name = "Christian ethics", Tags = "christian ethics,theology", Parent = divinity}
             };
 
             foreach (var thirdLevelCriteria in tmpThirdCritList)
             {
-                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                divinity.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                divinity.Children.Add(thirdLevelCriteria);
             }
         }
     }

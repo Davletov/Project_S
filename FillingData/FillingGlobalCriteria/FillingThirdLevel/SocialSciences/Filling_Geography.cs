@@ -7,42 +7,42 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_Geography(ref SecondLevelCriteria geography, UnitOfWork uow)
+        public static void Filling_Geography(ref Criteria geography, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria { Name = "Cartography", Tags = "cartography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Cultural geography", Tags = "cultural geography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Economic geography", Tags = "economic geography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Development geography", Tags = "development geography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Historical geography", Tags = "historical geography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Time geography", Tags = "time geography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Military geography", Tags = "military geography,political geography,geopolitics", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Strategic geography", Tags = "strategic geography,political geography,geopolitics", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Population geography", Tags = "population geography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Behavioral geography", Tags = "behavioral geography,social geography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Children's geographies", Tags = "children's geographies,social geography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Health geography", Tags = "health geography,social geography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Tourism geography", Tags = "tourism geography,social geography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Urban geography", Tags = "urban geography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Environmental geography", Tags = "environmental geography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Biogeography", Tags = "biogeography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Climatology", Tags = "climatology", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Palaeoclimatology", Tags = "palaeoclimatology", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Coastal geography", Tags = "coastal geography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Geomorphology", Tags = "geomorphology", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Geodesy", Tags = "geodesy", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Glaciology", Tags = "glaciology,hydrology,hydrography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Limnology", Tags = "limnology,hydrology,hydrography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Oceanography", Tags = "oceanography,hydrology,hydrography", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Landscape ecology", Tags = "landscape ecology", SecondLevelCriteria = geography },
-                new ThirdLevelCriteria { Name = "Palaeogeography", Tags = "palaeogeography", SecondLevelCriteria = geography }
+                new Criteria { Name = "Cartography", Tags = "cartography", Parent = geography },
+                new Criteria { Name = "Cultural geography", Tags = "cultural geography", Parent = geography },
+                new Criteria { Name = "Economic geography", Tags = "economic geography", Parent = geography },
+                new Criteria { Name = "Development geography", Tags = "development geography", Parent = geography },
+                new Criteria { Name = "Historical geography", Tags = "historical geography", Parent = geography },
+                new Criteria { Name = "Time geography", Tags = "time geography", Parent = geography },
+                new Criteria { Name = "Military geography", Tags = "military geography,political geography,geopolitics", Parent = geography },
+                new Criteria { Name = "Strategic geography", Tags = "strategic geography,political geography,geopolitics", Parent = geography },
+                new Criteria { Name = "Population geography", Tags = "population geography", Parent = geography },
+                new Criteria { Name = "Behavioral geography", Tags = "behavioral geography,social geography", Parent = geography },
+                new Criteria { Name = "Children's geographies", Tags = "children's geographies,social geography", Parent = geography },
+                new Criteria { Name = "Health geography", Tags = "health geography,social geography", Parent = geography },
+                new Criteria { Name = "Tourism geography", Tags = "tourism geography,social geography", Parent = geography },
+                new Criteria { Name = "Urban geography", Tags = "urban geography", Parent = geography },
+                new Criteria { Name = "Environmental geography", Tags = "environmental geography", Parent = geography },
+                new Criteria { Name = "Biogeography", Tags = "biogeography", Parent = geography },
+                new Criteria { Name = "Climatology", Tags = "climatology", Parent = geography },
+                new Criteria { Name = "Palaeoclimatology", Tags = "palaeoclimatology", Parent = geography },
+                new Criteria { Name = "Coastal geography", Tags = "coastal geography", Parent = geography },
+                new Criteria { Name = "Geomorphology", Tags = "geomorphology", Parent = geography },
+                new Criteria { Name = "Geodesy", Tags = "geodesy", Parent = geography },
+                new Criteria { Name = "Glaciology", Tags = "glaciology,hydrology,hydrography", Parent = geography },
+                new Criteria { Name = "Limnology", Tags = "limnology,hydrology,hydrography", Parent = geography },
+                new Criteria { Name = "Oceanography", Tags = "oceanography,hydrology,hydrography", Parent = geography },
+                new Criteria { Name = "Landscape ecology", Tags = "landscape ecology", Parent = geography },
+                new Criteria { Name = "Palaeogeography", Tags = "palaeogeography", Parent = geography }
             };
 
             foreach (var thirdLevelCriteria in tmpThirdCritList)
             {
-                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                geography.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                geography.Children.Add(thirdLevelCriteria);
             }
         }
     }

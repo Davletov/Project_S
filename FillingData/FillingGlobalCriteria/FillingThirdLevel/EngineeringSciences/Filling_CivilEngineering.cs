@@ -7,27 +7,27 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_CivilEngineering(ref SecondLevelCriteria civilEngineering, UnitOfWork uow)
+        public static void Filling_CivilEngineering(ref Criteria civilEngineering, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria { Name = "Earthquake engineering", Tags = "earthquake engineering", SecondLevelCriteria = civilEngineering },
-                new ThirdLevelCriteria { Name = "Ecological engineering", Tags = "ecological engineering", SecondLevelCriteria = civilEngineering },
-                new ThirdLevelCriteria { Name = "Environmental engineering", Tags = "environmental engineering", SecondLevelCriteria = civilEngineering },
-                new ThirdLevelCriteria { Name = "Engineering geology", Tags = "engineering geology,geotechnical engineering", SecondLevelCriteria = civilEngineering },
-                new ThirdLevelCriteria { Name = "Geoengineering", Tags = "geoengineering,geotechnical engineering", SecondLevelCriteria = civilEngineering },
-                new ThirdLevelCriteria { Name = "Hydraulic Engineering", Tags = "hydraulic engineering", SecondLevelCriteria = civilEngineering },
-                new ThirdLevelCriteria { Name = "Mining engineering", Tags = "mining engineering", SecondLevelCriteria = civilEngineering },
-                new ThirdLevelCriteria { Name = "Highway engineering", Tags = "highway engineering,transportation engineering", SecondLevelCriteria = civilEngineering },
-                new ThirdLevelCriteria { Name = "Architectural engineering", Tags = "architectural engineering,structural engineering", SecondLevelCriteria = civilEngineering },
-                new ThirdLevelCriteria { Name = "Structural Mechanics", Tags = "structural mechanics", SecondLevelCriteria = civilEngineering },
-                new ThirdLevelCriteria { Name = "Surveying", Tags = "surveying", SecondLevelCriteria = civilEngineering }
+                new Criteria { Name = "Earthquake engineering", Tags = "earthquake engineering", Parent = civilEngineering },
+                new Criteria { Name = "Ecological engineering", Tags = "ecological engineering", Parent = civilEngineering },
+                new Criteria { Name = "Environmental engineering", Tags = "environmental engineering", Parent = civilEngineering },
+                new Criteria { Name = "Engineering geology", Tags = "engineering geology,geotechnical engineering", Parent = civilEngineering },
+                new Criteria { Name = "Geoengineering", Tags = "geoengineering,geotechnical engineering", Parent = civilEngineering },
+                new Criteria { Name = "Hydraulic Engineering", Tags = "hydraulic engineering", Parent = civilEngineering },
+                new Criteria { Name = "Mining engineering", Tags = "mining engineering", Parent = civilEngineering },
+                new Criteria { Name = "Highway engineering", Tags = "highway engineering,transportation engineering", Parent = civilEngineering },
+                new Criteria { Name = "Architectural engineering", Tags = "architectural engineering,structural engineering", Parent = civilEngineering },
+                new Criteria { Name = "Structural Mechanics", Tags = "structural mechanics", Parent = civilEngineering },
+                new Criteria { Name = "Surveying", Tags = "surveying", Parent = civilEngineering }
             };
 
              foreach (var thirdLevelCriteria in tmpThirdCritList)
              {
-                 uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                 civilEngineering.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                 uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                 civilEngineering.Children.Add(thirdLevelCriteria);
              }
         }
     }

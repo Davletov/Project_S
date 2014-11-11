@@ -7,36 +7,36 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_HumanPerformanceRecreation(ref SecondLevelCriteria humanPerformanceRecreation, UnitOfWork uow)
+        public static void Filling_HumanPerformanceRecreation(ref Criteria humanPerformanceRecreation, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria {Name = "Biomechanics", Tags = "biomechanics,sports biomechanics", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Sports coaching", Tags = "sports coaching", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Dance", Tags = "dance", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Ergonomics", Tags = "ergonomics", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Group Fitness and aerobics", Tags = "group fitness,aerobics,physical fitness", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "personal trainer", Tags = "personal trainer,personal fitness training,physical fitness", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Game design", Tags = "game design", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Exercise physiology", Tags = "exercise physiology", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Kinesiology", Tags = "kinesiology,exercise science,human performance", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Leisure studies", Tags = "leisure studies", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Physical education", Tags = "physical education,pedagogy", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Sociology of sport", Tags = "sociology of sport", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Sexology", Tags = "sexology", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Sports journalism", Tags = "sports journalism,sportscasting", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Sport management", Tags = "sport management", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Athletic director", Tags = "athletic director", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Sport psychology", Tags = "sport psychology", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Sports medicine", Tags = "sports medicine", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Athletic training", Tags = "athletic training", SecondLevelCriteria = humanPerformanceRecreation},
-                new ThirdLevelCriteria {Name = "Toy and amusement design", Tags = "toy design,amusement design", SecondLevelCriteria = humanPerformanceRecreation}
+                new Criteria {Name = "Biomechanics", Tags = "biomechanics,sports biomechanics", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Sports coaching", Tags = "sports coaching", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Dance", Tags = "dance", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Ergonomics", Tags = "ergonomics", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Group Fitness and aerobics", Tags = "group fitness,aerobics,physical fitness", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "personal trainer", Tags = "personal trainer,personal fitness training,physical fitness", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Game design", Tags = "game design", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Exercise physiology", Tags = "exercise physiology", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Kinesiology", Tags = "kinesiology,exercise science,human performance", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Leisure studies", Tags = "leisure studies", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Physical education", Tags = "physical education,pedagogy", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Sociology of sport", Tags = "sociology of sport", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Sexology", Tags = "sexology", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Sports journalism", Tags = "sports journalism,sportscasting", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Sport management", Tags = "sport management", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Athletic director", Tags = "athletic director", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Sport psychology", Tags = "sport psychology", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Sports medicine", Tags = "sports medicine", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Athletic training", Tags = "athletic training", Parent = humanPerformanceRecreation},
+                new Criteria {Name = "Toy and amusement design", Tags = "toy design,amusement design", Parent = humanPerformanceRecreation}
             };
 
             foreach (var thirdLevelCriteria in tmpThirdCritList)
             {
-                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                humanPerformanceRecreation.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                humanPerformanceRecreation.Children.Add(thirdLevelCriteria);
             }
         }
     }

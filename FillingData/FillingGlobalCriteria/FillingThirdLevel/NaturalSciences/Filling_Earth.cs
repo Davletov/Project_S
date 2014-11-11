@@ -3,45 +3,45 @@
 namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 {
     using System.Collections.Generic;
-    using Web.Models.Criteria;    
+    using Web.Models.Criteria;
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_Earth(ref SecondLevelCriteria earth, UnitOfWork uow)
+        public static void Filling_Earth(ref Criteria earth, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria { Name = "Edaphology", Tags = "edaphology", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Environmental science", Tags = "environmental science", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Environmental chemistry", Tags = "environmental chemistry", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Gemology", Tags = "gemology", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Geodesy", Tags = "geodesy", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Geography", Tags = "geography", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Geology", Tags = "geology", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Geochemistry", Tags = "geochemistry", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Geomorphology", Tags = "geomorphology", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Geophysics", Tags = "geophysics", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Glaciology", Tags = "glaciology", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Hydrogeology", Tags = "hydrogeology", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Hydrology", Tags = "hydrology", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Meteorology", Tags = "meteorology", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Mineralogy", Tags = "mineralogy", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Oceanography", Tags = "oceanography", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Pedology", Tags = "pedology", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Paleontology", Tags = "paleontology", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Paleobiology", Tags = "paleobiology", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Planetary science", Tags = "planetary science", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Sedimentology", Tags = "sedimentology", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Soil science", Tags = "soil science", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Speleology", Tags = "speleology", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Tectonics", Tags = "tectonics", SecondLevelCriteria = earth },
-                new ThirdLevelCriteria { Name = "Volcanology", Tags = "volcanology", SecondLevelCriteria = earth }
+                new Criteria { Name = "Edaphology", Tags = "edaphology", Parent = earth },
+                new Criteria { Name = "Environmental science", Tags = "environmental science", Parent = earth },
+                new Criteria { Name = "Environmental chemistry", Tags = "environmental chemistry", Parent = earth },
+                new Criteria { Name = "Gemology", Tags = "gemology", Parent = earth },
+                new Criteria { Name = "Geodesy", Tags = "geodesy", Parent = earth },
+                new Criteria { Name = "Geography", Tags = "geography", Parent = earth },
+                new Criteria { Name = "Geology", Tags = "geology", Parent = earth },
+                new Criteria { Name = "Geochemistry", Tags = "geochemistry", Parent = earth },
+                new Criteria { Name = "Geomorphology", Tags = "geomorphology", Parent = earth },
+                new Criteria { Name = "Geophysics", Tags = "geophysics", Parent = earth },
+                new Criteria { Name = "Glaciology", Tags = "glaciology", Parent = earth },
+                new Criteria { Name = "Hydrogeology", Tags = "hydrogeology", Parent = earth },
+                new Criteria { Name = "Hydrology", Tags = "hydrology", Parent = earth },
+                new Criteria { Name = "Meteorology", Tags = "meteorology", Parent = earth },
+                new Criteria { Name = "Mineralogy", Tags = "mineralogy", Parent = earth },
+                new Criteria { Name = "Oceanography", Tags = "oceanography", Parent = earth },
+                new Criteria { Name = "Pedology", Tags = "pedology", Parent = earth },
+                new Criteria { Name = "Paleontology", Tags = "paleontology", Parent = earth },
+                new Criteria { Name = "Paleobiology", Tags = "paleobiology", Parent = earth },
+                new Criteria { Name = "Planetary science", Tags = "planetary science", Parent = earth },
+                new Criteria { Name = "Sedimentology", Tags = "sedimentology", Parent = earth },
+                new Criteria { Name = "Soil science", Tags = "soil science", Parent = earth },
+                new Criteria { Name = "Speleology", Tags = "speleology", Parent = earth },
+                new Criteria { Name = "Tectonics", Tags = "tectonics", Parent = earth },
+                new Criteria { Name = "Volcanology", Tags = "volcanology", Parent = earth }
             };
 
-            foreach (var thirdLevelCriteria in tmpThirdCritList)
+            foreach (var Criteria in tmpThirdCritList)
             {
-                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                earth.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                uow.Repository<Criteria>().Add(Criteria);
+                earth.Children.Add(Criteria);
             }
         }
     }

@@ -14,21 +14,21 @@ namespace FiilingData.FillingGlobalCriteria.FillingFirstLevel
             // Сначала удаляем из таблиц данные связанные с критерием EngineeringSciences
             using (var uow = new UnitOfWork())
             {
-                var engSciences = uow.Repository<FirstLevelCriteria>().Get(x => x.Name == "Engineering Sciences").FirstOrDefault();
+                var engSciences = uow.Repository<Criteria>().Get(x => x.Name == "Engineering Sciences").FirstOrDefault();
                 if (engSciences != null)
                 {
-                    var secondLevelCriterias = engSciences.SecondLevelCriteria.ToList();
+                    var secondLevelCriterias = engSciences.Children.ToList();
 
                     foreach (var secondLevel in secondLevelCriterias)
                     {
-                        var thirdLevelCriteriaList = secondLevel.ThirdLevelCriteria.ToList();
+                        var thirdLevelCriteriaList = secondLevel.Children.ToList();
                         foreach (var thirdLevel in thirdLevelCriteriaList)
                         {
-                            uow.Repository<ThirdLevelCriteria>().Delete(thirdLevel);
+                            uow.Repository<Criteria>().Delete(thirdLevel);
                         }
-                        uow.Repository<SecondLevelCriteria>().Delete(secondLevel);
+                        uow.Repository<Criteria>().Delete(secondLevel);
                     }
-                    uow.Repository<FirstLevelCriteria>().Delete(engSciences);
+                    uow.Repository<Criteria>().Delete(engSciences);
                 }
                 uow.Commit();
             }
@@ -36,14 +36,14 @@ namespace FiilingData.FillingGlobalCriteria.FillingFirstLevel
             // Добавляем данные связанные с критерием EngineeringSciences
             using (var uow = new UnitOfWork())
             {
-                var engineeringSciences = new FirstLevelCriteria
+                var engineeringSciences = new Criteria
                 {
                     Name = "Engineering Sciences",
                     Tags = "engineering sciences,engineering",
-                    SecondLevelCriteria = new Collection<SecondLevelCriteria>()
+                    Children = new Collection<Criteria>()
                 };
                 FillingSecondLevelCriteria.Filling_EngineeringSciences(ref engineeringSciences, uow);
-                uow.Repository<FirstLevelCriteria>().Add(engineeringSciences);
+                uow.Repository<Criteria>().Add(engineeringSciences);
                 uow.Commit();
             }
         }

@@ -7,23 +7,23 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_LibraryMuseum(ref SecondLevelCriteria libraryMuseum, UnitOfWork uow)
+        public static void Filling_LibraryMuseum(ref Criteria libraryMuseum, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria {Name = "Archival science", Tags = "archival science", SecondLevelCriteria = libraryMuseum},
-                new ThirdLevelCriteria {Name = "Bibliometrics", Tags = "bibliometrics", SecondLevelCriteria = libraryMuseum},
-                new ThirdLevelCriteria {Name = "Citation analysis", Tags = "citation analysis", SecondLevelCriteria = libraryMuseum},
-                new ThirdLevelCriteria {Name = "Conservation science", Tags = "conservation science", SecondLevelCriteria = libraryMuseum},
-                new ThirdLevelCriteria {Name = "Informatics", Tags = "informatics", SecondLevelCriteria = libraryMuseum},
-                new ThirdLevelCriteria {Name = "Information architecture", Tags = "information architecture", SecondLevelCriteria = libraryMuseum},
-                new ThirdLevelCriteria {Name = "Museology", Tags = "museology", SecondLevelCriteria = libraryMuseum}
+                new Criteria {Name = "Archival science", Tags = "archival science", Parent = libraryMuseum},
+                new Criteria {Name = "Bibliometrics", Tags = "bibliometrics", Parent = libraryMuseum},
+                new Criteria {Name = "Citation analysis", Tags = "citation analysis", Parent = libraryMuseum},
+                new Criteria {Name = "Conservation science", Tags = "conservation science", Parent = libraryMuseum},
+                new Criteria {Name = "Informatics", Tags = "informatics", Parent = libraryMuseum},
+                new Criteria {Name = "Information architecture", Tags = "information architecture", Parent = libraryMuseum},
+                new Criteria {Name = "Museology", Tags = "museology", Parent = libraryMuseum}
             };
 
             foreach (var thirdLevelCriteria in tmpThirdCritList)
             {
-                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                libraryMuseum.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                libraryMuseum.Children.Add(thirdLevelCriteria);
             }
         }
     }

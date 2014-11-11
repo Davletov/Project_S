@@ -7,33 +7,33 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_Agriculture(ref SecondLevelCriteria agriculture, UnitOfWork uow)
+        public static void Filling_Agriculture(ref Criteria agriculture, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria {Name = "Agroecology", Tags = "agroecology", SecondLevelCriteria = agriculture},
-                new ThirdLevelCriteria { Name = "Agronomy", Tags = "agronomy", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Animal husbandry", Tags = "animal husbandry,animal science", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Beekeeping", Tags = "beekeeping,apiculture", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Agrology", Tags = "agrology", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Entomology", Tags = "entomology", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Agricultural economics", Tags = "agricultural economics", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Biological systems engineering (Agricultural engineering)", Tags = "agricultural engineering,biological systems engineering", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Food engineering (Agricultural engineering)", Tags = "agricultural engineering,food engineering", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Aquaculture", Tags = "aquaculture", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Enology", Tags = "enology", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Food science", Tags = "food science", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Horticulture", Tags = "horticulture", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Hydrology", Tags = "hydrology", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Plant science", Tags = "plant science", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Pomology", Tags = "pomology", SecondLevelCriteria = agriculture },
-                new ThirdLevelCriteria { Name = "Viticulture", Tags = "viticulture", SecondLevelCriteria = agriculture }
+                new Criteria {Name = "Agroecology", Tags = "agroecology", Parent = agriculture},
+                new Criteria { Name = "Agronomy", Tags = "agronomy", Parent = agriculture },
+                new Criteria { Name = "Animal husbandry", Tags = "animal husbandry,animal science", Parent = agriculture },
+                new Criteria { Name = "Beekeeping", Tags = "beekeeping,apiculture", Parent = agriculture },
+                new Criteria { Name = "Agrology", Tags = "agrology", Parent = agriculture },
+                new Criteria { Name = "Entomology", Tags = "entomology", Parent = agriculture },
+                new Criteria { Name = "Agricultural economics", Tags = "agricultural economics", Parent = agriculture },
+                new Criteria { Name = "Biological systems engineering (Agricultural engineering)", Tags = "agricultural engineering,biological systems engineering", Parent = agriculture },
+                new Criteria { Name = "Food engineering (Agricultural engineering)", Tags = "agricultural engineering,food engineering", Parent = agriculture },
+                new Criteria { Name = "Aquaculture", Tags = "aquaculture", Parent = agriculture },
+                new Criteria { Name = "Enology", Tags = "enology", Parent = agriculture },
+                new Criteria { Name = "Food science", Tags = "food science", Parent = agriculture },
+                new Criteria { Name = "Horticulture", Tags = "horticulture", Parent = agriculture },
+                new Criteria { Name = "Hydrology", Tags = "hydrology", Parent = agriculture },
+                new Criteria { Name = "Plant science", Tags = "plant science", Parent = agriculture },
+                new Criteria { Name = "Pomology", Tags = "pomology", Parent = agriculture },
+                new Criteria { Name = "Viticulture", Tags = "viticulture", Parent = agriculture }
             };
 
             foreach (var thirdLevelCriteria in tmpThirdCritList)
             {
-                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                agriculture.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                agriculture.Children.Add(thirdLevelCriteria);
             }
         }
     }

@@ -8,65 +8,65 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_Chemistry(ref SecondLevelCriteria chemistry, UnitOfWork uow)
+        public static void Filling_Chemistry(ref Criteria chemistry, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria { Name = "Agrochemistry", Tags = "agrochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Analytical chemistry", Tags = "analytical chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Astrochemistry", Tags = "astrochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Atmospheric chemistry", Tags = "atmospheric chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Biochemistry", Tags = "biochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Chemical engineering", Tags = "chemical engineering", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Chemical biology", Tags = "chemical biology", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Cheminformatics", Tags = "cheminformatics", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Computational chemistry", Tags = "computational chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Cosmochemistry", Tags = "cosmochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Electrochemistry", Tags = "electrochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Environmental chemistry", Tags = "environmental chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Femtochemistry", Tags = "femtochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Flavor", Tags = "flavor", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Flow chemistry", Tags = "flow chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Geochemistry", Tags = "geochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Green chemistry", Tags = "green chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Histochemistry", Tags = "histochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Hydrogenation", Tags = "hydrogenation", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Immunochemistry", Tags = "immunochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Inorganic chemistry", Tags = "inorganic chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Marine chemistry", Tags = "marine chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Mathematical chemistry", Tags = "mathematical chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Mechanochemistry", Tags = "mechanochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Medicinal chemistry", Tags = "medicinal chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Molecular biology", Tags = "molecular biology", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Molecular mechanics", Tags = "molecular mechanics", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Nanotechnology", Tags = "nanotechnology", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Natural product chemistry", Tags = "natural product chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Neurochemistry", Tags = "neurochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Oenology", Tags = "oenology", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Organic chemistry", Tags = "organic chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Organometallic chemistry", Tags = "organometallic chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Petrochemistry", Tags = "petrochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Pharmacology", Tags = "pharmacology", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Photochemistry", Tags = "photochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Physical chemistry", Tags = "physical chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Physical organic chemistry", Tags = "physical organic chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Phytochemistry", Tags = "phytochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Polymer chemistry", Tags = "polymer chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Quantum chemistry", Tags = "quantum chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Radiochemistry", Tags = "radiochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Solid-state chemistry", Tags = "solid-state chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Sonochemistry", Tags = "sonochemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Supramolecular chemistry", Tags = "supramolecular chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Surface chemistry", Tags = "surface chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Synthetic chemistry", Tags = "synthetic chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Theoretical chemistry", Tags = "theoretical chemistry", SecondLevelCriteria = chemistry },
-                new ThirdLevelCriteria { Name = "Thermochemistry", Tags = "thermochemistry", SecondLevelCriteria = chemistry }
+                new Criteria { Name = "Agrochemistry", Tags = "agrochemistry", Parent = chemistry },
+                new Criteria { Name = "Analytical chemistry", Tags = "analytical chemistry", Parent = chemistry },
+                new Criteria { Name = "Astrochemistry", Tags = "astrochemistry", Parent = chemistry },
+                new Criteria { Name = "Atmospheric chemistry", Tags = "atmospheric chemistry", Parent = chemistry },
+                new Criteria { Name = "Biochemistry", Tags = "biochemistry", Parent = chemistry },
+                new Criteria { Name = "Chemical engineering", Tags = "chemical engineering", Parent = chemistry },
+                new Criteria { Name = "Chemical biology", Tags = "chemical biology", Parent = chemistry },
+                new Criteria { Name = "Cheminformatics", Tags = "cheminformatics", Parent = chemistry },
+                new Criteria { Name = "Computational chemistry", Tags = "computational chemistry", Parent = chemistry },
+                new Criteria { Name = "Cosmochemistry", Tags = "cosmochemistry", Parent = chemistry },
+                new Criteria { Name = "Electrochemistry", Tags = "electrochemistry", Parent = chemistry },
+                new Criteria { Name = "Environmental chemistry", Tags = "environmental chemistry", Parent = chemistry },
+                new Criteria { Name = "Femtochemistry", Tags = "femtochemistry", Parent = chemistry },
+                new Criteria { Name = "Flavor", Tags = "flavor", Parent = chemistry },
+                new Criteria { Name = "Flow chemistry", Tags = "flow chemistry", Parent = chemistry },
+                new Criteria { Name = "Geochemistry", Tags = "geochemistry", Parent = chemistry },
+                new Criteria { Name = "Green chemistry", Tags = "green chemistry", Parent = chemistry },
+                new Criteria { Name = "Histochemistry", Tags = "histochemistry", Parent = chemistry },
+                new Criteria { Name = "Hydrogenation", Tags = "hydrogenation", Parent = chemistry },
+                new Criteria { Name = "Immunochemistry", Tags = "immunochemistry", Parent = chemistry },
+                new Criteria { Name = "Inorganic chemistry", Tags = "inorganic chemistry", Parent = chemistry },
+                new Criteria { Name = "Marine chemistry", Tags = "marine chemistry", Parent = chemistry },
+                new Criteria { Name = "Mathematical chemistry", Tags = "mathematical chemistry", Parent = chemistry },
+                new Criteria { Name = "Mechanochemistry", Tags = "mechanochemistry", Parent = chemistry },
+                new Criteria { Name = "Medicinal chemistry", Tags = "medicinal chemistry", Parent = chemistry },
+                new Criteria { Name = "Molecular biology", Tags = "molecular biology", Parent = chemistry },
+                new Criteria { Name = "Molecular mechanics", Tags = "molecular mechanics", Parent = chemistry },
+                new Criteria { Name = "Nanotechnology", Tags = "nanotechnology", Parent = chemistry },
+                new Criteria { Name = "Natural product chemistry", Tags = "natural product chemistry", Parent = chemistry },
+                new Criteria { Name = "Neurochemistry", Tags = "neurochemistry", Parent = chemistry },
+                new Criteria { Name = "Oenology", Tags = "oenology", Parent = chemistry },
+                new Criteria { Name = "Organic chemistry", Tags = "organic chemistry", Parent = chemistry },
+                new Criteria { Name = "Organometallic chemistry", Tags = "organometallic chemistry", Parent = chemistry },
+                new Criteria { Name = "Petrochemistry", Tags = "petrochemistry", Parent = chemistry },
+                new Criteria { Name = "Pharmacology", Tags = "pharmacology", Parent = chemistry },
+                new Criteria { Name = "Photochemistry", Tags = "photochemistry", Parent = chemistry },
+                new Criteria { Name = "Physical chemistry", Tags = "physical chemistry", Parent = chemistry },
+                new Criteria { Name = "Physical organic chemistry", Tags = "physical organic chemistry", Parent = chemistry },
+                new Criteria { Name = "Phytochemistry", Tags = "phytochemistry", Parent = chemistry },
+                new Criteria { Name = "Polymer chemistry", Tags = "polymer chemistry", Parent = chemistry },
+                new Criteria { Name = "Quantum chemistry", Tags = "quantum chemistry", Parent = chemistry },
+                new Criteria { Name = "Radiochemistry", Tags = "radiochemistry", Parent = chemistry },
+                new Criteria { Name = "Solid-state chemistry", Tags = "solid-state chemistry", Parent = chemistry },
+                new Criteria { Name = "Sonochemistry", Tags = "sonochemistry", Parent = chemistry },
+                new Criteria { Name = "Supramolecular chemistry", Tags = "supramolecular chemistry", Parent = chemistry },
+                new Criteria { Name = "Surface chemistry", Tags = "surface chemistry", Parent = chemistry },
+                new Criteria { Name = "Synthetic chemistry", Tags = "synthetic chemistry", Parent = chemistry },
+                new Criteria { Name = "Theoretical chemistry", Tags = "theoretical chemistry", Parent = chemistry },
+                new Criteria { Name = "Thermochemistry", Tags = "thermochemistry", Parent = chemistry }
             };
 
             foreach (var thirdLevelCriteria in tmpThirdCritList)
             {
-                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                chemistry.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                chemistry.Children.Add(thirdLevelCriteria);
             }
         }
     }

@@ -17,12 +17,8 @@
         {
             Profile user = userManager.FindById(User.Identity.GetUserId());
             if (user != null)
-            {
-                var secondLevCourses =
-                    user.SecondLevelCriteria.Select(x => x.Criteria).SelectMany(x => x.Courses).ToList();
-                var thirdLevCourses =
-                    user.ThirdLevelCriteria.Select(x => x.Criteria).SelectMany(x => x.Courses).ToList();
-                var coursesForCurrUser = secondLevCourses.Union(thirdLevCourses).ToList();
+            {                
+                var coursesForCurrUser = user.FirstLevelCriteria.Where(x => x.Criteria.Parent == null).Select(x => x.Criteria).SelectMany(x => x.Courses).ToList();
 
                 var courseMaterials = coursesForCurrUser.Select(course => new CourseraMaterial
                 {

@@ -7,32 +7,32 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_ElectricalEngineering(ref SecondLevelCriteria electricalEngineering, UnitOfWork uow)
+        public static void Filling_ElectricalEngineering(ref Criteria electricalEngineering, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria { Name = "Applied physics", Tags = "applied physics", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Computer engineering", Tags = "computer engineering", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Computer science", Tags = "computer science", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Control systems engineering", Tags = "control systems engineering", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Control theory", Tags = "control theory", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Electronic engineering", Tags = "electronic engineering", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Instrumentation engineering", Tags = "instrumentation engineering", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Engineering physics", Tags = "engineering physics", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Photonics", Tags = "photonics", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Information theory", Tags = "information theory", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Mechatronics", Tags = "mechatronics", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Power engineering", Tags = "power engineering", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Robotics", Tags = "robotics", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Semiconductors", Tags = "semiconductors", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Telecommunications engineering", Tags = "telecommunications engineering", SecondLevelCriteria = electricalEngineering },
-                new ThirdLevelCriteria { Name = "Quantum computing", Tags = "quantum computing", SecondLevelCriteria = electricalEngineering }
+                new Criteria { Name = "Applied physics", Tags = "applied physics", Parent = electricalEngineering },
+                new Criteria { Name = "Computer engineering", Tags = "computer engineering", Parent = electricalEngineering },
+                new Criteria { Name = "Computer science", Tags = "computer science", Parent = electricalEngineering },
+                new Criteria { Name = "Control systems engineering", Tags = "control systems engineering", Parent = electricalEngineering },
+                new Criteria { Name = "Control theory", Tags = "control theory", Parent = electricalEngineering },
+                new Criteria { Name = "Electronic engineering", Tags = "electronic engineering", Parent = electricalEngineering },
+                new Criteria { Name = "Instrumentation engineering", Tags = "instrumentation engineering", Parent = electricalEngineering },
+                new Criteria { Name = "Engineering physics", Tags = "engineering physics", Parent = electricalEngineering },
+                new Criteria { Name = "Photonics", Tags = "photonics", Parent = electricalEngineering },
+                new Criteria { Name = "Information theory", Tags = "information theory", Parent = electricalEngineering },
+                new Criteria { Name = "Mechatronics", Tags = "mechatronics", Parent = electricalEngineering },
+                new Criteria { Name = "Power engineering", Tags = "power engineering", Parent = electricalEngineering },
+                new Criteria { Name = "Robotics", Tags = "robotics", Parent = electricalEngineering },
+                new Criteria { Name = "Semiconductors", Tags = "semiconductors", Parent = electricalEngineering },
+                new Criteria { Name = "Telecommunications engineering", Tags = "telecommunications engineering", Parent = electricalEngineering },
+                new Criteria { Name = "Quantum computing", Tags = "quantum computing", Parent = electricalEngineering }
             };
 
              foreach (var thirdLevelCriteria in tmpThirdCritList)
              {
-                 uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                 electricalEngineering.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                 uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                 electricalEngineering.Children.Add(thirdLevelCriteria);
              }
         }
     }

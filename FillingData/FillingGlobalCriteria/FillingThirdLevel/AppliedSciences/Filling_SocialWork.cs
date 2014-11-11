@@ -8,25 +8,25 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_SocialWork(ref SecondLevelCriteria socialWork, UnitOfWork uow)
+        public static void Filling_SocialWork(ref Criteria socialWork, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria {Name = "Child welfare", Tags = "Child welfare", SecondLevelCriteria = socialWork},
-                new ThirdLevelCriteria {Name = "Community practice", Tags = "community practice", SecondLevelCriteria = socialWork},
-                new ThirdLevelCriteria {Name = "Community organizing", Tags = "community organizing", SecondLevelCriteria = socialWork},
-                new ThirdLevelCriteria {Name = "Social policy", Tags = "social policy", SecondLevelCriteria = socialWork},
-                new ThirdLevelCriteria {Name = "Corrections", Tags = "corrections", SecondLevelCriteria = socialWork},
-                new ThirdLevelCriteria {Name = "Gerontology", Tags = "gerontology", SecondLevelCriteria = socialWork},
-                new ThirdLevelCriteria {Name = "Medical social work", Tags = "medical social work", SecondLevelCriteria = socialWork},
-                new ThirdLevelCriteria {Name = "Mental health", Tags = "mental health", SecondLevelCriteria = socialWork},
-                new ThirdLevelCriteria {Name = "School social work", Tags = "school social work", SecondLevelCriteria = socialWork}
+                new Criteria {Name = "Child welfare", Tags = "Child welfare", Parent = socialWork},
+                new Criteria {Name = "Community practice", Tags = "community practice", Parent = socialWork},
+                new Criteria {Name = "Community organizing", Tags = "community organizing", Parent = socialWork},
+                new Criteria {Name = "Social policy", Tags = "social policy", Parent = socialWork},
+                new Criteria {Name = "Corrections", Tags = "corrections", Parent = socialWork},
+                new Criteria {Name = "Gerontology", Tags = "gerontology", Parent = socialWork},
+                new Criteria {Name = "Medical social work", Tags = "medical social work", Parent = socialWork},
+                new Criteria {Name = "Mental health", Tags = "mental health", Parent = socialWork},
+                new Criteria {Name = "School social work", Tags = "school social work", Parent = socialWork}
             };
 
             foreach (var thirdLevelCriteria in tmpThirdCritList)
             {
-                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                socialWork.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                socialWork.Children.Add(thirdLevelCriteria);
             }
         }
     }

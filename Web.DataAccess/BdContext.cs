@@ -25,26 +25,17 @@
 
         public DbSet<Profile> Profiles { get; set; }
 
-        public DbSet<FirstLevelCriteria> FirstLevelCriterias { get; set; }
-
-        public DbSet<SecondLevelCriteria> SecondLevelCriterias { get; set; }
-
-        public DbSet<ThirdLevelCriteria> ThirdLevelCriterias { get; set; }
+        public DbSet<Criteria> FirstLevelCriterias { get; set; }        
 
         public DbSet<Country> Countries { get; set; }
 
         public DbSet<City> Cities { get; set; }
 
-        public DbSet<Profile1LevelCriteria> Profile1LevelCriterias { get; set; }
-
-        public DbSet<Profile2LevelCriteria> Profile2LevelCriterias { get; set; }
-
-        public DbSet<Profile3LevelCriteria> Profile3LevelCriterias { get; set; }
-        
+        public DbSet<ProfileCriteria> Profile1LevelCriterias { get; set; }                        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<FirstLevelCriteria>().HasMany(t => t.SecondLevelCriteria).WithRequired();
-            modelBuilder.Entity<SecondLevelCriteria>().HasMany(t => t.ThirdLevelCriteria).WithRequired();
+            modelBuilder.Entity<Criteria>().HasMany(t => t.Children).WithRequired();
+            
 
             modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
@@ -52,13 +43,7 @@
 
             /* Связка (Профайл пользователя <-> Критерии (1 - 3 уровень) */
             modelBuilder.Entity<Profile>().
-                HasMany(c => c.FirstLevelCriteria);
-
-            modelBuilder.Entity<Profile>().
-                HasMany(c => c.SecondLevelCriteria);
-
-            modelBuilder.Entity<Profile>().
-                HasMany(c => c.ThirdLevelCriteria);
+                HasMany(c => c.FirstLevelCriteria);          
 
 
             /* Связка многие ко многим (Категория <-> Курсы)
@@ -112,29 +97,10 @@
                    m.ToTable("CourseUniversities");
                });
 
-            // Course <-> ThirdLevelCriteria
-            modelBuilder.Entity<Course>().
-             HasMany(c => c.ThirdLevelCriterias).
-             WithMany(p => p.Courses).
-             Map(
-              m =>
-              {
-                  m.MapLeftKey("CourseId");
-                  m.MapRightKey("ThirdLevelId");
-                  m.ToTable("CourseWithThirdLevel");
-              });
+            // Course <-> ThirdLevelCriteria           
 
             // Course <-> SecondLevelCriteria
-            modelBuilder.Entity<Course>().
-             HasMany(c => c.SecondLevelCriterias).
-             WithMany(p => p.Courses).
-             Map(
-              m =>
-              {
-                  m.MapLeftKey("CourseId");
-                  m.MapRightKey("SecondLevelId");
-                  m.ToTable("CourseWithSecondLevel");
-              });
+            
         }
     }
 }

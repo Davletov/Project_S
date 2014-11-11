@@ -7,25 +7,25 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_CulturalEthnic(ref SecondLevelCriteria culturalEthnic, UnitOfWork uow)
+        public static void Filling_CulturalEthnic(ref Criteria culturalEthnic, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria { Name = "Asian studies", Tags = "asian studies", SecondLevelCriteria = culturalEthnic },
-                new ThirdLevelCriteria { Name = "Asian american studies", Tags = "asian american studies", SecondLevelCriteria = culturalEthnic },
-                new ThirdLevelCriteria { Name = "Black studies or African American studies", Tags = "black studies, african american studies", SecondLevelCriteria = culturalEthnic },
-                new ThirdLevelCriteria { Name = "Chicano studies", Tags = "chicano studies", SecondLevelCriteria = culturalEthnic },
-                new ThirdLevelCriteria { Name = "Childhood studies", Tags = "childhood studies", SecondLevelCriteria = culturalEthnic },
-                new ThirdLevelCriteria { Name = "Disability studies", Tags = "disability studies", SecondLevelCriteria = culturalEthnic },
-                new ThirdLevelCriteria { Name = "Latino studies", Tags = "latino studies", SecondLevelCriteria = culturalEthnic },
-                new ThirdLevelCriteria { Name = "Native American studies", Tags = "native american studies", SecondLevelCriteria = culturalEthnic },
-                new ThirdLevelCriteria { Name = "Deaf Studies", Tags = "deaf studies", SecondLevelCriteria = culturalEthnic }
+                new Criteria { Name = "Asian studies", Tags = "asian studies", Parent = culturalEthnic },
+                new Criteria { Name = "Asian american studies", Tags = "asian american studies", Parent = culturalEthnic },
+                new Criteria { Name = "Black studies or African American studies", Tags = "black studies, african american studies", Parent = culturalEthnic },
+                new Criteria { Name = "Chicano studies", Tags = "chicano studies", Parent = culturalEthnic },
+                new Criteria { Name = "Childhood studies", Tags = "childhood studies", Parent = culturalEthnic },
+                new Criteria { Name = "Disability studies", Tags = "disability studies", Parent = culturalEthnic },
+                new Criteria { Name = "Latino studies", Tags = "latino studies", Parent = culturalEthnic },
+                new Criteria { Name = "Native American studies", Tags = "native american studies", Parent = culturalEthnic },
+                new Criteria { Name = "Deaf Studies", Tags = "deaf studies", Parent = culturalEthnic }
             };
 
             foreach (var thirdLevelCriteria in tmpThirdCritList)
             {
-                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                culturalEthnic.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                culturalEthnic.Children.Add(thirdLevelCriteria);
             }
         }
     }

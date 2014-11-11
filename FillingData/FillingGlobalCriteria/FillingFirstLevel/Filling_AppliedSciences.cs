@@ -14,21 +14,21 @@ namespace FiilingData.FillingGlobalCriteria.FillingFirstLevel
             // Сначала удаляем из таблиц данные связанные с критерием AppliedSciences
             using (var uow = new UnitOfWork())
             {
-                var applSciences = uow.Repository<FirstLevelCriteria>().Get(x => x.Name == "Applied Sciences").FirstOrDefault();
+                var applSciences = uow.Repository<Criteria>().Get(x => x.Name == "Applied Sciences").FirstOrDefault();
                 if (applSciences != null)
                 {
-                    var secondLevelCriterias = applSciences.SecondLevelCriteria.ToList();
+                    var secondLevelCriterias = applSciences.Children.ToList();
 
                     foreach (var secondLevel in secondLevelCriterias)
                     {
-                        var thirdLevelCriteriaList = secondLevel.ThirdLevelCriteria.ToList();
+                        var thirdLevelCriteriaList = secondLevel.Children.ToList();
                         foreach (var thirdLevel in thirdLevelCriteriaList)
                         {
-                            uow.Repository<ThirdLevelCriteria>().Delete(thirdLevel);
+                            uow.Repository<Criteria>().Delete(thirdLevel);
                         }
-                        uow.Repository<SecondLevelCriteria>().Delete(secondLevel);
+                        uow.Repository<Criteria>().Delete(secondLevel);
                     }
-                    uow.Repository<FirstLevelCriteria>().Delete(applSciences);
+                    uow.Repository<Criteria>().Delete(applSciences);
                 }
                 uow.Commit();
             }
@@ -36,15 +36,15 @@ namespace FiilingData.FillingGlobalCriteria.FillingFirstLevel
             // Добавляем данные связанные с критерием AppliedSciences
             using (var uow = new UnitOfWork())
             {
-                var appliedSciences = new FirstLevelCriteria
+                var appliedSciences = new Criteria
                 {
                     Name = "Applied Sciences",
                     Tags = "applied sciences",
-                    SecondLevelCriteria = new Collection<SecondLevelCriteria>()
+                    Children = new Collection<Criteria>()
                 };
 
                 FillingSecondLevelCriteria.Filling_AppliedSciences(ref appliedSciences, uow);
-                uow.Repository<FirstLevelCriteria>().Add(appliedSciences);
+                uow.Repository<Criteria>().Add(appliedSciences);
                 uow.Commit();
             }
         }

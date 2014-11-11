@@ -7,27 +7,27 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_EnvironmentalAndForestry(ref SecondLevelCriteria environmentalAndForestry, UnitOfWork uow)
+        public static void Filling_EnvironmentalAndForestry(ref Criteria environmentalAndForestry, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria {Name = "Coastal management", Tags = "coastal management,environmental management", SecondLevelCriteria = environmentalAndForestry},
-                new ThirdLevelCriteria {Name = "Fisheries management", Tags = "fisheries management,environmental management", SecondLevelCriteria = environmentalAndForestry},
-                new ThirdLevelCriteria {Name = "Land management", Tags = "land management,environmental management", SecondLevelCriteria = environmentalAndForestry},
-                new ThirdLevelCriteria {Name = "Natural resource management", Tags = "natural resource management,environmental management", SecondLevelCriteria = environmentalAndForestry},
-                new ThirdLevelCriteria {Name = "Wildlife management", Tags = "wildlife management,environmental management", SecondLevelCriteria = environmentalAndForestry},
-                new ThirdLevelCriteria {Name = "Environmental policy", Tags = "environmental policy", SecondLevelCriteria = environmentalAndForestry},
-                new ThirdLevelCriteria {Name = "Recreation ecology", Tags = "recreation ecology", SecondLevelCriteria = environmentalAndForestry},
-                new ThirdLevelCriteria {Name = "Silviculture", Tags = "silviculture", SecondLevelCriteria = environmentalAndForestry},
-                new ThirdLevelCriteria {Name = "Sustainability studies", Tags = "sustainability studies", SecondLevelCriteria = environmentalAndForestry},
-                new ThirdLevelCriteria {Name = "Sustainable development", Tags = "sustainable development", SecondLevelCriteria = environmentalAndForestry},
-                new ThirdLevelCriteria {Name = "Toxicology", Tags = "toxicology", SecondLevelCriteria = environmentalAndForestry}
+                new Criteria {Name = "Coastal management", Tags = "coastal management,environmental management", Parent = environmentalAndForestry},
+                new Criteria {Name = "Fisheries management", Tags = "fisheries management,environmental management", Parent = environmentalAndForestry},
+                new Criteria {Name = "Land management", Tags = "land management,environmental management", Parent = environmentalAndForestry},
+                new Criteria {Name = "Natural resource management", Tags = "natural resource management,environmental management", Parent = environmentalAndForestry},
+                new Criteria {Name = "Wildlife management", Tags = "wildlife management,environmental management", Parent = environmentalAndForestry},
+                new Criteria {Name = "Environmental policy", Tags = "environmental policy", Parent = environmentalAndForestry},
+                new Criteria {Name = "Recreation ecology", Tags = "recreation ecology", Parent = environmentalAndForestry},
+                new Criteria {Name = "Silviculture", Tags = "silviculture", Parent = environmentalAndForestry},
+                new Criteria {Name = "Sustainability studies", Tags = "sustainability studies", Parent = environmentalAndForestry},
+                new Criteria {Name = "Sustainable development", Tags = "sustainable development", Parent = environmentalAndForestry},
+                new Criteria {Name = "Toxicology", Tags = "toxicology", Parent = environmentalAndForestry}
             };
 
             foreach (var thirdLevelCriteria in tmpThirdCritList)
             {
-                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                environmentalAndForestry.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                environmentalAndForestry.Children.Add(thirdLevelCriteria);
             }
         }
     }

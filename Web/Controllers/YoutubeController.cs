@@ -54,7 +54,7 @@
         public async Task<ActionResult> Index2(string criteriaName, string pageToken)
         {
             Profile user = userManager.FindById(User.Identity.GetUserId());
-            ViewBag.SecondLevelCriterias = user.SecondLevelCriteria.Select(x => x.Criteria).Select(x => x.Name).ToList();
+            ViewBag.SecondLevelCriterias = user.FirstLevelCriteria.Where(x => x.Criteria.Parent != null && x.Criteria.Children != null).Select(x => x.Criteria).Select(x => x.Name).ToList();
 
             if (string.IsNullOrEmpty(criteriaName))
             {
@@ -69,7 +69,7 @@
 
             List<YoutubeMaterial> materials = new List<YoutubeMaterial>();
             string query = string.Join(",",
-                user.ThirdLevelCriteria.Select(x => x.Criteria).Where(x => x.Name == criteriaName).Select(x => x.Name));
+                user.FirstLevelCriteria.Select(x => x.Criteria).Where(x => x.Name == criteriaName).Select(x => x.Name));
 
 
             SearchResource.ListRequest searchListRequest = youtubeService.Search.List("snippet");

@@ -14,21 +14,21 @@ namespace FiilingData.FillingGlobalCriteria.FillingFirstLevel
             // Сначала удаляем из таблиц данные связанные с критерием HumanitiesSciences
             using (var uow = new UnitOfWork())
             {
-                var humSciences = uow.Repository<FirstLevelCriteria>().Get(x => x.Name == "Humanities sciences").FirstOrDefault();
+                var humSciences = uow.Repository<Criteria>().Get(x => x.Name == "Humanities sciences").FirstOrDefault();
                 if (humSciences != null)
                 {
-                    var secondLevelCriterias = humSciences.SecondLevelCriteria.ToList();
+                    var secondLevelCriterias = humSciences.Children.ToList();
 
                     foreach (var secondLevel in secondLevelCriterias)
                     {
-                        var thirdLevelCriteriaList = secondLevel.ThirdLevelCriteria.ToList();
+                        var thirdLevelCriteriaList = secondLevel.Children.ToList();
                         foreach (var thirdLevel in thirdLevelCriteriaList)
                         {
-                            uow.Repository<ThirdLevelCriteria>().Delete(thirdLevel);
+                            uow.Repository<Criteria>().Delete(thirdLevel);
                         }
-                        uow.Repository<SecondLevelCriteria>().Delete(secondLevel);
+                        uow.Repository<Criteria>().Delete(secondLevel);
                     }
-                    uow.Repository<FirstLevelCriteria>().Delete(humSciences);
+                    uow.Repository<Criteria>().Delete(humSciences);
                 }
                 uow.Commit();
             }
@@ -36,14 +36,14 @@ namespace FiilingData.FillingGlobalCriteria.FillingFirstLevel
             // Добавляем данные связанные с критерием HumanitiesSciences
             using (var uow = new UnitOfWork())
             {
-                var humanitiesSciences = new FirstLevelCriteria
+                var humanitiesSciences = new Criteria
                 {
                     Name = "Humanities sciences",
                     Tags = "humanities sciences,liberal arts",
-                    SecondLevelCriteria = new Collection<SecondLevelCriteria>()
+                    Children = new Collection<Criteria>()
                 };
                 FillingSecondLevelCriteria.Filling_HumanitiesSciences(ref humanitiesSciences, uow);
-                uow.Repository<FirstLevelCriteria>().Add(humanitiesSciences);
+                uow.Repository<Criteria>().Add(humanitiesSciences);
                 uow.Commit();
             }
         }

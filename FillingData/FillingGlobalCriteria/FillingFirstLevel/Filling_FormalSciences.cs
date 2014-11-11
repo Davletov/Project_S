@@ -14,21 +14,21 @@ namespace FiilingData.FillingGlobalCriteria.FillingFirstLevel
             // Сначала удаляем из таблиц данные связанные с критерием FormalSciences
             using (var uow = new UnitOfWork())
             {
-                var formSciences = uow.Repository<FirstLevelCriteria>().Get(x => x.Name == "Formal Sciences").FirstOrDefault();
+                var formSciences = uow.Repository<Criteria>().Get(x => x.Name == "Formal Sciences").FirstOrDefault();
                 if (formSciences != null)
                 {
-                    var secondLevelCriterias = formSciences.SecondLevelCriteria.ToList();
+                    var secondLevelCriterias = formSciences.Children.ToList();
 
                     foreach (var secondLevel in secondLevelCriterias)
                     {
-                        var thirdLevelCriteriaList = secondLevel.ThirdLevelCriteria.ToList();
+                        var thirdLevelCriteriaList = secondLevel.Children.ToList();
                         foreach (var thirdLevel in thirdLevelCriteriaList)
                         {
-                            uow.Repository<ThirdLevelCriteria>().Delete(thirdLevel);
+                            uow.Repository<Criteria>().Delete(thirdLevel);
                         }
-                        uow.Repository<SecondLevelCriteria>().Delete(secondLevel);
+                        uow.Repository<Criteria>().Delete(secondLevel);
                     }
-                    uow.Repository<FirstLevelCriteria>().Delete(formSciences);
+                    uow.Repository<Criteria>().Delete(formSciences);
                 }
                 uow.Commit();
             }
@@ -36,15 +36,15 @@ namespace FiilingData.FillingGlobalCriteria.FillingFirstLevel
             // Добавляем данные связанные с критерием FormalSciences
             using (var uow = new UnitOfWork())
             {
-                var formalSciences = new FirstLevelCriteria
+                var formalSciences = new Criteria
                 {
                     Name = "Formal Sciences",
                     Tags = "formal sciences,formal",
-                    SecondLevelCriteria = new Collection<SecondLevelCriteria>()
+                    Children = new Collection<Criteria>()
                 };
 
                 FillingSecondLevelCriteria.Filling_FormalSciences(ref formalSciences, uow);
-                uow.Repository<FirstLevelCriteria>().Add(formalSciences);
+                uow.Repository<Criteria>().Add(formalSciences);
                 uow.Commit();
             }
         }

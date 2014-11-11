@@ -7,36 +7,36 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 
     public partial class FillingThirdLevelCriteria
     {
-        public static void Filling_PoliticalScience(ref SecondLevelCriteria politicalScience, UnitOfWork uow)
+        public static void Filling_PoliticalScience(ref Criteria politicalScience, UnitOfWork uow)
         {
-            var tmpThirdCritList = new List<ThirdLevelCriteria>
+            var tmpThirdCritList = new List<Criteria>
             {
-                new ThirdLevelCriteria { Name = "American politics", Tags = "american politics", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Canadian politics", Tags = "canadian politics", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Civics", Tags = "civics", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Comparative politics", Tags = "comparative politics", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Geopolitics", Tags = "geopolitics,political geography", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "International relations", Tags = "international relations", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "International organizations", Tags = "international organizations", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Nationalism studies", Tags = "nationalism studies", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Peace and conflict studies", Tags = "peace and conflict studies", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Policy studies", Tags = "policy studies", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Political behavior", Tags = "political behavior", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Political culture", Tags = "political culture", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Political economy", Tags = "political economy", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Political history", Tags = "political history", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Political philosophy", Tags = "political philosophy", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Psephology", Tags = "psephology", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Nonprofit administration", Tags = "nonprofit administration,public administration", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Non-governmental organization", Tags = "non-governmental organization,public administration", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Public policy", Tags = "public policy", SecondLevelCriteria = politicalScience },
-                new ThirdLevelCriteria { Name = "Social choice theory", Tags = "social choice theory", SecondLevelCriteria = politicalScience }
+                new Criteria { Name = "American politics", Tags = "american politics", Parent = politicalScience },
+                new Criteria { Name = "Canadian politics", Tags = "canadian politics", Parent = politicalScience },
+                new Criteria { Name = "Civics", Tags = "civics", Parent = politicalScience },
+                new Criteria { Name = "Comparative politics", Tags = "comparative politics", Parent = politicalScience },
+                new Criteria { Name = "Geopolitics", Tags = "geopolitics,political geography", Parent = politicalScience },
+                new Criteria { Name = "International relations", Tags = "international relations", Parent = politicalScience },
+                new Criteria { Name = "International organizations", Tags = "international organizations", Parent = politicalScience },
+                new Criteria { Name = "Nationalism studies", Tags = "nationalism studies", Parent = politicalScience },
+                new Criteria { Name = "Peace and conflict studies", Tags = "peace and conflict studies", Parent = politicalScience },
+                new Criteria { Name = "Policy studies", Tags = "policy studies", Parent = politicalScience },
+                new Criteria { Name = "Political behavior", Tags = "political behavior", Parent = politicalScience },
+                new Criteria { Name = "Political culture", Tags = "political culture", Parent = politicalScience },
+                new Criteria { Name = "Political economy", Tags = "political economy", Parent = politicalScience },
+                new Criteria { Name = "Political history", Tags = "political history", Parent = politicalScience },
+                new Criteria { Name = "Political philosophy", Tags = "political philosophy", Parent = politicalScience },
+                new Criteria { Name = "Psephology", Tags = "psephology", Parent = politicalScience },
+                new Criteria { Name = "Nonprofit administration", Tags = "nonprofit administration,public administration", Parent = politicalScience },
+                new Criteria { Name = "Non-governmental organization", Tags = "non-governmental organization,public administration", Parent = politicalScience },
+                new Criteria { Name = "Public policy", Tags = "public policy", Parent = politicalScience },
+                new Criteria { Name = "Social choice theory", Tags = "social choice theory", Parent = politicalScience }
             };
 
             foreach (var thirdLevelCriteria in tmpThirdCritList)
             {
-                uow.Repository<ThirdLevelCriteria>().Add(thirdLevelCriteria);
-                politicalScience.ThirdLevelCriteria.Add(thirdLevelCriteria);
+                uow.Repository<Criteria>().Add(thirdLevelCriteria);
+                politicalScience.Children.Add(thirdLevelCriteria);
             }
         }
     }

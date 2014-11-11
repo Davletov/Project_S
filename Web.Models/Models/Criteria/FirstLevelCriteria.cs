@@ -11,7 +11,7 @@ namespace Web.Models.Criteria
     /// 1 уровень критериев (основные направления наук: 
     /// Humanities sciences, Social sciences, Natural Sciences, Natural Sciences, Formal Sciences, Applied Sciences
     /// </summary>
-    public class FirstLevelCriteria
+    public class Criteria
     {
         /// <summary>
         /// private Id for database identity
@@ -29,10 +29,11 @@ namespace Web.Models.Criteria
         /// Tags of this criteria
         /// </summary>
         public string Tags { get; set; }
-
-        public virtual ICollection<SecondLevelCriteria> SecondLevelCriteria { get; set; }
-
-        public FirstLevelCriteria()
+        public virtual Criteria Parent { get; set; }
+        public long? ParentId { get; set; }
+        public virtual ICollection<Criteria> Children { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
+        public Criteria()
         {
             Id = Guid.NewGuid();
         }

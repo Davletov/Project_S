@@ -4,11 +4,11 @@
     using Web.Models.Criteria;
 
     // Связка профайл - критерии 1-го уровня
-    public class Profile1LevelCriteria
+    public class ProfileCriteria
     {
         public long Id { get; set; }
 
-        public virtual FirstLevelCriteria Criteria { get; set; }
+        public virtual Criteria Criteria { get; set; }
 
         public Guid CriteriaId { get; set; }
 

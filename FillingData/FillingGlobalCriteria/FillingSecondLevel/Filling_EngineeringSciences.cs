@@ -9,29 +9,29 @@ namespace FiilingData.FillingGlobalCriteria.FillingSecondLevel
 
     public partial class FillingSecondLevelCriteria
     {
-        public static void Filling_EngineeringSciences(ref FirstLevelCriteria engineeringSciences, UnitOfWork uow)
+        public static void Filling_EngineeringSciences(ref Criteria engineeringSciences, UnitOfWork uow)
         {
-            var tmpSecondCritList = new List<SecondLevelCriteria>();
-            var item_1 = new SecondLevelCriteria { Name = "Mechanical Engineering", Tags = "mechanical engineering", FirstLevelCriteria = engineeringSciences, ThirdLevelCriteria = new Collection<ThirdLevelCriteria>()};
+            var tmpSecondCritList = new List<Criteria>();
+            var item_1 = new Criteria { Name = "Mechanical Engineering", Tags = "mechanical engineering", Parent = engineeringSciences, Children = new Collection<Criteria>()};
             FillingThirdLevelCriteria.Filling_MechanicalEngineering(ref item_1, uow);
             tmpSecondCritList.Add(item_1);
 
-            var item_2 = new SecondLevelCriteria { Name = "Chemical Engineering", Tags = "chemical engineering", FirstLevelCriteria = engineeringSciences, ThirdLevelCriteria = new Collection<ThirdLevelCriteria>() };
+            var item_2 = new Criteria { Name = "Chemical Engineering", Tags = "chemical engineering", Parent = engineeringSciences, Children = new Collection<Criteria>() };
             FillingThirdLevelCriteria.Filling_ChemicalEngineering(ref item_2, uow);
             tmpSecondCritList.Add(item_2);
 
-            var item_3 = new SecondLevelCriteria { Name = "Civil Engineering", Tags = "civil engineering", FirstLevelCriteria = engineeringSciences, ThirdLevelCriteria = new Collection<ThirdLevelCriteria>() };
+            var item_3 = new Criteria { Name = "Civil Engineering", Tags = "civil engineering", Parent = engineeringSciences, Children = new Collection<Criteria>() };
             FillingThirdLevelCriteria.Filling_CivilEngineering(ref item_3, uow);
             tmpSecondCritList.Add(item_3);
 
-            var item_4 = new SecondLevelCriteria { Name = "Electrical Engineering", Tags = "electrical engineering", FirstLevelCriteria = engineeringSciences, ThirdLevelCriteria = new Collection<ThirdLevelCriteria>() };
+            var item_4 = new Criteria { Name = "Electrical Engineering", Tags = "electrical engineering", Parent = engineeringSciences, Children = new Collection<Criteria>() };
             FillingThirdLevelCriteria.Filling_ElectricalEngineering(ref item_4, uow);
             tmpSecondCritList.Add(item_4);
 
             foreach (var secondLevelCriteria in tmpSecondCritList)
             {
-                uow.Repository<SecondLevelCriteria>().Add(secondLevelCriteria);
-                engineeringSciences.SecondLevelCriteria.Add(secondLevelCriteria);
+                uow.Repository<Criteria>().Add(secondLevelCriteria);
+                engineeringSciences.Children.Add(secondLevelCriteria);
             }
         }
     }
