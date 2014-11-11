@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-theme.css" rel="stylesheet">
+
+<link href="css/navbar-custom.css" rel="stylesheet">
+<link href="css/font-awesome.css" rel="stylesheet">
+<link href="css/login.css" rel="stylesheet">
+<link href="css/footer.css" rel="stylesheet">
+<link href="css/jstree/style.min.css" rel="stylesheet"/> <!-- дерево критериев -->
+
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>   
+<script type="text/javascript" src="js/jquery-ui-1.10.4.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jstree.js"></script>
+<script type="text/json" src="js/data/jsonData.js"></script> <!-- Глобальные критерии -->
+<script type="text/javascript" src="js/businesslogic/criteriaTree.js"></script> <!-- Дерево критериев в профайле пользователя -->
+
+</head>
+	<body>
+		<div class="main">
+
+			<div class="navbar navbar-custom">
+			  <div class="navbar-header">
+			    <a class="navbar-brand" href="#" title="Project_S">
+			    	<img style="max-width:100px; margin-top: -10px;"
+			             src="css/images/logo.jpg">
+			    </a>
+			  </div>
+			  <div class="navbar-header">
+			    <a class="navbar-brand" href="#">Project_S</a>
+			  </div>
+			</div>
+
+			<div id="side-nav" class="col-sm-2 hidden-xs hidden-sm hidden-print">
+			    <ul class="nav nav-pills nav-stacked">
+			        <li><a href="#lectures">My lectures</a></li>
+			        <li><a href="#profile">My profile</a></li>
+			        <li><a href="#groups">My groups</a></li>
+			        <li><a href="#messages">My messages</a></li>
+			        <li><a href="#raiting">My raiting</a></li>
+			        <li><a href="#resume">My resume</a></li>
+			   </ul>
+			</div>
+			 
+			<div id="company-content" class="col-xs-8 col-sm-8 col-md-6">
+				<form class="form-horizontal">
+				  <fieldset>
+				    <legend>My profile</legend>
+				    <div class="form-group">
+				      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+				      <div class="col-lg-10">
+				        <input type="text" class="form-control" id="inputEmail" placeholder="Email">
+				      </div>
+				    </div>
+				    <div class="form-group">
+				      <label for="inputStatus" class="col-lg-2 control-label">Status</label>
+				      <div class="col-lg-10">
+				        <input type="status" class="form-control" id="inputStatus" placeholder="social status">
+				      </div>
+				    </div>
+			        <div class="form-group">
+			            <label for="globalCriteria" class="col-lg-2 control-label">Criterias</label>
+			            <div class="col-lg-10">
+			                <div id="TreeTmp"></div>
+			            </div>
+			        </div>	    
+				    <div class="form-group">
+				      <div class="col-lg-10 col-lg-offset-2">
+				        <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+				      </div>
+				    </div>
+				  </fieldset>
+				</form>
+				<div id="footer2">
+			    	<p>© <a href="#">Project_S</a>, 2014</p>
+				</div>
+			</div>
+
+		</div>
+
+	</body>
+</html>

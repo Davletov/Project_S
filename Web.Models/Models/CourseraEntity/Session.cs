@@ -126,7 +126,6 @@
         /// Связка многие ко многим (Сессия <-> Курсы)
         /// </summary>
         [JsonProperty("courses")]
-        //[JsonConverter(typeof(ConvertToCourse))]
         public ICollection<Course> Courses { get; set; }
     }
 }

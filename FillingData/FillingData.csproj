@@ -144,6 +144,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Web.BusinessLogic\Web.BusinessLogic.csproj">
+      <Project>{E595261B-8BE4-4D2B-BB0D-FC0384C4C98A}</Project>
+      <Name>Web.BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Web.DataAccess\Web.DataAccess.csproj">
       <Project>{4EE68091-FDB9-4928-BD5E-E27D101951C1}</Project>
       <Name>Web.DataAccess</Name>

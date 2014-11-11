@@ -1,6 +1,4 @@
-﻿using Web.DataAccess.Repository;
-
-namespace FiilingData.FillingGlobalCriteria
+﻿namespace FiilingData.FillingGlobalCriteria
 {
     using System;
     using System.IO;
@@ -8,6 +6,8 @@ namespace FiilingData.FillingGlobalCriteria
     using Newtonsoft.Json;    
     using System.Diagnostics;
     using FiilingData.FillingGlobalCriteria.FillingFirstLevel;
+    using Web.DataAccess.Repository;
+    using Web.Models.Criteria;
 
     public static class FillingFirstCriteria
     {
@@ -47,7 +47,7 @@ namespace FiilingData.FillingGlobalCriteria
             string str;
             using (var uow = new UnitOfWork())
             {
-                var listCategory = uow.Repository<FillingFirstLevelCriteria>().Get().ToList();
+                var listCategory = uow.Repository<FirstLevelCriteria>().Get().ToList();
                 str = JsonConvert.SerializeObject(listCategory, Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
             }
 

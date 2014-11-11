@@ -46,7 +46,6 @@
         /// Каждый курс (Пр.: Математические методы в экономике) может относится к нескольких категориям 
         /// </summary>
         [JsonProperty("courses")]
-        //[JsonConverter(typeof(ConvertToCourse))]
         public ICollection<Course> Courses { get; set; }
     }
 }

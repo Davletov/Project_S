@@ -41,7 +41,7 @@ namespace FiilingData.FillingCourseraData
                         {
                             foreach (var universityId in universityList)
                             {
-                                uowDel.Repository<Session>().Delete(universityId);
+                                uowDel.Repository<University>().Delete(universityId);
                             }
 
                             uowDel.Commit();
