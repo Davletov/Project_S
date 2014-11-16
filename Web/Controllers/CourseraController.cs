@@ -18,7 +18,7 @@
             Profile user = userManager.FindById(User.Identity.GetUserId());
             if (user != null)
             {                
-                var coursesForCurrUser = user.FirstLevelCriteria.Where(x => x.Criteria.Parent == null).Select(x => x.Criteria).SelectMany(x => x.Courses).ToList();
+                var coursesForCurrUser = user.ProfileCriteria.Where(x => x.Criteria.Parent == null).Select(x => x.Criteria).SelectMany(x => x.Courses).ToList();
 
                 var courseMaterials = coursesForCurrUser.Select(course => new CourseraMaterial
                 {

@@ -47,7 +47,7 @@
             string str;
             using (var uow = new UnitOfWork())
             {
-                var listCategory = uow.Repository<FirstLevelCriteria>().Get().ToList();
+                var listCategory = uow.Repository<Criteria>().Get().ToList();
                 str = JsonConvert.SerializeObject(listCategory, Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
             }
 

@@ -53,7 +53,7 @@ namespace FiilingData.FillingGlobalCriteria.FillingSecondLevel
             tmpSecondCritList.Add(item_10);
 
             var item_11 = new Criteria { Name = "Law", Tags = "law", Parent = appliedSciences, Children = new Collection<Criteria>() };
-            //FillingThirdLevelCriteria.Filling_Law(ref item_11, uow);
+            FillingThirdLevelCriteria.Filling_Law(ref item_11, uow);
             tmpSecondCritList.Add(item_11);
 
             var item_12 = new Criteria { Name = "Library and museum studies", Tags = "library studies,museum studies", Parent = appliedSciences, Children = new Collection<Criteria>() };

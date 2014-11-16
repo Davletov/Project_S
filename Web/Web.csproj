@@ -323,38 +323,6 @@
     <Compile Include="Migrations\201408141123220_AddIdentityEntities.Designer.cs">
       <DependentUpon>201408141123220_AddIdentityEntities.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201408141123230_AddCriteriaEntities.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Migrations\201408141123230_AddCriteriaEntities.Designer.cs">
-      <DependentUpon>201408141123230_AddCriteriaEntities.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201408141123240_AddProfileEntitity.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Migrations\201408141123240_AddProfileEntitity.Designer.cs">
-      <DependentUpon>201408141123240_AddProfileEntitity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201408141134298_BindProfileWithCriterias.cs" />
-    <Compile Include="Migrations\201408141134298_BindProfileWithCriterias.Designer.cs">
-      <DependentUpon>201408141134298_BindProfileWithCriterias.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201408220719365_FixProfile.cs" />
-    <Compile Include="Migrations\201408220719365_FixProfile.Designer.cs">
-      <DependentUpon>201408220719365_FixProfile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409150617037_SeparateProfileAndCriterias.cs" />
-    <Compile Include="Migrations\201409150617037_SeparateProfileAndCriterias.Designer.cs">
-      <DependentUpon>201409150617037_SeparateProfileAndCriterias.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409191829051_BindGlobalCriteriasWithCourseraCategories.cs" />
-    <Compile Include="Migrations\201409191829051_BindGlobalCriteriasWithCourseraCategories.Designer.cs">
-      <DependentUpon>201409191829051_BindGlobalCriteriasWithCourseraCategories.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409250820030_DeleteCategoriesFromGlobalCriterias.cs" />
-    <Compile Include="Migrations\201409250820030_DeleteCategoriesFromGlobalCriterias.Designer.cs">
-      <DependentUpon>201409250820030_DeleteCategoriesFromGlobalCriterias.cs</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -424,27 +392,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408141123220_AddIdentityEntities.resx">
       <DependentUpon>201408141123220_AddIdentityEntities.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408141123230_AddCriteriaEntities.resx">
-      <DependentUpon>201408141123230_AddCriteriaEntities.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408141123240_AddProfileEntitity.resx">
-      <DependentUpon>201408141123240_AddProfileEntitity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408141134298_BindProfileWithCriterias.resx">
-      <DependentUpon>201408141134298_BindProfileWithCriterias.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408220719365_FixProfile.resx">
-      <DependentUpon>201408220719365_FixProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409150617037_SeparateProfileAndCriterias.resx">
-      <DependentUpon>201409150617037_SeparateProfileAndCriterias.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409191829051_BindGlobalCriteriasWithCourseraCategories.resx">
-      <DependentUpon>201409191829051_BindGlobalCriteriasWithCourseraCategories.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409250820030_DeleteCategoriesFromGlobalCriterias.resx">
-      <DependentUpon>201409250820030_DeleteCategoriesFromGlobalCriterias.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
