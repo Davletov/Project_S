@@ -1,15 +1,18 @@
-namespace Web.Migrations
+namespace Web.DataAccess.Migrations
 {
+    using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<BdContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Web.BdContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(BdContext context)
+        protected override void Seed(Web.BdContext context)
         {
             //  This method will be called after migrating to the latest version.
 
