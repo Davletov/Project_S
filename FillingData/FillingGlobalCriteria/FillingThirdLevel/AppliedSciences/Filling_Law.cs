@@ -1,4 +1,5 @@
-﻿using Web.DataAccess.Repository;
+﻿using System.Linq;
+using Web.DataAccess.Repository;
 
 namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 {
@@ -36,10 +37,10 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
                 new Criteria {Name = "Tort law", Tags = "tort law,civil law", Parent = law}
             };
 
-            foreach (var Criteria in tmpThirdCritList)
+            foreach (var criteria in tmpThirdCritList.OrderBy(x => x.Name))
             {
-                uow.Repository<Criteria>().Add(Criteria);
-                law.Children.Add(Criteria);
+                uow.Repository<Criteria>().Add(criteria);
+                law.Children.Add(criteria);
             }
         }
     }

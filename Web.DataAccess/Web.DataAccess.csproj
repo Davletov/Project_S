@@ -59,6 +59,10 @@
     <Compile Include="Migrations\201411162017326_Init.Designer.cs">
       <DependentUpon>201411162017326_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411191826136_FixCriteriaChildrenRelation.cs" />
+    <Compile Include="Migrations\201411191826136_FixCriteriaChildrenRelation.Designer.cs">
+      <DependentUpon>201411191826136_FixCriteriaChildrenRelation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repository\ISession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,6 +83,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201411162017326_Init.resx">
       <DependentUpon>201411162017326_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411191826136_FixCriteriaChildrenRelation.resx">
+      <DependentUpon>201411191826136_FixCriteriaChildrenRelation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

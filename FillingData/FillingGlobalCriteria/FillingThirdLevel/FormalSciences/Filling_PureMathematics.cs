@@ -1,4 +1,5 @@
-﻿using Web.DataAccess.Repository;
+﻿using System.Linq;
+using Web.DataAccess.Repository;
 
 namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 {
@@ -67,7 +68,7 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
                 new Criteria { Name = "Intuitionistic logic", Tags = "intuitionistic logic,logic,foundations of mathematics", Parent = pureMathematics }
             };
 
-            foreach (var thirdLevelCriteria in tmpThirdCritList)
+            foreach (var thirdLevelCriteria in tmpThirdCritList.OrderBy(x => x.Name))
             {
                 uow.Repository<Criteria>().Add(thirdLevelCriteria);
                 pureMathematics.Children.Add(thirdLevelCriteria);

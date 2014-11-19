@@ -1,4 +1,5 @@
-﻿using Web.DataAccess.Repository;
+﻿using System.Linq;
+using Web.DataAccess.Repository;
 
 namespace FiilingData.FillingGlobalCriteria.FillingSecondLevel
 {
@@ -36,7 +37,7 @@ namespace FiilingData.FillingGlobalCriteria.FillingSecondLevel
             FillingThirdLevelCriteria.Filling_Religion(ref item_6, uow);
             tmpSecondCritList.Add(item_6);
 
-            foreach (var secondLevelCriteria in tmpSecondCritList)
+            foreach (var secondLevelCriteria in tmpSecondCritList.OrderBy(x => x.Name))
             {
                 uow.Repository<Criteria>().Add(secondLevelCriteria);
                 humanitiesSciences.Children.Add(secondLevelCriteria);

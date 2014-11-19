@@ -1,4 +1,5 @@
-﻿using Web.DataAccess.Repository;
+﻿using System.Linq;
+using Web.DataAccess.Repository;
 
 namespace FiilingData.FillingGlobalCriteria.FillingSecondLevel
 {
@@ -76,7 +77,7 @@ namespace FiilingData.FillingGlobalCriteria.FillingSecondLevel
             FillingThirdLevelCriteria.Filling_Transportation(ref item_16, uow);
             tmpSecondCritList.Add(item_16);
 
-            foreach (var secondLevelCriteria in tmpSecondCritList)
+            foreach (var secondLevelCriteria in tmpSecondCritList.OrderBy(x => x.Name))
             {
                 uow.Repository<Criteria>().Add(secondLevelCriteria);
                 appliedSciences.Children.Add(secondLevelCriteria);

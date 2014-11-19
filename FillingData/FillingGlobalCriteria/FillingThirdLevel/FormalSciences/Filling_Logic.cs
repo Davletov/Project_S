@@ -1,4 +1,5 @@
-﻿using Web.DataAccess.Repository;
+﻿using System.Linq;
+using Web.DataAccess.Repository;
 
 namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 {
@@ -29,10 +30,10 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
                 new Criteria { Name = "Fuzzy logic", Tags = "fuzzy logic,logic in computer science", Parent =logic }
             };
 
-            foreach (var Criteria in tmpThirdCritList)
+            foreach (var criteria in tmpThirdCritList.OrderBy(x => x.Name))
             {
-                uow.Repository<Criteria>().Add(Criteria);
-                logic.Children.Add(Criteria);
+                uow.Repository<Criteria>().Add(criteria);
+                logic.Children.Add(criteria);
             }
         }
     }

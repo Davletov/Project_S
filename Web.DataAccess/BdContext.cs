@@ -96,7 +96,16 @@
                    m.MapRightKey("UniversityId");
                    m.ToTable("CourseUniversities");
                });
-            
+
+            modelBuilder.Entity<Criteria>()
+                .HasMany(p => p.Children)
+                .WithMany()
+                .Map(m =>
+                {
+                    m.MapLeftKey("Id");
+                    m.MapRightKey("ChildrenId");
+                    m.ToTable("CriteriaChildren");
+                });
         }
     }
 }
