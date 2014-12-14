@@ -1,4 +1,5 @@
-﻿using Web.DataAccess.Repository;
+﻿using System.Linq;
+using Web.DataAccess.Repository;
 
 namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
 {
@@ -17,10 +18,10 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
                 new Criteria { Name = "Other arts", Tags = "other arts", Parent = arts }
             };
 
-            foreach (var Criteria in tmpThirdCritList)
+            foreach (var criteria in tmpThirdCritList.OrderBy(x => x.Name))
             {
-                uow.Repository<Criteria>().Add(Criteria);
-                arts.Children.Add(Criteria);
+                uow.Repository<Criteria>().Add(criteria);
+                arts.Children.Add(criteria);
             }
         }
     }

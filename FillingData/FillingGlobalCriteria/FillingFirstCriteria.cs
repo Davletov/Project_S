@@ -18,13 +18,13 @@
             Console.WriteLine("\nЗагрузка критериев ...");
             stopWatch.Start();
 
-            FillingFirstLevelCriteria.Filling_HumanitiesSciences();     // заполнение блока критериев Гумманитарных наук
-            FillingFirstLevelCriteria.Filling_SocialSciences();         // заполнение блока критериев Общественных наук
-            FillingFirstLevelCriteria.Filling_NaturalSciences();        // заполнение блока критериев Естественных наук
+            FillingFirstLevelCriteria.Filling_AppliedSciences();        // заполнение блока критериев Прикладных наук
             FillingFirstLevelCriteria.Filling_EngineeringSciences();    // заполнение блока критериев Инженерных наук
             FillingFirstLevelCriteria.Filling_FormalSciences();         // заполнение блока критериев Формальных наук
-            FillingFirstLevelCriteria.Filling_AppliedSciences();        // заполнение блока критериев Прикладных наук
-
+            FillingFirstLevelCriteria.Filling_HumanitiesSciences();     // заполнение блока критериев Гумманитарных наук
+            FillingFirstLevelCriteria.Filling_NaturalSciences();        // заполнение блока критериев Естественных наук
+            FillingFirstLevelCriteria.Filling_SocialSciences();         // заполнение блока критериев Общественных наук
+            
             stopWatch.Stop();
             Console.WriteLine("Загрузка критериев прошла успешно !");
 
@@ -47,12 +47,11 @@
             string str;
             using (var uow = new UnitOfWork())
             {
-                var listCategory = uow.Repository<FirstLevelCriteria>().Get().ToList();
+                var listCategory = uow.Repository<Criteria>().Get().OrderBy(x => x.Name).Where(x => x.Parent == null).ToList();
                 str = JsonConvert.SerializeObject(listCategory, Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
             }
 
-            str = str.Replace("\"SecondLevelCriteria\"", "\"children\"")
-                    .Replace("\"ThirdLevelCriteria\"", "\"children\"")
+            str = str.Replace("\"Children\"", "\"children\"")
                     .Replace("Name", "text")
                     .Replace("Id", "id");
 

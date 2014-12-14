@@ -34,6 +34,6 @@ namespace Web.Models.Profile
 
         public UserSocialStatus UserSocialStatus { get; set; }
 
-        public virtual ICollection<ProfileCriteria> FirstLevelCriteria { get; set; }        
+        public virtual ICollection<ProfileCriteria> ProfileCriteria { get; set; }        
     }
 }

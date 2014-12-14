@@ -1,4 +1,5 @@
-﻿using Web.DataAccess.Repository;
+﻿using System.Linq;
+using Web.DataAccess.Repository;
 
 namespace FiilingData.FillingGlobalCriteria.FillingSecondLevel
 {
@@ -33,7 +34,7 @@ namespace FiilingData.FillingGlobalCriteria.FillingSecondLevel
             tmpSecondCritList.Add(item_5);
 
 
-            foreach (var secondLevelCriteria in tmpSecondCritList)
+            foreach (var secondLevelCriteria in tmpSecondCritList.OrderBy(x => x.Name))
             {
                 uow.Repository<Criteria>().Add(secondLevelCriteria);
                 naturalSciences.Children.Add(secondLevelCriteria);

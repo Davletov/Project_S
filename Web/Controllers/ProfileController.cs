@@ -84,13 +84,13 @@ namespace Web.Controllers
 
                         if (criteriaData != null)
                         {
-                            profile.FirstLevelCriteria = new Collection<ProfileCriteria>();
+                            profile.ProfileCriteria = new Collection<ProfileCriteria>();
                             foreach (var criteria in criteriaData)
                             {
-                                var firstLevelCriteria = uow.Repository<Criteria>().GetById(criteria.id);
+                                var Criteria = uow.Repository<Criteria>().GetById(criteria.id);
                                 var newProfileCriteria = new ProfileCriteria
                                 {
-                                    Criteria = firstLevelCriteria,
+                                    Criteria = Criteria,
                                     Profile = profile
                                 };
                                 uow.Repository<ProfileCriteria>().Add(newProfileCriteria);
@@ -124,7 +124,7 @@ namespace Web.Controllers
 
                         if (criteriaData != null)
                         {
-                            var curUserFirstCriteriasQuery = uow.Repository<ProfileCriteria>().Get().AsEnumerable().Where(x => x.Profile.Id == profile.Id);
+                            var curUserFirstCriteriasQuery = uow.Repository<ProfileCriteria>().Get().Where(x => x.Profile.Id == profile.Id);
                             
 
                             // get current user's criterias from repository
@@ -132,7 +132,7 @@ namespace Web.Controllers
                             
 
                             // get current user's criterias from client side
-                            var jstreeFirstCriteriaIds = criteriaData.Where(x => x.level == 1).Select(x => x.id).ToList();                            
+                            var jstreeFirstCriteriaIds = criteriaData/*.Where(x => x.level == 1)*/.Select(x => x.id).ToList();                            
 
                             // find criterias, which need add to repository
                             var needToAddFirstCriterias = jstreeFirstCriteriaIds.Except(curUserFirstCriteriaIds);
@@ -144,9 +144,12 @@ namespace Web.Controllers
                             // Add criterias to profile
                             foreach (var firstCriteria in needToAddFirstCriterias)
                             {
-                                var firstLevelCriteria = uow.Repository<Criteria>().GetById(firstCriteria);
-                                var newProfileCriteria = new ProfileCriteria { Criteria = firstLevelCriteria, Profile = profile };
-                                uow.Repository<ProfileCriteria>().Add(newProfileCriteria); 
+                                var criteria = uow.Repository<Criteria>().GetById(firstCriteria);
+                                if (criteria != null)
+                                {
+                                    var newProfileCriteria = new ProfileCriteria { Criteria = criteria, Profile = profile };
+                                    uow.Repository<ProfileCriteria>().Add(newProfileCriteria); 
+                                }
                             }
                             
 
@@ -183,7 +186,7 @@ namespace Web.Controllers
             {
                 if (currentUserId != null)
                 {
-                    var first = uow.Repository<Profile>().GetById(currentUserId).FirstLevelCriteria.Select(x => x.CriteriaId).ToList();                    
+                    var first = uow.Repository<Profile>().GetById(currentUserId).ProfileCriteria.Select(x => x.CriteriaId).ToList();                    
                     listCriteriaIds.AddRange(first);                    
                 }
             }

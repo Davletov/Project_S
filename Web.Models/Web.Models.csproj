@@ -70,15 +70,11 @@
     <Compile Include="Models\CourseraEntity\Instructor.cs" />
     <Compile Include="Models\CourseraEntity\Session.cs" />
     <Compile Include="Models\CourseraEntity\University.cs" />
-    <Compile Include="Models\Criteria\FirstLevelCriteria.cs" />
-    <Compile Include="Models\Criteria\SecondLevelCriteria.cs" />
-    <Compile Include="Models\Criteria\ThirdLevelCriteria.cs" />
+    <Compile Include="Models\Criteria\Criteria.cs" />
     <Compile Include="Models\Location\City.cs" />
     <Compile Include="Models\Location\Country.cs" />
     <Compile Include="Models\Profile\Profile.cs" />
-    <Compile Include="Models\Profile\Profile1LevelCriteria.cs" />
-    <Compile Include="Models\Profile\Profile2LevelCriteria.cs" />
-    <Compile Include="Models\Profile\Profile3LevelCriteria.cs" />
+    <Compile Include="Models\Profile\ProfileCriteria.cs" />
     <Compile Include="Models\YouTube\YoutubeMaterial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

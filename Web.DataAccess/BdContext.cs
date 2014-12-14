@@ -25,13 +25,13 @@
 
         public DbSet<Profile> Profiles { get; set; }
 
-        public DbSet<Criteria> FirstLevelCriterias { get; set; }        
+        public DbSet<Criteria> Criterias { get; set; }        
 
         public DbSet<Country> Countries { get; set; }
 
         public DbSet<City> Cities { get; set; }
 
-        public DbSet<ProfileCriteria> Profile1LevelCriterias { get; set; }                        
+        public DbSet<ProfileCriteria> ProfileCriterias { get; set; }                        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Criteria>().HasMany(t => t.Children).WithRequired();
@@ -43,7 +43,7 @@
 
             /* Связка (Профайл пользователя <-> Критерии (1 - 3 уровень) */
             modelBuilder.Entity<Profile>().
-                HasMany(c => c.FirstLevelCriteria);          
+                HasMany(c => c.ProfileCriteria);          
 
 
             /* Связка многие ко многим (Категория <-> Курсы)
@@ -97,10 +97,15 @@
                    m.ToTable("CourseUniversities");
                });
 
-            // Course <-> ThirdLevelCriteria           
-
-            // Course <-> SecondLevelCriteria
-            
+            modelBuilder.Entity<Criteria>()
+                .HasMany(p => p.Children)
+                .WithMany()
+                .Map(m =>
+                {
+                    m.MapLeftKey("Id");
+                    m.MapRightKey("ChildrenId");
+                    m.ToTable("CriteriaChildren");
+                });
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Web.DataAccess.Repository;
+﻿using System.Linq;
+using Web.DataAccess.Repository;
 using Web.Models.Criteria;
 
 namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
@@ -21,7 +22,7 @@ namespace FiilingData.FillingGlobalCriteria.FillingThirdLevel
                 new Criteria { Name = "Prehistoric archaeology", Tags = "prehistoric archaeology", Parent = archaeology }
             };
 
-            foreach (var thirdLevelCriteria in tmpThirdCritList)
+            foreach (var thirdLevelCriteria in tmpThirdCritList.OrderBy(x => x.Name))
             {
                 uow.Repository<Criteria>().Add(thirdLevelCriteria);
                 archaeology.Children.Add(thirdLevelCriteria);
