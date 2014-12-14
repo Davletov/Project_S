@@ -6,10 +6,11 @@
 <link href="css/bootstrap-theme.css" rel="stylesheet">
 
 <link href="css/navbar-custom.css" rel="stylesheet">
+<link href="css/main.css" rel="stylesheet">
 <link href="css/font-awesome.css" rel="stylesheet">
 <link href="css/login.css" rel="stylesheet">
 <link href="css/footer.css" rel="stylesheet">
-
+<script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
 <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.4.min.js"></script>
 <script src="js/bootstrap.js"></script>
@@ -46,16 +47,86 @@
 			<div class="mainfeed">
 			   <div class="row">
 			      <div class="col-md-4 thumbnail">
-			         <h2>H2 Title</h2>
-			         <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+			      	<div class="item-video-wrap">
+				         <h2>H2 Title</h2>
+				         <div class="video-stop-cadr">
+				         	<img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt=""/>
+				         </div>
+				         <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+			         </div>
 			      </div>
 			      <div class="col-md-4 thumbnail">
-			         <h2>H2 Title</h2>
-			         <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+			      	<div class="item-video-wrap">
+				         
+				         <div class="video-stop-cadr">
+				         	<img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt=""/>
+				         </div>
+				         <h2>H2 Title</h2>
+				         <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+			         </div>
 			      </div>
 			      <div class="col-md-4 thumbnail">
-			         <h2>H2 Title</h2>
-			         <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+			      	<div class="item-video-wrap">
+				         <h2>H2 Title</h2>
+				         <div class="video-stop-cadr">
+				         	<img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt=""/>
+				         </div>
+				         <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+			         </div>
+			      </div>
+			      <div class="col-md-4 thumbnail">
+			      	<div class="item-video-wrap">
+				         <h2>H2 Title</h2>
+				         <div class="video-stop-cadr">
+				         	<img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt=""/>
+				         </div>
+				         <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+			         </div>
+			      </div>
+			      <div class="col-md-4 thumbnail">
+			      	<div class="item-video-wrap">
+				         <h2>H2 Title</h2>
+				         <div class="video-stop-cadr">
+				         	<img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt=""/>
+				         </div>
+				         <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+			         </div>
+			      </div>
+			      <div class="col-md-4 thumbnail">
+			      	<div class="item-video-wrap">
+				         <h2>H2 Title</h2>
+				         <div class="video-stop-cadr">
+				         	<img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt=""/>
+				         </div>
+				         <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+			         </div>
+			      </div>
+			      <div class="col-md-4 thumbnail">
+			      	<div class="item-video-wrap">
+				         <h2>H2 Title</h2>
+				         <div class="video-stop-cadr">
+				         	<img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt=""/>
+				         </div>
+				         <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+			         </div>
+			      </div>
+			      <div class="col-md-4 thumbnail">
+			         <div class="item-video-wrap">
+				         <h2>H2 Title</h2>
+				         <div class="video-stop-cadr">
+				         	<img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt=""/>
+				         </div>
+				         <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+			         </div>
+			      </div>
+			      <div class="col-md-4 thumbnail">
+			         <div class="item-video-wrap">
+				         <h2>H2 Title</h2>
+				         <div class="video-stop-cadr">
+				         	<img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt=""/>
+				         </div>
+				         <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+			         </div>
 			      </div>
 			   </div>
 			</div>
@@ -63,6 +134,44 @@
 			</div>
 
 		</div>
+		<script type="text/javascript">
+		/*********************************************************************/
+			var player;
+			window.startYoutube = function() {
+			player = new YT.Player('player', {
+			  height: '390',
+			  width: '640',
+			  videoId: 'M7lc1UVf-VE',
+			  events: {
+			    'onReady': onPlayerReady,
+			    'onStateChange': onPlayerStateChange
+			  }
+			});
+			}
 
+			function onPlayerReady(event) {
+			event.target.playVideo();
+			}
+			function onPlayerStateChange(event) {			
+			}
+			function stopVideo() {
+				player.stopVideo();
+			}
+		/*********************************************************************/
+			$('.thumbnail').click(function(){				
+				var mask = $('<a/>', { href:'javascript:{}'});
+				mask.addClass('mask');
+				$('body').append(mask);	
+				var player = $('<div/>', { id: 'player'});
+				$('body').append(player);
+				
+				window.startYoutube();
+
+				mask.click(function(){
+					this.remove();
+					$('#player').remove();					
+				});
+			});
+		</script>
 	</body>
 </html>

@@ -15,7 +15,8 @@
     <AssemblyName>Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -179,6 +180,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\css\bootstrap-theme.css" />
+    <Content Include="Assets\css\bootstrap.css" />
+    <Content Include="Assets\css\font-awesome.css" />
+    <Content Include="Assets\css\footer.css" />
+    <Content Include="Assets\css\images\logo - копия - копия.jpg" />
+    <Content Include="Assets\css\images\logo.jpg" />
+    <Content Include="Assets\css\images\logo1.jpg" />
+    <Content Include="Assets\css\jstree\32px - копия.png" />
+    <Content Include="Assets\css\jstree\32px.png" />
+    <Content Include="Assets\css\jstree\40px.png" />
+    <Content Include="Assets\css\jstree\style.css" />
+    <Content Include="Assets\css\jstree\style.min.css" />
+    <Content Include="Assets\css\jstree\throbber.gif" />
+    <Content Include="Assets\css\login.css" />
+    <Content Include="Assets\css\main.css" />
+    <Content Include="Assets\css\navbar-custom.css" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Assets\js\bootstrap.js" />
+    <Content Include="Assets\js\businessLogic\criteriaTree.js" />
+    <Content Include="Assets\js\data\jsonData.js" />
+    <Content Include="Assets\js\jquery-2.1.1.min.js" />
+    <Content Include="Assets\js\jquery-ui-1.10.4.min.js" />
+    <Content Include="Assets\js\jstree.js" />
+    <Content Include="Assets\js\jstree.min.js" />
     <Content Include="Content\bootstrap-social.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -271,6 +296,9 @@
     <Content Include="Images\submit.gif" />
     <Content Include="Images\userpic.gif" />
     <Content Include="Content\bootstrap-social.less" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Resources\About_ProjectS.txt" />
     <Content Include="Scripts\arial.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -473,15 +501,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>51696</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44300/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>http://localhost:44300/</CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

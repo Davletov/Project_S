@@ -3,22 +3,59 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    
+    <link href=@Url.Content("~/Assets/css/bootstrap.css") rel="stylesheet">
+    <link href=@Url.Content("~/Assets/css/bootstrap-theme.css") rel="stylesheet">
+
+    <link href=@Url.Content("~/Assets/css/navbar-custom.css") rel="stylesheet">
+    <link href=@Url.Content("~/Assets/css/main.css") rel="stylesheet">
+    <link href=@Url.Content("~/Assets/css/font-awesome.css") rel="stylesheet">
+    <link href=@Url.Content("~/Assets/css/login.css") rel="stylesheet">
+    <link href=@Url.Content("~/Assets/css/footer.css") rel="stylesheet">
+    <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+    <script type="text/javascript" src=@Url.Content("~/Assets/js/jquery-2.1.1.min.js")></script>
+    <script type="text/javascript" src=@Url.Content("~/Assets/js/jquery-ui-1.10.4.min.js")></script>
+    <script src=@Url.Content("~/Assets/js/bootstrap.js")></script>
+
+    
+
 </head>
 <body>
-   
+    <div class="main">
+        <div class="navbar navbar-custom">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" title="Project_S">
+                    <img style="max-width:100px; margin-top: -10px;"
+                         src=@Url.Content("~/Assets/css/images/logo.jpg")>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Project_S</a>
+            </div>
+        </div>
+        
+        <div class="container">
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+            <div id="side-nav" class="col-sm-2 hidden-xs hidden-sm hidden-print">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="#lectures">My lectures</a></li>
+                    <li><a href="#profile">My profile</a></li>
+                    <li><a href="#groups">My groups</a></li>
+                    <li><a href="#messages">My messages</a></li>
+                    <li><a href="#raiting">My raiting</a></li>
+                    <li><a href="#resume">My resume</a></li>
+                </ul>
+            </div>
+
+            <div class="mainfeed">
+                <div class="row">
+                    @RenderBody()
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
 </body>
 </html>
