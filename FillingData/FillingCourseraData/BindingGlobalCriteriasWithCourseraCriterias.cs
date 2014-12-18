@@ -66,12 +66,12 @@
             BindByCourseName("Environmental studies and forestry", new[] { "Environmental", "forestry" });
             BindByCourseName("Gender and sexuality studies", new[] { "Gender", "sex" });
             BindByCourseName("Geography", new[] { "Geography" });
-            BindByCourseName("History", new[] { "History" });
-            BindByCourseName("Journalism, media studies and communication", new[] { "Journalism", "media studies" });
+            BindByCourseName("History", new[] { "History" }); // детализировать до критериев 3-го уровня (Пр., история россии, история мировая и т.д.)
+            BindByCourseName("Journalism, media studies and communication", new[] { "Journalism", "media" }, true);
             BindByCourseName("Library and museum studies", new[] { "Library", "museum" });
             BindByCourseName("Linguistics", new[] { "Linguistics" });
-            BindByCourseName("Logic", new[] { "Logic" });
-            BindByCourseName("Military sciences", new[] { "Military" });
+            BindByCourseName("Logic", new[] { "Logic" }, true);
+            BindByCourseName("Military sciences", new[] { "Military"/*, "war"*/ });
             BindByCourseName("Political science", new[] { "Political", "policy" });
             BindByCourseName("Psychology", new[] { "Psychology" });
             BindByCourseName("Public administration", new[] { "Public administration", "administration" });
@@ -106,7 +106,7 @@
                 }
             }
             else
-        {
+            {
                 return;
             }
 
@@ -133,8 +133,10 @@
             }
         }
 
-        // Связываем глобальные критерии 2-го и 3-го уровня непосредственно с курсами (связывание идет по вхождению тэгов критериев в название курса)
-        private static void BindByCourseName(string globalCriteriaName, string[] globalCriteriaTags)
+        // Связываем глобальные критерии 2-го и 3-го уровня непосредственно с курсами 
+        // (связывание идет по вхождению тэгов критериев в название курса)
+        // or_and - используем связку Name or ShortName (false), либо Name and ShortName (true)
+        private static void BindByCourseName(string globalCriteriaName, string[] globalCriteriaTags, bool or_and = false)
         {
             if (globalCriteriaTags.Any())
             {
@@ -155,9 +157,14 @@
                 var courses = new List<Course>();
                 foreach (var globalCriteriaTag in globalCriteriaTags)
                 {
-                    courses.AddRange(uow.Repository<Course>().Get()
-                        .Where(x => x.Name.ToLower().Contains(globalCriteriaTag) 
-                            || x.ShortName.ToLower().Contains(globalCriteriaTag)).ToList());
+                    var query = or_and
+                        ? uow.Repository<Course>().Get()
+                            .Where(x => x.Name.ToLower().Contains(globalCriteriaTag)
+                                        && x.ShortName.ToLower().Contains(globalCriteriaTag)).ToList()
+                        : uow.Repository<Course>().Get()
+                            .Where(x => x.Name.ToLower().Contains(globalCriteriaTag)
+                                        && x.ShortName.ToLower().Contains(globalCriteriaTag)).ToList();
+                    courses.AddRange(query);
                 }
                 
                 if (secGlobalCriteria == null || !courses.Any()) return;
