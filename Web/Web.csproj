@@ -15,8 +15,7 @@
     <AssemblyName>Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44302</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -182,6 +181,13 @@
   <ItemGroup>
     <Content Include="Assets\css\bootstrap-theme.css" />
     <Content Include="Assets\css\bootstrap.css" />
+    <Content Include="Assets\css\combo\select2-spinner.gif" />
+    <Content Include="Assets\css\combo\select2.css" />
+    <Content Include="Assets\css\combo\select2.png" />
+    <Content Include="Assets\css\combo\select2x2.png" />
+    <Content Include="Assets\css\customStyle.css" />
+    <Content Include="Assets\css\flags.css" />
+    <Content Include="Assets\css\flags.png" />
     <Content Include="Assets\css\font-awesome.css" />
     <Content Include="Assets\css\footer.css" />
     <Content Include="Assets\css\images\logo - копия - копия.jpg" />
@@ -196,9 +202,12 @@
     <Content Include="Assets\css\login.css" />
     <Content Include="Assets\css\main.css" />
     <Content Include="Assets\css\navbar-custom.css" />
+    <Content Include="Assets\css\style.css" />
     <Content Include="Assets\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\js\bootstrap.js" />
     <Content Include="Assets\js\businessLogic\criteriaTree.js" />
+    <Content Include="Assets\js\businessLogic\selectLocation.js" />
+    <Content Include="Assets\js\combo\select2.js" />
     <Content Include="Assets\js\data\jsonData.js" />
     <Content Include="Assets\js\jquery-2.1.1.min.js" />
     <Content Include="Assets\js\jquery-ui-1.10.4.min.js" />
@@ -415,7 +424,16 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44302/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

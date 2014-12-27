@@ -1,215 +1,96 @@
-﻿
-@{
-    ViewBag.Title = "Profile";
-}
+﻿<link href=@Url.Content("~/Assets/css/flags.css") rel="stylesheet" />
+<link href=@Url.Content("~/Assets/css/customStyle.css") rel="stylesheet" />
+<link rel="stylesheet" href=@Url.Content("~/Assets/css/jstree/style.min.css") />
+<link rel="stylesheet" href=@Url.Content("~/Assets/css/combo/select2.css") />
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>SocialNet | About</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="../../Content/style.css" rel="stylesheet" type="text/css" />
-    <link href="../../Content/flags.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/themes/base/minified/jquery-ui.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/customStyle.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="~/Scripts/jquery-2.1.1.min.js"></script>   
-    <script type="text/javascript" src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+<script type="text/javascript" src=@Url.Content("~/Assets/js/combo/select2.js")></script>
+<script type="text/javascript" src=@Url.Content("~/Assets/js/businessLogic/selectLocation.js")></script> <!-- Выбор страны и города, флаги для стран -->
+<script type="text/javascript" src=@Url.Content("~/Assets/js/businessLogic/criteriaTree.js")></script> <!-- Дерево критериев в профайле пользователя -->
+<script type="text/javascript" src=@Url.Content("~/Assets/js/data/jsonData.js")></script> <!-- Глобальные критерии -->
+<script type="text/javascript" src=@Url.Content("~/Assets/js/jstree.min.js")></script>
 
-    <script type="text/javascript" src="~/Scripts/script.js"></script>
-    <script type="text/javascript" src="~/Scripts/cufon-yui.js"></script>
-    <script type="text/javascript" src="~/Scripts/arial.js"></script>
-    <script type="text/javascript" src="~/Scripts/cuf_run.js"></script>   
+<div class="main">
+    @using Web.Enum
+    @using Web.Models.Location
+    @model Web.Models.Profile.Profile
+    <div id="side-nav" class="col-sm-2 hidden-xs hidden-sm hidden-print">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="#lectures">My lectures</a></li>
+            <li><a href="#profile">My profile</a></li>
+            <li><a href="#groups">My groups</a></li>
+            <li><a href="#messages">My messages</a></li>
+            <li><a href="#raiting">My raiting</a></li>
+            <li><a href="#resume">My resume</a></li>
+        </ul>
+    </div>
 
-    <script type="text/javascript" src="~/Scripts/BusinessLogic/selectLocation.js"></script> <!-- Выбор страны и города, флаги для стран -->
-    <script type="text/javascript" src="~/Scripts/BusinessLogic/criteriaTree.js"></script> <!-- Дерево критериев в профайле пользователя -->
-
-    <script type="text/json" src="~/Scripts/Data/jsonData.js"></script> <!-- Глобальные критерии -->
-
-    <link rel="stylesheet" href="~/Scripts/dist/themes/default/style.min.css" />
-
-    <script src="~/Scripts/dist/jstree.min.js"></script>
-
-</head>
-<body>
-    <div class="main">
-        <div class="main_resize">
-            <div class="header">
-                <div class="logo">
-                    <h1><a href="#"><span>Social</span>Net<small>Simple web template</small></a></h1>
-                </div>
-                <div class="search">
-                    <form method="get" id="search" action="#">
-                        <span>
-                            <input type="text" value="Search..." name="s" id="s" />
-                            <input name="searchsubmit" type="image" src="~/Images/search.gif" value="Go" id="searchsubmit" class="btn" />
-                        </span>
-                    </form>
-                    <!--/searchform -->
-                    <div class="clr"></div>
-                </div>
-                <div class="clr"></div>
-                <div class="menu_nav">
-                    @Html.Partial("_LoginPartial")
-                    <ul>
-                        <li>@Html.ActionLink("MyPoints", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Support", "Support", "Home")</li>
-                        <li class="active">@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Blog", "Blog", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
-                </div>
-                <!--<div class="hbg"><img src="~/Images/header_images.jpg" width="923" height="291" alt="" /></div>-->
-            </div>
-            <div class="content">
-                <div class="content_bg">
-                    <div class="mainbar">
-                        <div class="article">
-
-                            @using Web.Enum                            
-                            @using Web.Models
-                            @using Web.Models.Location
-                            @model Web.Models.Profile.Profile
-
-                            @{
-                                ViewBag.Title = "Profile";
-                            }
-
-                            <h2>@ViewBag.Title</h2>
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <section id="loginForm">
-                                        @using (Html.BeginForm("Profile", "Profile", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form", id = "ProfileForm"}))
-                                        {
-                                            @Html.ValidationSummary(true)
-                                            <div class="form-group">
-                                                @Html.LabelFor(m => m.LoginName, "Login", new {@class = "col-md-3 control-label"})
-                                                <div class="col-md-9">
-                                                    @Html.TextBoxFor(m => m.LoginName, new {@class = "form-control"})
-                                                    @Html.ValidationMessageFor(m => m.UserName)
-                                                </div>
-                                                
-                                            </div>
-
-                                            <div class="form-group">
-                                                @Html.Label("Birth Date", new {@class = "col-md-3 control-label"})
-
-                                                <div class="col-md-3">
-                                                    @Html.DropDownListFor(m => m.BirthDay,
-                                                        Enumerable.Range(1, 31).Select(i => new SelectListItem {Value = i.ToString(), Text = i.ToString()}),
-                                                        "Day", new {@class = "form-control"})
-                                                </div>
-
-                                                <div class="col-md-3">
-                                                    @Html.DropDownListFor(m => m.BirthMonth,
-                                                        Enumerable.Range(1, 12).Select(i => new SelectListItem {Value = i.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(i)}),
-                                                        "Month", new {@class = "form-control"})
-                                                </div>
-
-                                                <div class="col-md-3">
-                                                    @Html.DropDownListFor(m => m.BirthYear,
-                                                        Enumerable.Range(1900, 114).Select(i => new SelectListItem {Value = i.ToString(), Text = i.ToString()}),
-                                                        "Year", new {@class = "form-control"})
-                                                </div>
-
-                                            </div>
-
-                                            <div class="form-group">
-                                                @Html.Label("Social Status", new {@class = "col-md-3 control-label"})
-                                                <div class="col-md-9">
-                                                    @Html.DropDownListFor(m => m.UserSocialStatus,
-                                                        Enum.GetNames(typeof (UserSocialStatus)).Select(e => new SelectListItem {Text = e}),
-                                                        "Social Status", new {@class = "form-control"})
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                @Html.Label("Country", new {@class = "col-md-3 control-label"})
-                                                <div class="col-md-9">
-                                                    @Html.DropDownListFor(m => m.Country,
-                                                        new SelectList((List<Country>) ViewData["countryList"], "CountryId", "Name"),
-                                                        "Your country", new { @class = "form-control" })
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                @Html.Label("City", new {@class = "col-md-3 control-label"})
-                                                <div class="col-md-9">
-                                                    @Html.DropDownListFor(m => m.City,
-                                                        new SelectList(Enumerable.Empty<City>(), "CityId", "Name"),
-                                                        "Your city", new {@class = "form-control"})
-                                                </div>
-                                            </div>
-
-
-                                            <div class="form-group">
-                                                @Html.Label("Criteria", new {@class = "col-md-3 control-label"})
-                                                <div class="col-md-9">
-                                                    <div id="TreeTmp"></div>
-                                                </div>
-                                            </div>
-
-                                             <div class="form-group">
-                                                <div class="col-md-offset-2 col-md-10">
-                                                    <input type="submit" id="saveProfile" value="Save" class="btn btn-default" />
-                                                </div>
-                                            </div>
-                                        }
-                                            </section>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="sidebar">
-                                <div class="gadget">
-                                    <h2 class="star"><span>Menu</span></h2>
-                                    <div class="clr"></div>
-                                    <ul class="sb_menu">
-                                        <li class="active"><a href="#">Home</a></li>
-                                        <li>@Html.ActionLink("Profile", "Profile", "Profile")</li>
-                                        <li><a href="#">Style Demo</a></li>
-                                        <li><a href="#">Blog</a></li>
-                                        <li><a href="#">Archives</a></li>
-                                        <li><a href="#">Web Templates</a></li>
-                                    </ul>
-                                </div>
-                                    </div>
-                                    <div class="clr"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fbg">
-                            <div class="fbg_resize">
-                                <div class="col c1">
-                                    <h2><span>Image Gallery</span></h2>
-                                    <a href="#"><img src="~/Images/pic_1.jpg" width="58" height="58" alt="" /></a>
-                                    <a href="#"><img src="~/Images/pic_2.jpg" width="58" height="58" alt="" /></a>
-                                    <a href="#"><img src="~/Images/pic_3.jpg" width="58" height="58" alt="" /></a>
-                                    <a href="#"><img src="~/Images/pic_4.jpg" width="58" height="58" alt="" /></a>
-                                    <a href="#"><img src="~/Images/pic_5.jpg" width="58" height="58" alt="" /></a>
-                                    <a href="#"><img src="~/Images/pic_6.jpg" width="58" height="58" alt="" /></a>
-                                </div>
-                                <div class="col c2">
-                                    <h2><span>Lorem Ipsum</span></h2>
-                                    <p>
-                                        Lorem ipsum dolor<br />
-                                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. <a href="#">Morbi tincidunt, orci ac convallis aliquam</a>, lectus turpis varius lorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum, dui pede condimentum odio, ac blandit ante orci ut diam.
-                                    </p>
-                                </div>
-                                <div class="col c3">
-                                    <h2><span>About</span></h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo. llorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum. <a href="#">Learn more...</a></p>
-                                </div>
-                                <div class="clr"></div>
-                            </div>
+    <div id="company-content" class="col-xs-8 col-sm-8 col-md-6">
+        <form class="form-horizontal">
+            @using (Html.BeginForm("Profile", "Profile", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form", id = "ProfileForm"}))
+            {
+                @Html.ValidationSummary(true)
+                <fieldset>
+                    <legend>My profile</legend>
+                    <div class="form-group">
+                        <label for="inputLogin" class="col-lg-3 control-label">Login</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(m => m.LoginName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.UserName)
                         </div>
                     </div>
-                    <div class="footer">
-                        <div class="footer_resize">
-                            <p class="lf">&copy; Copyright <a href="#">ProjectS</a>.</p>
-                            <p class="rf">2014</p>
-                            <div class="clr"></div>
+                    <div class="form-group">
+                        <label for="inputBirthDate" class="col-lg-3 control-label">Birth Date</label>
+                        <div class="col-md-2">
+                            @Html.DropDownListFor(m => m.BirthDay,
+                                Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }))
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(m => m.BirthMonth,
+                                Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(i) }))
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(m => m.BirthYear,
+                                Enumerable.Range(1900, 114).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }))
                         </div>
                     </div>
-                </body>
-</html>
+
+                    <div class="form-group">
+                        <label for="inputStatus" class="col-lg-3 control-label">Social Status</label>
+                        <div class="col-lg-8">
+                            @Html.DropDownListFor(m => m.UserSocialStatus,
+                                Enum.GetNames(typeof(UserSocialStatus)).Select(e => new SelectListItem { Text = e }))
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inpCountry" class="col-lg-3 control-label">Country</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.Country,
+                            new SelectList((List<Country>)ViewData["countryList"], "CountryId", "Name"),
+                            "Your country")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inpCity" class="col-lg-3 control-label">City</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.City,
+                            new SelectList(Enumerable.Empty<City>(), "CityId", "Name"),
+                            "Your city")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="globalCriteria" class="col-lg-3 control-label">Criterias</label>
+                        <div class="col-md-8">
+                            <div id="TreeTmp"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-3">
+                            <button class="btn btn-lg btn-primary btn-block" id="saveProfile" type="submit">Save</button>
+                        </div>
+                    </div>
+                </fieldset>
+            }
+        </form>
+    </div>
+</div>

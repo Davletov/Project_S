@@ -60,7 +60,7 @@ function Refresh($) {
             "core": {
                 'data': {
                     "url": function(node) {
-                        var url = "../Scripts/Data/jsonData.js"; // all nodes for tree
+                        var url = "../Assets/js/data/jsonData.js"; // all nodes for tree
                         return url;
                     },
                     "type": "GET",

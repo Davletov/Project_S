@@ -1,5 +1,54 @@
 ﻿jQuery(document).ready(function ($) {
     Refresh($);
+    
+    // Для передачи данных c дерева критериев в контроллер
+    $(function () {
+        $("#saveProfile").click(function (event) {
+            event.preventDefault();
+            submitMe();
+        });
+
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
+        function submitMe() {
+            var checkedIds = [];
+            var selectedNodes = $("#TreeTmp").jstree(true).get_selected();
+            selectedNodes.forEach(function (item) {
+                var pathArr = $("#TreeTmp").jstree(true).get_path(item, false);
+                var levelOfNode = pathArr.length;
+                var obj = {};
+                obj['id'] = item;
+                obj['level'] = levelOfNode;
+                checkedIds.push(obj);
+            });
+
+            var form = $('#ProfileForm');
+            $.ajax({
+                url: "/Profile/Profile",
+                async: false,
+                type: "POST",
+                traditional: true,
+                data: { values: JSON.stringify(checkedIds), model: JSON.stringify(form.serializeObject()) },
+                cache: false,
+                dataType: "json"
+            });
+        }
+
+    });
 });
 
 // initialize criteria tree
@@ -9,21 +58,22 @@ function Refresh($) {
         })
         .jstree({
             "core": {
-                'data':  [
-                           { "id" : "ajson1", "parent" : "#", "text" : "Parent1" },
-                           { "id" : "ajson1_1", "parent" : "ajson1", "text" : "Child 1" },
-                           { "id" : "ajson1_2", "parent" : "ajson1", "text" : "Child 2" },                           
-                           { "id" : "ajson2", "parent" : "#", "text" : "Parent2" },
-                           { "id" : "ajson2_1", "parent" : "ajson2", "text" : "Child 1" },
-                           { "id" : "ajson2_2", "parent" : "ajson2", "text" : "Child 2" },
-                        ]
+                'data': {
+                    "url": function(node) {
+                        var url = "../Scripts/Data/jsonData.js"; // all nodes for tree
+                        return url;
+                    },
+                    "type": "GET",
+                    "dataType": "json",
+                    "contentType": "application/json"
+                }
             },
 
             "plugins": ["themes", "checkbox", "unique"]
         })
-        /*.on('loaded.jstree', function (e, data) {
+        .on('loaded.jstree', function (e, data) {
             getCriteria($);
-        })*/;
+        });
 }
 
 // load current user's criterias for tree
