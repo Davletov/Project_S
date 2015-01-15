@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enum\MaterialType.cs" />
     <Compile Include="Enum\UserSocialStatus.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CourseraEntity\Category.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Models\CourseraEntity\Session.cs" />
     <Compile Include="Models\CourseraEntity\University.cs" />
     <Compile Include="Models\Criteria\Criteria.cs" />
+    <Compile Include="Models\IMaterial.cs" />
     <Compile Include="Models\Location\City.cs" />
     <Compile Include="Models\Location\Country.cs" />
     <Compile Include="Models\Profile\Profile.cs" />

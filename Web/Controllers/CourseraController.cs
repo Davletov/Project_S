@@ -1,4 +1,9 @@
-﻿namespace Web.Controllers
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Web.Helpers;
+using Web.Models;
+
+namespace Web.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
@@ -13,12 +18,14 @@
         private readonly UserManager<Profile> userManager = new UserManager<Profile>(new UserStore<Profile>(new BdContext()));
 
         // GET: Coursera
-        public ActionResult Index(int page = 1)
+        public async Task<ActionResult> Index(int page = 1)
         {
             Profile user = userManager.FindById(User.Identity.GetUserId());
             if (user != null)
             {                
-                var coursesForCurrUser = user.ProfileCriteria.Where(x => x.Criteria.Parent == null).Select(x => x.Criteria).SelectMany(x => x.Courses).ToList();
+                var coursesForCurrUser = user.ProfileCriteria.Select(x => x.Criteria).Take(5).SelectMany(x => x.Courses).ToList();
+                
+                List<IMaterial> result = new List<IMaterial>();
 
                 var courseMaterials = coursesForCurrUser.Select(course => new CourseraMaterial
                 {
@@ -29,9 +36,14 @@
                     SmallIcon = course.SmallIcon
                 }).ToList();
 
-                int pageSize = 5;
-                return View(courseMaterials.ToPagedList(page, pageSize));
+                
+                var yotubeMaterials = await YoutubeHelper.GetMaterials(User);
 
+                result.AddRange(courseMaterials);
+                result.AddRange(yotubeMaterials);                
+                int pageSize = 5;
+                
+                return View(result.ToPagedList(page, 10));
             }
 
             return RedirectToAction("Index", "Home"); // заглушка (переделать)

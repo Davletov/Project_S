@@ -1,62 +1,82 @@
-﻿@using PagedList.Mvc
-@using Web.Models.CourseraEntity
-@model PagedList.IPagedList<Web.Models.CourseraEntity.CourseraMaterial>
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    Layout = null;
 }
+@using PagedList.Mvc
+@using Web.Models
+@using Web.Models.CourseraEntity
+@model PagedList.IPagedList<Web.Models.IMaterial>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-    <title>SocialNet</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="../../Content/style.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="~/Scripts/jquery-1.3.2.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/script.js"></script>
-    <script type="text/javascript" src="~/Scripts/cufon-yui.js"></script>
-    <script type="text/javascript" src="~/Scripts/arial.js"></script>
-    <script type="text/javascript" src="~/Scripts/cuf_run.js"></script>
-    <style type="text/css">
-        .content_bg {
-        }
-    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href=@Url.Content("~/Assets/css/bootstrap.css") rel="stylesheet">
+    <link href=@Url.Content("~/Assets/css/bootstrap-theme.css") rel="stylesheet">
+
+    <link href=@Url.Content("~/Assets/css/navbar-custom.css") rel="stylesheet">
+    <link href=@Url.Content("~/Assets/css/main.css") rel="stylesheet">
+    <link href=@Url.Content("~/Assets/css/font-awesome.css") rel="stylesheet">
+    <link href=@Url.Content("~/Assets/css/login.css") rel="stylesheet">
+    <link href=@Url.Content("~/Assets/css/footer.css") rel="stylesheet">
+    <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+    <script type="text/javascript" src=@Url.Content("~/Assets/js/jquery-2.1.1.min.js")></script>
+    <script type="text/javascript" src=@Url.Content("~/Assets/js/jquery-ui-1.10.4.min.js")></script>
+    <script src=@Url.Content("~/Assets/js/bootstrap.js")></script>
+
+
+
 </head>
 <body>
     <div class="main">
-        <div class="main_resize">
-            <div class="header">
-                <div class="logo">
-                    <h1><a href="#"><span>Social</span>Net<small>Simple web template</small></a></h1>
-                </div>
-                <div class="search">
-                    <form method="get" id="search" action="#">
-                        <span>
-                            <input type="text" value="Search..." name="s" id="s" />
-                            <input name="searchsubmit" type="image" src="~/Images/search.gif" value="Go" id="searchsubmit" class="btn" />
-                        </span>
-                    </form>
-                    <!--/searchform -->
-                    <div class="clr"></div>
-                </div>
-                <div class="clr"></div>
-                <div class="menu_nav">
-                    @Html.Partial("_LoginPartial")
-                    <ul>
-                        <li class="active">@Html.ActionLink("MyPoints", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Support", "Support", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Blog", "Blog", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
-                    <div class="clr"></div>
-                </div>
-                <div class="hbg"><img src="~/Images/header_images.jpg" width="923" height="291" alt="" /></div>
+        <div class="navbar navbar-custom">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" title="Project_S">
+                    <img style="max-width:100px; margin-top: -10px;"
+                         src=@Url.Content("~/Assets/css/images/logo.jpg")>
+                </a>
             </div>
-            <div class="content">
-                <div class="content_bg">
-                    <div class="mainbar">
-                        @{
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Project_S</a>
+            </div>
+        </div>
+
+        <div class="container">
+            
+                <div id="side-nav" class="col-sm-2 hidden-xs hidden-sm hidden-print">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li>@Html.ActionLink("My lectures", "Index", "Home")
+                        <li>@Html.ActionLink("My profile", "Profile", "Profile")</li>
+                        <li><a href="#groups">My groups</a></li>
+                        <li><a href="#messages">My messages</a></li>
+                        <li><a href="#raiting">My raiting</a></li>
+                        <li><a href="#resume">My resume</a></li>
+                    </ul>
+                </div>
+                
+
+            <div class="mainfeed">
+                <div class="row">
+                    @{
+                        foreach (IMaterial course in @Model)
+                        {
+
+                            <div class="col-md-4 thumbnail" data-type="@course.Type.ToString("G")" data-video-id="@course.VideoId">
+                                <div class="item-video-wrap">
+                                    <h3>@course.Name</h3>
+                                    <div class="video-stop-cadr">
+                                        <img src=@course.LargeIcon alt="" />
+                                    </div>
+                                    <div class="caption">
+                                        <p>@course.Description</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+                    }
+                    @{/*
                             foreach (CourseraMaterial course in @Model)
                             {
                                 <div class="article">
@@ -70,64 +90,61 @@
                                     <p class="spec"><a href="#" class="com fr">Comments (3)</a> <a href="#" class="rm fl">Read more</a></p>
                                     <div class="clr"></div>
                                 </div>
-                            }
-                        }
-                        <br />
-                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-
-                    </div>
-                    <div class="sidebar">
-                        <div class="gadget">
-                            <h2 class="star"><span>Menu</span></h2>
-                            <div class="clr"></div>
-                            <ul class="sb_menu">
-                                <li class="active"><a href="#">Home</a></li>
-                                <li>@Html.ActionLink("Profile", "Profile", "Profile")</li>
-                                <li><a href="#">Style Demo</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Archives</a></li>
-                                <li><a href="#">Web Templates</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="clr"></div>
+                            }*/
+                    }
                 </div>
             </div>
+
         </div>
-        <div class="fbg">
-            <div class="fbg_resize">
-                <div class="col c1">
-                    <h2><span>Image Gallery</span></h2>
-                    <a href="#"><img src="~/Images/pic_1.jpg" width="58" height="58" alt="" /></a>
-                    <a href="#"><img src="~/Images/pic_2.jpg" width="58" height="58" alt="" /></a>
-                    <a href="#"><img src="~/Images/pic_3.jpg" width="58" height="58" alt="" /></a>
-                    <a href="#"><img src="~/Images/pic_4.jpg" width="58" height="58" alt="" /></a>
-                    <a href="#"><img src="~/Images/pic_5.jpg" width="58" height="58" alt="" /></a>
-                    <a href="#"><img src="~/Images/pic_6.jpg" width="58" height="58" alt="" /></a>
-                </div>
-                <div class="col c2">
-                    <h2><span>Lorem Ipsum</span></h2>
-                    <p>
-                        Lorem ipsum dolor<br />
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. <a href="#">Morbi tincidunt, orci ac convallis aliquam</a>, lectus turpis varius lorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum, dui pede condimentum odio, ac blandit ante orci ut diam.
-                    </p>
-                </div>
-                <div class="col c3">
-                    <h2><span>About</span></h2>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo. llorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum. <a href="#">Learn more...</a></p>
-                </div>
-                <div class="clr"></div>
-            </div>
-        </div>
+
     </div>
-    <div class="footer">
-        <div class="footer_resize">
-            <p class="lf">&copy; Copyright <a href="#">ProjectS</a>.</p>
-            <p class="rf">2014</p>
-            <div class="clr"></div>
-        </div>
-    </div>
+    <script>
+        (function youtube() {
+            var player;
+            window.startYoutube = function(id) {
+                player = new YT.Player('player', {
+                    height: '390',
+                    width: '640',
+                    videoId: id,
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            }
+
+            function onPlayerReady(event) {
+                event.target.playVideo();
+            }
+
+            function onPlayerStateChange(event) {
+            }
+
+            function stopVideo() {
+                player.stopVideo();
+            }
+
+/*********************************************************************/
+            $('.thumbnail[data-type="Youtube"]').click(function () {
+                var videoId = $(this).data('videoId');
+                var mask = $('<a/>', { href: 'javascript:{}' });
+                mask.addClass('mask');
+                $('body').append(mask);
+                var player = $('<div/>', { id: 'player' });
+                $('body').append(player);
+
+                window.startYoutube(videoId);
+
+                function closeWindow() {
+                    if (confirm("Close?")) {
+                        this.remove();
+                        $('#player').remove();
+                    }
+                }
+
+                mask.click(closeWindow);
+            });
+        })();
+    </script>
 </body>
 </html>

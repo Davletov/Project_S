@@ -27,12 +27,112 @@ body + .mask{
 	border: none;
 }
 .item-video-wrap{
+	transition: all 1.2s;
 	width: 100%;
 	height: 100%;
-	border: solid 1px rgba(125,125,125,0.5);
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
 	border-radius: 5px;
 	padding: 10px;
+	position: relative;
+	overflow: hidden;
 }
+.item-video-wrap .caption{
+	position: absolute;
+	width: 100%;
+	height: 50%;
+	background: rgba(0,0,0,0.8);
+	bottom: -50%;
+	left: 0;
+	color: white;
+	transition: all .5s;
+}
+
+.item-video-wrap:hover .caption{
+	bottom: 0;
+}
+
 .video-stop-cadr img{
 	width: 100%;
 }
+.video-inner-wrap{
+	width: 200%;
+	position: relative;	
+	transition: all .5s;
+	left: 0;	
+}
+.video-inner{	
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+.video-description{
+	position: absolute;
+	width: 50%;
+	height: 100%;
+	float: right;
+	right: 0;
+	color: white;
+	background: rgba(0,0,0,0.8);
+}
+.item-video-wrap:hover .video-inner-wrap{	
+	left: -100%;
+}
+footer{
+	margin-top: 25px;
+	padding-bottom: 25px;
+	padding-top: 10px;
+	border-bottom: solid 1px rgba(125,125,125,0.5);
+}
+footer .col{
+	text-align: center;
+}
+
+.icons a {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	margin-right: 5px;
+	vertical-align: middle;
+	-o-transition: all .3s;
+	-moz-transition: all .3s;
+	-webkit-transition: all .3s;
+	-ms-transition: all .3s;
+}
+
+.icons a.twitter { background: url(../img/social-icons/twitter.png) left top no-repeat; }
+.icons a.dribbble { background: url(../img/social-icons/dribbble.png) left top no-repeat; }
+.icons a.rss { background: url(../img/social-icons/rss.png) left top no-repeat; }
+.icons a.pinterest { background: url(../img/social-icons/pinterest.png) left top no-repeat; }
+.icons a.digg { background: url(../img/social-icons/digg.png) left top no-repeat; }
+.icons a.flickr { background: url(../img/social-icons/flickr.png) left top no-repeat; }
+.icons a.forrst { background: url(../img/social-icons/forrst.png) left top no-repeat; }
+.icons a.vimeo { background: url(../img/social-icons/vimeo.png) left top no-repeat; }
+.icons a.reddit { background: url(../img/social-icons/reddit.png) left top no-repeat; }
+.icons a.linkedin { background: url(../img/social-icons/linkedin.png) left top no-repeat; }
+.icons a.facebook { background: url(../img/social-icons/facebook.png) left top no-repeat; }
+.icons a.paypal { background: url(../img/social-icons/paypal.png) left top no-repeat; }
+.icons a.stumbleupon { background: url(../img/social-icons/stumbleupon.png) left top no-repeat; }
+.icons a.email { background: url(../img/social-icons/email.png) left top no-repeat; }
+.icons a.deviantart { background: url(../img/social-icons/deviantart.png) left top no-repeat; }
+.icons a.netvibes { background: url(../img/social-icons/netvibes.png) left top no-repeat; }
+.icons a.yahoo { background: url(../img/social-icons/yahoo.png) left top no-repeat; }
+.icons a.github { background: url(../img/social-icons/github.png) left top no-repeat; }
+.icons a.addthis { background: url(../img/social-icons/addthis.png) left top no-repeat; }
+.icons a.behance { background: url(../img/social-icons/behance.png) left top no-repeat; }
+.icons a.blogger { background: url(../img/social-icons/blogger.png) left top no-repeat; }
+.icons a.slashdot { background: url(../img/social-icons/slashdot.png) left top no-repeat; }
+.icons a.technorati { background: url(../img/social-icons/technorati.png) left top no-repeat; }
+.icons a.googleplus { background: url(../img/social-icons/googleplus.png) left top no-repeat; }
+.icons a.apple { background: url(../img/social-icons/apple.png) left top no-repeat; }
+.icons a.myspace { background: url(../img/social-icons/myspace.png) left top no-repeat; }
+.icons a.sharethis { background: url(../img/social-icons/sharethis.png) left top no-repeat; }
+.icons a.yelp { background: url(../img/social-icons/yelp.png) left top no-repeat; }
+.icons a.delicious { background: url(../img/social-icons/delicious.png) left top no-repeat; }
+.icons a.lastfm { background: url(../img/social-icons/lastfm.png) left top no-repeat; }
+.icons a.youtube { background: url(../img/social-icons/youtube.png) left top no-repeat; }
+.icons a.skype { background: url(../img/social-icons/skype.png) left top no-repeat; }
+.icons a.tumblr { background: url(../img/social-icons/tumblr.png) left top no-repeat; }
+.icons a.aim { background: url(../img/social-icons/aim.png) left top no-repeat; }
+.icons a.google { background: url(../img/social-icons/google.png) left top no-repeat; }
+
+.icons a:hover { background-position: left -34px; }
