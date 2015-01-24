@@ -1,110 +1,111 @@
 ﻿@using Web.Models.CourseraEntity
-@{
-    ViewBag.Title = "Index";
-}
-    <div class="main">
-        <div class="main_resize">
-            <div class="header">
-                <div class="logo">
-                    <h1><a href="#"><span>Social</span>Net<small>Simple web template</small></a></h1>
-                </div>
-                <div class="search">
-                    <form method="get" id="search" action="#">
-                        <span>
-                            <input type="text" value="Search..." name="s" id="s" />
-                            <input name="searchsubmit" type="image" src="~/Images/search.gif" value="Go" id="searchsubmit" class="btn" />
-                        </span>
-                    </form>
-                    <!--/searchform -->
-                    <div class="clr"></div>
-                </div>
-                <div class="clr"></div>
-                <div class="menu_nav">
-                    @Html.Partial("_LoginPartial")
-                    <ul>
-                        <li class="active">@Html.ActionLink("MyPoints", "Index", "Home")</li> 
-                        <li>@Html.ActionLink("Support", "Support", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Blog", "Blog", "Home")</li>
-                        <li>@Html.ActionLink("Coursera", "Index", "Coursera")</li>
-                        <li>@Html.ActionLink("Youtube", "Index2", "Youtube")</li>
-                    </ul>
-                    <div class="clr"></div>
-                </div>
-                <div class="hbg"><img src="~/Images/header_images.jpg" width="923" height="291" alt="" /></div>
-            </div>
-            <div class="content">
-                <div class="content_bg">
-                    <div class="mainbar">
-                        
-                        @{
-                            var crses = (List<Course>)ViewData["chemistryCourses"];
-                            foreach (var crs in crses)
-                            {
-                                <div class="article">
-                                    <h2><span>@crs.Name</span></h2>
-                                    <div class="clr"></div>
-                                    <p class="post-data"><span class="date">March 16, 2018</span> &nbsp;|&nbsp; Posted by <a href="#">Owner</a> &nbsp;|&nbsp; Filed under <a href="#">templates</a>, <a href="#">internet</a></p>
+<link href=@Url.Content("~/Assets/css/flags.css") rel="stylesheet" />
+<link href=@Url.Content("~/Assets/css/customStyle.css") rel="stylesheet" />
+<script type="text/javascript" src=@Url.Content("~/Assets/js/mainPage.js")></script>
 
-                                    <img src=@crs.LargeIcon width="613" height="193" alt="" />
-                                    <p>@crs.ShortDescription</p>
+<div class="main">
+    <div id="side-nav" class="col-sm-2 hidden-xs hidden-sm hidden-print">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="#lectures">My lectures</a></li>
+            <li><a href="#profile">My profile</a></li>
+            <li><a href="#groups">My groups</a></li>
+            <li><a href="#messages">My messages</a></li>
+            <li><a href="#raiting">My raiting</a></li>
+            <li><a href="#resume">My resume</a></li>
+        </ul>
+    </div>
 
-                                    <p class="spec"><a href="#" class="com fr">Comments (3)</a> <a href="#" class="rm fl">Read more</a></p>
-                                    <div class="clr"></div>
-                                </div>
-                            }
-                        }
-
-                        <div class="pagenavi"><span class="pages">Page 1 of 2</span><span class="current">1</span><a href="#">2</a><a href="#">&raquo;</a></div>
+    <div class="mainfeed">
+        <div class="row">
+            <div class="col-md-4 thumbnail">
+                <div class="item-video-wrap">
+                    <h3>H2 Title</h3>
+                    <div class="video-stop-cadr">
+                        <img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" />
                     </div>
-                    <div class="sidebar">
-                        <div class="gadget">
-                            <h2 class="star"><span>Menu</span></h2>
-                            <div class="clr"></div>
-                            <ul class="sb_menu">
-                                <li class="active"><a href="#">Home</a></li>
-                                <li>@Html.ActionLink("Profile", "Profile", "Profile")</li>
-                                <li><a href="#">Style Demo</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Archives</a></li>
-                                <li><a href="#">Web Templates</a></li>
-                            </ul>
+                    <div class="caption">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4 thumbnail">
+                <div class="item-video-wrap" style="padding:0;">
+                    <div class="video-inner-wrap">
+                        <div class="video-inner">
+                            <h3>H2 Title</h3>
+                            <div class="video-stop-cadr">
+                                <img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" />
+                            </div>
                         </div>
+                        <div class="video-description">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+                        </div>
+                        <div style="clear:both;"></div>
                     </div>
-                    <div class="clr"></div>
+                </div>
+            </div>
+            <div class="col-md-4 thumbnail">
+                <div class="item-video-wrap">
+                    <h3>H2 Title</h3>
+                    <div class="video-stop-cadr">
+                        <img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" />
+                    </div>
+                    <div class="caption">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4 thumbnail">
+                <div class="item-video-wrap">
+                    <h3>H2 Title</h3>
+                    <div class="video-stop-cadr">
+                        <img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" />
+                    </div>
+                    <div class="caption">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4 thumbnail">
+                <div class="item-video-wrap">
+                    <h3>H2 Title</h3>
+                    <div class="video-stop-cadr">
+                        <img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" />
+                    </div>
+                    <div class="caption">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4 thumbnail">
+                <div class="item-video-wrap">
+                    <h3>H2 Title</h3>
+                    <div class="video-stop-cadr">
+                        <img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" />
+                    </div>
+                    <div class="caption">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4 thumbnail">
+                <div class="item-video-wrap">
+                    <h3>H2 Title</h3>
+                    <div class="video-stop-cadr">
+                        <img src="http://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" />
+                    </div>
+                    <div class="caption">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing...</p>
+                    </div>
+
                 </div>
             </div>
         </div>
-        <div class="fbg">
-            <div class="fbg_resize">
-                <div class="col c1">
-                    <h2><span>Image Gallery</span></h2>
-                    <a href="#"><img src="~/Images/pic_1.jpg" width="58" height="58" alt="" /></a> 
-                    <a href="#"><img src="~/Images/pic_2.jpg" width="58" height="58" alt="" /></a> 
-                    <a href="#"><img src="~/Images/pic_3.jpg" width="58" height="58" alt="" /></a> 
-                    <a href="#"><img src="~/Images/pic_4.jpg" width="58" height="58" alt="" /></a> 
-                    <a href="#"><img src="~/Images/pic_5.jpg" width="58" height="58" alt="" /></a> 
-                    <a href="#"><img src="~/Images/pic_6.jpg" width="58" height="58" alt="" /></a>
-                </div>
-                <div class="col c2">
-                    <h2><span>Lorem Ipsum</span></h2>
-                    <p>
-                        Lorem ipsum dolor<br />
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. <a href="#">Morbi tincidunt, orci ac convallis aliquam</a>, lectus turpis varius lorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum, dui pede condimentum odio, ac blandit ante orci ut diam.
-                    </p>
-                </div>
-                <div class="col c3">
-                    <h2><span>About</span></h2>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo. llorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum. <a href="#">Learn more...</a></p>
-                </div>
-                <div class="clr"></div>
-            </div>
-        </div>
     </div>
-    <div class="footer">
-        <div class="footer_resize">
-            <p class="lf">&copy; Copyright <a href="#">ProjectS</a>.</p>
-            <p class="rf">2014</p>
-            <div class="clr"></div>
-        </div>
-    </div>
+
+</div>
