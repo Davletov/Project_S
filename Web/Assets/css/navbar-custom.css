@@ -113,3 +113,7 @@
 .navbar-custom .navbar-link:hover {
   color: #c0c0c0;
 }
+
+.navbar-header:after {
+    display: none !important;
+}

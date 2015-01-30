@@ -28,12 +28,36 @@
             var checkedIds = [];
             var selectedNodes = $("#TreeTmp").jstree(true).get_selected();
             selectedNodes.forEach(function (item) {
-                var pathArr = $("#TreeTmp").jstree(true).get_path(item, false);
-                var levelOfNode = pathArr.length;
+                var parentNode = $("#TreeTmp").jstree('get_parent', item);
+                var isSelectedParentNode = $("#TreeTmp").jstree('is_selected', parentNode);
+
                 var obj = {};
-                obj['id'] = item;
-                obj['level'] = levelOfNode;
-                checkedIds.push(obj);
+                var isExist = -1;
+                if (isSelectedParentNode) {
+                    
+                    var pathParentArr = $("#TreeTmp").jstree(true).get_path(parentNode, false);
+                    var levelOfParentNode = pathParentArr.length;
+                    
+                    obj['id'] = parentNode;
+                    obj['level'] = levelOfParentNode;
+
+                    isExist = checkedIds.map(function(x) { return x.id; }).indexOf(parentNode);
+                    if (isExist < 0) {
+                        checkedIds.push(obj);
+                    }
+                    
+                } else {
+                    
+                    var pathArr = $("#TreeTmp").jstree(true).get_path(item, false);
+                    var levelOfNode = pathArr.length;
+                    obj['id'] = item;
+                    obj['level'] = levelOfNode;
+
+                    isExist = checkedIds.map(function (x) { return x.id; }).indexOf(item);
+                    if (isExist < 0) {
+                        checkedIds.push(obj);
+                    }
+                }
             });
 
             var form = $('#ProfileForm');

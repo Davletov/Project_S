@@ -35,6 +35,7 @@ body + .mask{
 	padding: 10px;
 	position: relative;
 	overflow: hidden;
+    max-height: 250px;
 }
 .item-video-wrap > h3 {
     display: block;
@@ -55,7 +56,9 @@ body + .mask{
 .item-video-wrap:hover .caption{
 	bottom: 0;
 }
-
+.video-header {
+    height: 50px;
+}
 .video-stop-cadr img{
 	width: 100%;
 }

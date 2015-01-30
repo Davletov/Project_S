@@ -15,12 +15,8 @@
     @model Web.Models.Profile.Profile
     <div id="side-nav" class="col-sm-2 hidden-xs hidden-sm hidden-print">
         <ul class="nav nav-pills nav-stacked">
-            <li><a href="#lectures">My lectures</a></li>
-            <li><a href="#profile">My profile</a></li>
-            <li><a href="#groups">My groups</a></li>
-            <li><a href="#messages">My messages</a></li>
-            <li><a href="#raiting">My raiting</a></li>
-            <li><a href="#resume">My resume</a></li>
+            <li>@Html.ActionLink("My lectures", "Index", "Home")</li>
+            <li>@Html.ActionLink("My profile", "Profile", "Profile")</li>
         </ul>
     </div>
 

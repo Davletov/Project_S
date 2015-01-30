@@ -11,6 +11,7 @@ using Google.Apis.YouTube.v3.Data;
 using Google.YouTube;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Web.DataAccess.Repository;
 using Web.Models.Profile;
 using Web.Models.YouTube;
 
@@ -28,8 +29,18 @@ namespace Web.Helpers
 
         public static async Task<List<YoutubeMaterial>> GetMaterials(IPrincipal User)
         {
-            Profile user = userManager.FindById(User.Identity.GetUserId());
-            
+            //Profile user = userManager.FindById(User.Identity.GetUserId());
+            Profile user;
+            using (var uow = new UnitOfWork())
+            {
+                user = uow.Repository<Profile>().GetById(User.Identity.GetUserId());
+            }
+
+            if (user == null)
+            {
+                return null;
+            }
+
             YouTubeService youtubeService = new YouTubeService(new BaseClientService.Initializer()
             {
                 ApplicationName = APPLICATION_NAME,
@@ -43,7 +54,7 @@ namespace Web.Helpers
 
             SearchResource.ListRequest searchListRequest = youtubeService.Search.List("snippet");
             searchListRequest.Q = query;
-            searchListRequest.MaxResults = 10;
+            searchListRequest.MaxResults = 20;
             searchListRequest.PageToken = "";
 
             SearchListResponse searchListResponse = await searchListRequest.ExecuteAsync();

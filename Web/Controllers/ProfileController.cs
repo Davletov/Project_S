@@ -32,8 +32,8 @@ namespace Web.Controllers
 
                 return profile != null ? View(profile) : View();
             }
-
-            return RedirectToAction("Index", "Home"); // заглушка (переделать)
+            
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]
@@ -173,7 +173,7 @@ namespace Web.Controllers
                 return View(profile);
             }
 
-            return RedirectToAction("Index", "Home"); // заглушка (переделать)
+            return RedirectToAction("Login", "Account");
         }
 
         // Get currents user's criterias to jstree in view

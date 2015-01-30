@@ -1,42 +1,51 @@
-﻿using Web.DataAccess.Repository;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
+using PagedList;
+using Web.Helpers;
+using Web.Models;
 using Web.Models.CourseraEntity;
 using Web.Models.Profile;
+using System.Linq;
+using System.Web.Mvc;
+using System.Collections.Generic;
+using Microsoft.AspNet.Identity;  
 
 namespace Web.Controllers
 {
-    using System.Linq;
-    using System.Web.Mvc;
-    using System.Collections.Generic;
-    using Microsoft.AspNet.Identity;    
-
+  
     [RequireHttps]
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        private readonly UserManager<Profile> userManager = new UserManager<Profile>(new UserStore<Profile>(new BdContext()));
+
+        public async Task<ActionResult> Index(int page = 1)
         {
-            // Для тестового вывода всех курсов на главную страничку из категории 'химия'
-            var resultCourses = new List<Course>();
-            string userId = User.Identity.GetUserId();
-            Profile currentProfile;
-            using (var uow = new UnitOfWork())
+            Profile user = userManager.FindById(User.Identity.GetUserId());
+            if (user != null)
             {
-                currentProfile = uow.Repository<Profile>().Get(x => x.UserId == userId).FirstOrDefault();
-            }
+                var coursesForCurrUser = user.ProfileCriteria.Select(x => x.Criteria).Take(5).SelectMany(x => x.Courses).ToList();
 
-            using (var uow = new UnitOfWork())
-            {
-                //var criterias = currentProfile.UserCriterias.Select(x => x.Name).ToList();
+                var result = new List<IMaterial>();
 
-                /*foreach (var criteria in criterias)
+                var courseMaterials = coursesForCurrUser.Select(course => new CourseraMaterial
                 {
-                    var tmp = uow.CourseRepository.Get(x => x.ShortName.Contains(criteria) || x.Name.Contains(criteria)).ToList();
-                    resultCourses.AddRange(tmp);
-                }*/
+                    Name = course.Name,
+                    Description = course.ShortDescription,
+                    AboutTheCourse = course.AboutTheCourse,
+                    LargeIcon = course.LargeIcon,
+                    SmallIcon = course.SmallIcon
+                }).ToList();
+
+
+                var yotubeMaterials = await YoutubeHelper.GetMaterials(User);
+
+                result.AddRange(courseMaterials);
+                result.AddRange(yotubeMaterials);
+
+                return View(result.ToPagedList(page, 20));
             }
 
-            ViewData["chemistryCourses"] = resultCourses;
-
-            return View();
+            return RedirectToAction("Login", "Account"); 
         }
 
         public ActionResult About()
